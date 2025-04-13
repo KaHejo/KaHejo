@@ -16,7 +16,7 @@ class EmissionsController extends Controller
 
     public function index()
     {
-        return view('emissions.form');
+        return view('emissions.index');
     }
 
     public function store(Request $request)

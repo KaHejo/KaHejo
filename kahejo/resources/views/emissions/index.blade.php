@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carbon Emission </title>
+    <title>Carbon Emission</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,7 +56,7 @@
     <div class="container">
         <h2>Carbon Emission</h2>
         
-        <form action="{{ route('emissions.result') }}" method="POST">
+        <form action="{{ url('/emissions') }}" method="POST">
             @csrf
             
             <div class="form-group">

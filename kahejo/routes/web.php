@@ -11,7 +11,7 @@ Route::post('/carbon/calculate', [CarbonFootprintController::class, 'calculate']
 
 // Emissions Routes
 Route::get('/emissions', [EmissionsController::class, 'index'])->name('emissions');
-Route::post('/emissions', [EmissionsController::class, 'store'])->name('emissions.result');
+Route::post('/emissions', [EmissionsController::class, 'store'])->name('emissions.store');
 
 // Main Routes
 Route::get('/main', [MainController::class, 'index'])->name('main');
