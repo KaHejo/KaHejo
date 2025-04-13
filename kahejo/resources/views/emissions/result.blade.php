@@ -69,7 +69,7 @@
 <body>
     <div class="container">
         <div class="success-message">
-            Data emisi karbon berhasil disimpan ke database!
+            Data emisi karbon berhasil dihitung
         </div>
 
         <h2>Carbon Emission Results</h2>

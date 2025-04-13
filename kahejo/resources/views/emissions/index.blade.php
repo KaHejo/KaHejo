@@ -50,6 +50,7 @@
             font-size: 0.9em;
             margin-top: 5px;
         }
+        
     </style>
 </head>
 <body>
@@ -130,8 +131,14 @@
                     <div class="error">{{ $message }}</div>
                 @enderror
             </div>
+            
+            <div class="form-actions">
+                <a href="{{ url()->previous() }}">
+                <button type="button" style="background-color: #ccc; color: black;">Back</button>
+                </a>
+                <button type="submit">Submit</button>
+</div>
 
-            <button type="submit">Calculate Emissions</button>
         </form>
     </div>
 </body>
