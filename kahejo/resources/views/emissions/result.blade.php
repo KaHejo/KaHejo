@@ -49,10 +49,29 @@
         .back-button:hover {
             background-color: #45a049;
         }
+        .success-message {
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #d6e9c6;
+        }
+        .database-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="success-message">
+            Data emisi karbon berhasil disimpan ke database!
+        </div>
+
         <h2>Carbon Emission Results</h2>
         
         <div class="result-item">
@@ -92,6 +111,22 @@
         
         <div class="total-emissions">
             Total Emissions: {{ $result['total_emissions'] }} {{ $result['emissions_unit'] }}
+        </div>
+
+        <div class="database-info">
+            <h3>Database Record Information</h3>
+            <div class="result-item">
+                <span class="result-label">Record ID:</span>
+                <span>{{ $emission->id }}</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Created At:</span>
+                <span>{{ $emission->created_at }}</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Updated At:</span>
+                <span>{{ $emission->updated_at }}</span>
+            </div>
         </div>
         
         <a href="{{ url('/emissions') }}" class="back-button">Back to Form</a>

@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\CarbonEmission;
+
 class EmissionsService
 {
     /**
@@ -42,5 +44,25 @@ class EmissionsService
             'emissions_unit' => 'CO2e', // Carbon dioxide equivalent
             'calculation_date' => now()->format('Y-m-d'),
         ];
+    }
+
+    /**
+     * Save emission data to database
+     *
+     * @param array $data
+     * @return CarbonEmission
+     */
+    public function save(array $data): CarbonEmission
+    {
+        return CarbonEmission::create([
+            'source_type' => $data['source_type'],
+            'consumption_amount' => $data['consumption_amount'],
+            'unit' => $data['unit'],
+            'emission_factor' => $data['emission_factor'],
+            'total_emission' => $data['total_emissions'],
+            'emission_type' => $data['emission_type'],
+            'emission_date' => $data['emission_date'],
+            'location' => $data['location'],
+        ]);
     }
 } 
