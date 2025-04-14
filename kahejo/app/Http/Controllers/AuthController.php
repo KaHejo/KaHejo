@@ -33,8 +33,9 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'name' => 'The provided credentials do not match our records.',
+            'name' => 'Username atau password salah. Silakan coba lagi.',
         ])->withInput($request->only('name'));
+        
     }
 
     public function register(Request $request)
