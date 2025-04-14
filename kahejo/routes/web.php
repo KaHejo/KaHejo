@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarbonFootprintController; 
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\EmissionsController;
+use App\Http\Controllers\CompanyEnergyController;
 
 // Carbon Footprint Routes
 Route::get('/carbon', [CarbonFootprintController::class, 'index'])->name('carbon');
@@ -12,6 +13,11 @@ Route::post('/carbon/calculate', [CarbonFootprintController::class, 'calculate']
 // Emissions Routes
 Route::get('/emissions', [EmissionsController::class, 'index'])->name('emissions');
 Route::post('/emissions', [EmissionsController::class, 'store'])->name('emissions.store');
+
+// Company Energy Consumption Routes
+Route::get('/company', [CompanyEnergyController::class, 'index'])->name('company');
+Route::post('/company', [CompanyEnergyController::class, 'store'])->name('company.result');
+
 
 // Main Routes
 Route::get('/main', [MainController::class, 'index'])->name('main');
