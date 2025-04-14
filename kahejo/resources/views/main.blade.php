@@ -8,6 +8,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .btn-logout {
+            transition: all 0.3s ease;
+        }
+        .btn-logout:hover {
+            transform: translateY(-1px);
+        }
+    </style>
 </head>
 <body class="bg-gray-50">
     <!-- Navbar -->
@@ -33,13 +41,13 @@
                         <a href="{{ route('carbon') }}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                             Carbon Calculator
                         </a>
-                        <a href="{{ route('emissions') }}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Emission
+                        <a href="{{ route('company') }}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Energy Consumption
                         </a>
                     </div>
                 </div>
                 <!-- Right side of navbar -->
-                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
                     <!-- Profile dropdown -->
                     <div class="ml-3 relative">
                         <div>
@@ -49,6 +57,14 @@
                             </button>
                         </div>
                     </div>
+                    <!-- Logout Button -->
+                    <form action="{{ route('logout') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="btn-logout inline-flex items-center px-4 py-2 border border-green-500 text-green-500 rounded-full text-sm font-medium hover:bg-green-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
+                            <i class="fas fa-sign-out-alt mr-2"></i>
+                            Logout
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -160,7 +160,7 @@
     <div class="welcome-container">
         <h1>Welcome to KaHejo</h1>
         <p class="welcome-text">Your trusted platform for health and wellness. Join us on your journey to better health.</p>
-        <a href="/login" class="login-btn">Let's Get Started</a>
+        <a href="{{ route('company') }}" class="login-btn">Let's Get Started</a>
     </div>
 </body>
 </html>
