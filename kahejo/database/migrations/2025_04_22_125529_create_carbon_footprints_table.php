@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('carbon_footprints', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->float('electricity_kwh');
-            $table->float('fuel_liters');
-            $table->float('waste_kg');
-            $table->float('total_emission'); // hasil perhitungan
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->decimal('electricity', 10, 2);
+            $table->decimal('transportation', 10, 2);
+            $table->decimal('waste', 10, 2);
+            $table->decimal('water', 10, 2);
+            $table->decimal('total', 10, 2);
             $table->timestamps();
         });
     }
