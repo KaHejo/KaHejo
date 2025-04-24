@@ -9,363 +9,571 @@
     <style>
         :root {
             --primary-color: #2ecc71;
-            --primary-dark: #27ae60;
-            --text-color: #2c3e50;
+            --secondary-color: #27ae60;
+            --accent-color: #f39c12;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            background-color: var(--light-color);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
 
-        .auth-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            padding: 1.5rem;
-            margin: 1rem;
+        .background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%232ecc71' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5;
+            animation: backgroundMove 30s linear infinite;
         }
 
-        .auth-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
+        @keyframes backgroundMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
         }
 
-        .auth-header .logo {
-            width: 50px;
-            height: 50px;
-            background: var(--primary-color);
-            border-radius: 50%;
+        .register-container {
             display: flex;
-            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            min-height: 550px;
+            margin: 15px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .register-image {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            flex-direction: column;
             justify-content: center;
-            margin: 0 auto 1rem;
+            align-items: center;
+            padding: 40px;
             color: white;
-            font-size: 1.5rem;
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
-            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .auth-header .logo:hover {
-            transform: scale(1.05);
+        .register-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            animation: backgroundMove 30s linear infinite;
         }
 
-        .auth-header h1 {
-            color: var(--text-color);
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
+        .brand-logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: float 3s ease-in-out infinite;
         }
 
-        .auth-header p {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 0;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .register-image h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .register-image p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            text-align: center;
+            max-width: 80%;
+            line-height: 1.6;
+        }
+
+        .register-form {
+            flex: 1;
+            background-color: white;
+            padding: 30px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: #7f8c8d;
+            font-size: 1rem;
         }
 
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 15px;
             position: relative;
         }
 
         .form-control {
             height: 45px;
-            background: #f8f9fa;
-            border: 2px solid transparent;
-            border-radius: 12px;
-            padding: 0.5rem 1rem 0.5rem 2.5rem;
-            font-size: 0.9rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 0 20px 0 50px;
+            font-size: 1rem;
             transition: all 0.3s ease;
-            line-height: 1.5;
+            background-color: #f8f9fa;
         }
 
         .form-control:focus {
             border-color: var(--primary-color);
-            background: white;
-            box-shadow: 0 0 0 4px rgba(46, 204, 113, 0.1);
+            box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.15);
+            background-color: white;
         }
 
-        .form-group i {
+        .form-icon {
             position: absolute;
-            left: 1rem;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #999;
+            color: #95a5a6;
             font-size: 1.2rem;
             transition: all 0.3s ease;
-            line-height: 1;
-            display: flex;
-            align-items: center;
-            height: 100%;
-            margin-top: 0;
         }
 
-        .form-control:focus + i {
+        .form-control:focus + .form-icon {
             color: var(--primary-color);
         }
 
-        .password-requirements {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 0.75rem;
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        .password-requirements p {
-            margin-bottom: 0.25rem;
-            color: var(--text-color);
-            font-weight: 500;
-        }
-
-        .password-requirements ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .password-requirements li {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.2rem;
-        }
-
-        .password-requirements li i {
-            position: static;
-            margin-right: 0.5rem;
-            font-size: 0.8rem;
-        }
-
-        .password-requirements li.valid {
-            color: var(--primary-color);
-        }
-
-        .btn-auth {
-            height: 45px;
-            background: var(--primary-color);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 0.9rem;
-            font-weight: 600;
-            width: 100%;
-            margin-top: 0.75rem;
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #95a5a6;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .btn-auth:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        .password-toggle:hover {
+            color: var(--primary-color);
         }
 
-        .auth-footer {
+        .password-strength {
+            height: 4px;
+            background-color: #e9ecef;
+            border-radius: 2px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+
+        .strength-weak { background-color: var(--error-color); width: 25%; }
+        .strength-medium { background-color: var(--accent-color); width: 50%; }
+        .strength-good { background-color: var(--success-color); width: 75%; }
+        .strength-strong { background-color: var(--primary-color); width: 100%; }
+
+        .password-requirements {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-top: 8px;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .password-requirements.valid {
+            border-color: var(--primary-color);
+            background-color: rgba(46, 204, 113, 0.05);
+        }
+
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .requirement i {
+            margin-right: 8px;
+            font-size: 0.8rem;
+            width: 16px;
             text-align: center;
-            margin-top: 1rem;
-            color: #666;
-            font-size: 0.9rem;
+            transition: all 0.3s ease;
         }
 
-        .auth-footer a {
+        .requirement.valid {
+            color: var(--primary-color);
+        }
+
+        .requirement.valid i {
+            transform: scale(1.2);
+        }
+
+        .btn-register {
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .btn-register::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-register:hover::before {
+            left: 100%;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.2);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link p {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+        }
+
+        .login-link a {
             color: var(--primary-color);
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .auth-footer a:hover {
-            color: var(--primary-dark);
+        .login-link a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
         }
 
-        .alert {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            min-width: 300px;
-            text-align: center;
-            border: none;
-            border-radius: 12px;
-            padding: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
+        .login-link a:hover::after {
+            width: 100%;
         }
 
-        .alert-danger {
-            background-color: #e74c3c;
-            color: white;
+        .error {
+            color: var(--error-color);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            animation: shake 0.5s ease-in-out;
         }
 
-        @media (max-width: 480px) {
-            .auth-container {
-                width: 100%;
-                margin: 1rem;
-                padding: 2rem;
+        .error::before {
+            content: '⚠️';
+            margin-right: 5px;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .register-container {
+                flex-direction: column;
+                min-height: auto;
+            }
+
+            .register-image {
+                padding: 40px 20px;
+            }
+
+            .register-form {
+                padding: 40px 30px;
+            }
+
+            .brand-logo {
+                font-size: 3rem;
+            }
+
+            .register-image h2 {
+                font-size: 2rem;
             }
         }
 
-        .btn-toggle-password {
-            position: absolute;
-            right: 1rem;
-            top: 0;
-            transform: none;
-            background: none;
-            border: none;
-            color: #999;
-            cursor: pointer;
-            padding: 0;
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-            z-index: 10;
-            height: 50px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .btn-toggle-password:hover {
-            color: var(--primary-color);
-        }
+        @media (max-width: 576px) {
+            .register-container {
+                margin: 10px;
+                border-radius: 15px;
+            }
 
-        .btn-toggle-password i {
-            line-height: 1;
-            position: static;
-            margin: 0;
-            height: auto;
-        }
+            .register-image {
+                padding: 30px 15px;
+            }
 
-        .form-group i.fas.fa-lock,
-        .form-group i.fas.fa-user {
-            left: 1rem;
-            right: auto;
-            top: 0;
-            transform: none;
-            height: 50px;
-            display: flex;
-            align-items: center;
+            .register-form {
+                padding: 30px 20px;
+            }
+
+            .form-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .brand-logo {
+                font-size: 2.5rem;
+            }
+
+            .register-image h2 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 <body>
-    @if($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="fas fa-exclamation-circle me-2"></i>
-            {{ $errors->first() }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
-    <div class="auth-container">
-        <div class="auth-header">
-            <div class="logo">
+    <div class="background"></div>
+    <div class="register-container">
+        <div class="register-image">
+            <div class="brand-logo">
                 <i class="fas fa-leaf"></i>
             </div>
-            <h1>Create Account</h1>
-            <p>Join KaHejo today</p>
+            <h2>Join KaHejo</h2>
+            <p>Create your account and start your journey to better health. Get personalized recommendations and track your progress.</p>
         </div>
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-            <div class="form-group">
-                <input type="text" class="form-control" name="name" placeholder="Username" value="{{ old('name') }}" required autofocus>
-                <i class="fas fa-user"></i>
+        <div class="register-form">
+            <div class="form-header">
+                <h2>Create Account</h2>
+                <p>Please fill in the details to create your account</p>
             </div>
-
-            <div class="form-group">
-                <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
-                <i class="fas fa-lock"></i>
-                <button type="button" class="btn-toggle-password" onclick="togglePassword('password', this)">
-                    <i class="fas fa-eye"></i>
-                </button>
-                <div class="password-requirements">
-                    <p>Password must contain:</p>
-                    <ul>
-                        <li id="length"><i class="fas fa-times"></i> At least 8 characters</li>
-                        <li id="letter"><i class="fas fa-times"></i> At least one letter</li>
-                        <li id="number"><i class="fas fa-times"></i> At least one number</li>
-                    </ul>
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+                
+                <div class="form-group">
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" 
+                           id="name" name="name" value="{{ old('name') }}" 
+                           placeholder="Full Name" required autofocus>
+                    <i class="fas fa-user form-icon"></i>
+                    @error('name')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
                 </div>
-            </div>
 
-            <div class="form-group">
-                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" required>
-                <i class="fas fa-lock"></i>
-                <button type="button" class="btn-toggle-password" onclick="togglePassword('password_confirmation', this)">
-                    <i class="fas fa-eye"></i>
+                <div class="form-group">
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                           id="password" name="password" placeholder="Password" required>
+                    
+                    <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                    @error('password')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="strengthBar"></div>
+                    </div>
+                    <div class="password-requirements" id="passwordRequirements">
+                        <div class="requirement" id="lengthReq">
+                            <i class="fas fa-circle"></i>
+                            At least 8 characters
+                        </div>
+                        <div class="requirement" id="upperReq">
+                            <i class="fas fa-circle"></i>
+                            One uppercase letter
+                        </div>
+                        <div class="requirement" id="lowerReq">
+                            <i class="fas fa-circle"></i>
+                            One lowercase letter
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control" 
+                           id="password_confirmation" name="password_confirmation" 
+                           placeholder="Confirm Password" required>
+                    <i class="fas fa-lock form-icon"></i>
+                    <i class="fas fa-eye password-toggle" id="toggleConfirmPassword"></i>
+                </div>
+
+                <button type="submit" class="btn btn-register">
+                    <i class="fas fa-user-plus me-2"></i>Create Account
                 </button>
-            </div>
 
-            <button type="submit" class="btn btn-auth">
-                <i class="fas fa-user-plus me-2"></i>Register
-            </button>
-        </form>
-
-        <div class="auth-footer">
-            <p>Already have an account? <a href="{{ route('login') }}">Login here</a></p>
+                <div class="login-link">
+                    <p>Already have an account? <a href="{{ route('login') }}">Login here</a></p>
+                </div>
+            </form>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function togglePassword(inputId, button) {
-            const input = document.getElementById(inputId);
-            const icon = button.querySelector('i');
+        // Password visibility toggle
+        const togglePassword = document.getElementById('togglePassword');
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('password_confirmation');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+        
+        toggleConfirmPassword.addEventListener('click', function() {
+            const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPassword.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Password strength checker
+        const strengthBar = document.getElementById('strengthBar');
+        const requirements = {
+            length: document.getElementById('lengthReq'),
+            upper: document.getElementById('upperReq'),
+            lower: document.getElementById('lowerReq'),
+            number: document.getElementById('numberReq'),
+            special: document.getElementById('specialReq')
+        };
+        
+        password.addEventListener('input', function() {
+            const value = this.value;
             
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.className = 'fas fa-eye-slash';
+            // Check requirements
+            const hasLength = value.length >= 8;
+            const hasUpper = /[A-Z]/.test(value);
+            const hasLower = /[a-z]/.test(value);
+            const hasNumber = /[0-9]/.test(value);
+            const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+            
+            // Update requirement indicators
+            updateRequirement(requirements.length, hasLength);
+            updateRequirement(requirements.upper, hasUpper);
+            updateRequirement(requirements.lower, hasLower);
+            updateRequirement(requirements.number, hasNumber);
+            updateRequirement(requirements.special, hasSpecial);
+            
+            // Calculate strength
+            let strength = 0;
+            if (hasLength) strength += 20;
+            if (hasUpper) strength += 20;
+            if (hasLower) strength += 20;
+            if (hasNumber) strength += 20;
+            if (hasSpecial) strength += 20;
+            
+            // Update strength bar
+            updateStrengthBar(strength);
+            
+            // Check if all requirements are met
+            const allValid = hasLength && hasUpper && hasLower && hasNumber && hasSpecial;
+            document.getElementById('passwordRequirements').classList.toggle('valid', allValid);
+        });
+        
+        function updateRequirement(element, isValid) {
+            element.classList.toggle('valid', isValid);
+            const icon = element.querySelector('i');
+            icon.className = isValid ? 'fas fa-check-circle' : 'fas fa-circle';
+        }
+        
+        function updateStrengthBar(strength) {
+            strengthBar.style.width = strength + '%';
+            strengthBar.className = 'password-strength-bar';
+            
+            if (strength <= 25) {
+                strengthBar.classList.add('strength-weak');
+            } else if (strength <= 50) {
+                strengthBar.classList.add('strength-medium');
+            } else if (strength <= 75) {
+                strengthBar.classList.add('strength-good');
             } else {
-                input.type = 'password';
-                icon.className = 'fas fa-eye';
+                strengthBar.classList.add('strength-strong');
             }
         }
-
-        const password = document.getElementById('password');
-        const length = document.getElementById('length');
-        const letter = document.getElementById('letter');
-        const number = document.getElementById('number');
-
-        password.addEventListener('input', function() {
-            const val = this.value;
-            
-            // Check length
-            if(val.length >= 8) {
-                length.classList.add('valid');
-                length.classList.remove('invalid');
-                length.querySelector('i').className = 'fas fa-check';
+        
+        // Password confirmation check
+        confirmPassword.addEventListener('input', function() {
+            if (this.value !== password.value) {
+                this.setCustomValidity('Passwords do not match');
             } else {
-                length.classList.add('invalid');
-                length.classList.remove('valid');
-                length.querySelector('i').className = 'fas fa-times';
-            }
-
-            // Check letter
-            if(/[a-zA-Z]/.test(val)) {
-                letter.classList.add('valid');
-                letter.classList.remove('invalid');
-                letter.querySelector('i').className = 'fas fa-check';
-            } else {
-                letter.classList.add('invalid');
-                letter.classList.remove('valid');
-                letter.querySelector('i').className = 'fas fa-times';
-            }
-
-            // Check number
-            if(/[0-9]/.test(val)) {
-                number.classList.add('valid');
-                number.classList.remove('invalid');
-                number.querySelector('i').className = 'fas fa-check';
-            } else {
-                number.classList.add('invalid');
-                number.classList.remove('valid');
-                number.querySelector('i').className = 'fas fa-times';
+                this.setCustomValidity('');
             }
         });
     </script>
 </body>
-</html> 
+</html>
