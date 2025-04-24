@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\CarbonFootprint;
+use Carbon\Carbon;
 
 class MainController extends Controller
 {
@@ -22,6 +24,21 @@ class MainController extends Controller
             'activeTasks' => 56,
             'completed' => 89
         ];
+
+        // Get carbon footprint history
+        $carbonHistory = CarbonFootprint::orderBy('created_at', 'desc')
+            ->take(12) // Last 12 months
+            ->get()
+            ->map(function ($record) {
+                return [
+                    'date' => Carbon::parse($record->created_at)->format('M Y'),
+                    'total' => $record->total,
+                    'electricity' => $record->electricity,
+                    'transportation' => $record->transportation,
+                    'waste' => $record->waste,
+                    'water' => $record->water
+                ];
+            });
 
         // Recent activities
         $activities = [
@@ -51,7 +68,8 @@ class MainController extends Controller
         return view('main', [
             'user' => $user,
             'stats' => $stats,
-            'activities' => $activities
+            'activities' => $activities,
+            'carbonHistory' => $carbonHistory
         ]);
     }
 

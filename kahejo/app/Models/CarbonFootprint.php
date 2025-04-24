@@ -11,10 +11,19 @@ class CarbonFootprint extends Model
 
     protected $fillable = [
         'user_id',
-        'electricity_kwh',
-        'fuel_liters',
-        'waste_kg',
-        'total_emission',
+        'electricity',
+        'transportation',
+        'waste',
+        'water',
+        'total'
+    ];
+
+    protected $casts = [
+        'electricity' => 'decimal:2',
+        'transportation' => 'decimal:2',
+        'waste' => 'decimal:2',
+        'water' => 'decimal:2',
+        'total' => 'decimal:2'
     ];
 
     // Optional: relasi ke user
