@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to KaHejo</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -36,20 +37,21 @@
         .welcome-container {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            padding: 3rem;
+            padding: 2rem;
             border-radius: 20px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            max-width: 500px;
-            width: 90%;
+            max-width: 900px;
+            width: 95%;
             position: relative;
             z-index: 1;
             animation: fadeIn 1s ease-out;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .welcome-container:hover {
             transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
         }
 
         @keyframes fadeIn {
@@ -63,9 +65,13 @@
             }
         }
 
-        h1 {
-            font-size: 3.5rem;
+        .header-section {
             margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.8rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
             background: linear-gradient(45deg, #ffffff, #e0e0e0);
             -webkit-background-clip: text;
@@ -85,30 +91,46 @@
         }
 
         .welcome-text {
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-            line-height: 1.6;
+            font-size: 1rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
             color: rgba(255, 255, 255, 0.9);
             font-weight: 300;
         }
 
-        .login-btn {
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            background: rgba(255, 255, 255, 0.9);
-            color: #4CAF50;
+        .button-group {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1.8rem;
+            font-size: 0.95rem;
             text-decoration: none;
             border-radius: 50px;
             transition: all 0.3s ease;
             display: inline-block;
             font-weight: 600;
             letter-spacing: 0.5px;
-            border: 2px solid transparent;
             position: relative;
             overflow: hidden;
         }
 
-        .login-btn::before {
+        .primary-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #4CAF50;
+            border: 2px solid transparent;
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn::before {
             content: '';
             position: absolute;
             top: 0;
@@ -120,88 +142,229 @@
             transition: transform 0.6s ease;
         }
 
-        .login-btn:hover::before {
+        .btn:hover::before {
             transform: translateX(-100%);
         }
 
-        .login-btn:hover {
+        .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .primary-btn:hover {
             background: white;
             border-color: #4CAF50;
         }
 
-        .login-btn:active {
-            transform: translateY(-1px);
+        .secondary-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
         }
 
         .features {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 2rem;
-            gap: 1rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
         }
 
         .feature {
             background: rgba(255, 255, 255, 0.1);
             padding: 1rem;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .feature:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         .feature i {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            margin-bottom: 0.6rem;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .feature h3 {
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+            color: white;
         }
 
         .feature p {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.8);
         }
 
-        @media (max-width: 600px) {
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            height: fit-content;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .testimonials {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .testimonial-content {
+            text-align: left;
+        }
+
+        .testimonial {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.3rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .testimonial-icon {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        @media (max-width: 768px) {
             .welcome-container {
-                padding: 2rem;
+                padding: 1.5rem;
             }
 
             h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
 
-            .welcome-text {
-                font-size: 1rem;
+            .content-grid {
+                grid-template-columns: 1fr;
             }
 
             .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .button-group {
                 flex-direction: column;
+            }
+
+            .testimonials {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .testimonial-content {
+                text-align: center;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div id="particles-js"></div>
     <div class="welcome-container">
-        <h1>Welcome to KaHejo</h1>
-        <p class="welcome-text">Your trusted platform for health and wellness. Join us on your journey to better health.</p>
-        <a href="{{ route('company') }}" class="login-btn">Let's Get Started</a>
-        
-        <div class="features">
-            <div class="feature">
-                <i class="fas fa-heartbeat"></i>
-                <p>Health Tracking</p>
+        <div class="header-section">
+            <h1>Welcome to KaHejo</h1>
+            <p class="welcome-text">Your trusted platform for health and wellness. Join us on your journey to better health.</p>
+            
+            <div class="button-group">
+                <a href="{{ route('company') }}" class="btn primary-btn">Get Started</a>
+                <a href="#" class="btn secondary-btn">Learn More</a>
             </div>
-            <div class="feature">
-                <i class="fas fa-chart-line"></i>
-                <p>Progress Monitoring</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Health Tracking</h3>
+                    <p>Monitor your health metrics and progress</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Progress Monitoring</h3>
+                    <p>Track your fitness journey</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-users"></i>
+                    <h3>Community Support</h3>
+                    <p>Connect with like-minded individuals</p>
+                </div>
             </div>
-            <div class="feature">
-                <i class="fas fa-users"></i>
-                <p>Community Support</p>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Health Experts</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonials">
+            <i class="fas fa-quote-left testimonial-icon"></i>
+            <div class="testimonial-content">
+                <p class="testimonial">"KaHejo has transformed my health journey. The community support and tracking features are amazing!"</p>
+                <p class="testimonial-author">- Sarah Johnson, Fitness Enthusiast</p>
             </div>
         </div>
     </div>
@@ -211,7 +374,7 @@
         particlesJS('particles-js', {
             particles: {
                 number: {
-                    value: 80,
+                    value: 120,
                     density: {
                         enable: true,
                         value_area: 800

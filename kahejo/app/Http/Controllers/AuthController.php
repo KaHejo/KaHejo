@@ -29,13 +29,18 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
+            
+            // Check if user is admin
+            if (Auth::user()->isAdmin()) {
+                return redirect()->intended('company');
+            }
+            
             return redirect()->intended('main');
         }
 
         return back()->withErrors([
             'name' => 'Username atau password salah. Silakan coba lagi.',
         ])->withInput($request->only('name'));
-        
     }
 
     public function register(Request $request)
