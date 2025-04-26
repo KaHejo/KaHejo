@@ -6,6 +6,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\EmissionsController;
 use App\Http\Controllers\CompanyEnergyController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 
 // Welcome Route
 Route::get('/', function () {
@@ -25,6 +26,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/main', [MainController::class, 'index'])->name('main');
     Route::get('/profile', [MainController::class, 'profile'])->name('profile');
     Route::get('/settings', [MainController::class, 'settings'])->name('settings');
+    
+    // Admin Routes
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
     
     // Carbon Footprint Routes
     Route::get('/carbon', [CarbonFootprintController::class, 'index'])->name('carbon');

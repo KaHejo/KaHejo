@@ -15,7 +15,6 @@ class AdminSeeder extends Seeder
             'email' => 'admin@kahejo.com',
             'password' => Hash::make('admin123'),
             'role' => 'admin',
-            'email_verified_at' => now(),
         ]);
     }
 } 
