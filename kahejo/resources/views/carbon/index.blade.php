@@ -25,47 +25,105 @@
     </script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.2s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            margin: 0 0.25rem;
+        }
+        .nav-link:hover {
+            color: #10B981;
+            background-color: #F3F4F6;
+        }
+        .nav-link.active {
+            color: #10B981;
+            background-color: #F3F4F6;
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #10B981, #059669);
+            border-radius: 2px;
+        }
+        .nav-icon {
+            transition: transform 0.2s ease;
+        }
+        .nav-link:hover .nav-icon {
+            transform: translateY(-1px);
+        }
+        .logo-text {
+            background: linear-gradient(to right, #10B981, #059669);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+        .user-profile {
+            transition: transform 0.2s ease;
+        }
+        .user-profile:hover {
+            transform: translateY(-1px);
+        }
+    </style>
 </head>
-<body class="bg-kahejo-lightest/10">
+<body class="bg-gray-50">
     <!-- Navbar -->
-    <nav class="bg-kahejo-darkest shadow-lg">
-        <div class="max-w-7xl mx-auto px-4">
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <div class="flex">
-                    <!-- Logo -->
+                <!-- Logo and Navigation -->
+                <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center">
-                        <span class="text-2xl font-bold text-kahejo-light">KaHejo</span>
+                        <span class="logo-text text-2xl font-extrabold">KaHejo</span>
                     </div>
-                    <!-- Navigation Links -->
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="{{ route('main') }}" class="border-transparent text-kahejo-light hover:border-kahejo-medium hover:text-kahejo-lightest inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                    <div class="hidden md:flex md:ml-10">
+                        <a href="{{ route('main') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('main') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-home text-lg mr-2"></i>
                             Dashboard
                         </a>
-                        <a href="{{ route('profile') }}" class="border-transparent text-kahejo-light hover:border-kahejo-medium hover:text-kahejo-lightest inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="{{ route('profile') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('profile') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user text-lg mr-2"></i>
                             Profile
                         </a>
-                        <a href="{{ route('settings') }}" class="border-transparent text-kahejo-light hover:border-kahejo-medium hover:text-kahejo-lightest inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Settings
-                        </a>
-                        <a href="{{ route('carbon') }}" class="border-kahejo-light text-kahejo-lightest inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        <a href="{{ route('carbon') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('carbon') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-calculator text-lg mr-2"></i>
                             Carbon Calculator
                         </a>
-                        <a href="{{ route('company') }}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            Energy Conpsumtion
+                        <a href="{{ route('company') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('company') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-chart-line text-lg mr-2"></i>
+                            Energy Consumption
                         </a>
                     </div>
                 </div>
                 <!-- Right side of navbar -->
-                <div class="hidden sm:ml-6 sm:flex sm:items-center">
-                    <!-- Profile dropdown -->
-                    <div class="ml-3 relative">
-                        <div>
-                            <button type="button" class="bg-kahejo-light rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kahejo-medium" id="user-menu-button">
-                                <span class="sr-only">Open user menu</span>
-                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User">
-                            </button>
+                <div class="flex items-center space-x-6">
+                    <!-- User Profile -->
+                    <div class="user-profile flex items-center bg-gray-50 rounded-full px-3 py-1">
+                        <img class="h-8 w-8 rounded-full ring-2 ring-green-500" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User">
+                        <div class="ml-3">
+                            <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name ?? 'Kasino' }}</p>
+                            <p class="text-xs text-gray-500">Administrator</p>
                         </div>
                     </div>
+                    <!-- Logout Button -->
+                    <form action="{{ route('logout') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="logout-btn inline-flex items-center">
+                            <i class="fas fa-sign-out-alt mr-2"></i>
+                            Logout
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

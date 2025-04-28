@@ -25,6 +25,8 @@ Route::middleware(['auth'])->group(function () {
     // Main Routes
     Route::get('/main', [MainController::class, 'index'])->name('main');
     Route::get('/profile', [MainController::class, 'profile'])->name('profile');
+    Route::put('/profile', [MainController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/profile/password', [MainController::class, 'updatePassword'])->name('password.update');
     Route::get('/settings', [MainController::class, 'settings'])->name('settings');
     
     // Admin Routes
@@ -41,4 +43,6 @@ Route::middleware(['auth'])->group(function () {
     // Company Energy Consumption Routes
     Route::get('/company', [CompanyEnergyController::class, 'index'])->name('company');
     Route::post('/company', [CompanyEnergyController::class, 'store'])->name('company.result');
+    Route::get('/company/history', [CompanyEnergyController::class, 'history'])->name('company.history');
+    
 }); 

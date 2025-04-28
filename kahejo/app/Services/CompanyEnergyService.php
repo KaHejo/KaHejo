@@ -147,4 +147,15 @@ class CompanyEnergyService
             ->where('location_name', $locationName)
             ->get();
     }
+
+    /**
+     * Get all company energy consumptions.
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function getAllConsumptions()
+    {
+        return CompanyEnergyConsumption::orderBy('consumption_date', 'desc')
+            ->paginate(10);
+    }
 } 

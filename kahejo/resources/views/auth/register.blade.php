@@ -435,6 +435,16 @@
                 </div>
 
                 <div class="form-group">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" 
+                           id="email" name="email" value="{{ old('email') }}" 
+                           placeholder="Email Address" required>
+                    <i class="fas fa-envelope form-icon"></i>
+                    @error('email')
+                        <div class="error">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
                     <input type="password" class="form-control @error('password') is-invalid @enderror" 
                            id="password" name="password" placeholder="Password" required>
                     

@@ -33,8 +33,6 @@ class CompanyEnergyController extends Controller
             'reporting_period' => 'required|string|in:monthly,yearly',
         ]);
 
-        
-
         // Save to database using service
         $consumption = $this->companyEnergyService->store([
             'source_type' => $validated['source_type'],
@@ -64,5 +62,11 @@ class CompanyEnergyController extends Controller
             'result' => $result,
             'consumption' => $consumption
         ]);
+    }
+
+    public function history()
+    {
+        $consumptions = $this->companyEnergyService->getAllConsumptions();
+        return view('company.history', compact('consumptions'));
     }
 } 
