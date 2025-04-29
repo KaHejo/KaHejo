@@ -94,7 +94,7 @@
             <div class="mb-4">
                 <div class="success-badge">
                     <i class="fas fa-check-circle"></i>
-                    <span class="text-sm font-medium">Data konsumsi energi berhasil disimpan</span>
+                    <span class="text-sm font-medium">Data konsumsi energi berhasil disimpa</span>
                 </div>
             </div>
 
