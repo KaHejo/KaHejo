@@ -37,11 +37,11 @@
         .welcome-container {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 20px;
+            padding: 1.5rem;
+            border-radius: 15px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            max-width: 900px;
+            max-width: 800px;
             width: 95%;
             position: relative;
             z-index: 1;
@@ -66,12 +66,25 @@
         }
 
         .header-section {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .brand-logo {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.8rem;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
             background: linear-gradient(45deg, #ffffff, #e0e0e0);
             -webkit-background-clip: text;
@@ -91,23 +104,23 @@
         }
 
         .welcome-text {
-            font-size: 1rem;
-            margin-bottom: 1.2rem;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
             color: rgba(255, 255, 255, 0.9);
             font-weight: 300;
         }
 
         .button-group {
             display: flex;
-            gap: 0.8rem;
+            gap: 0.6rem;
             justify-content: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .btn {
-            padding: 0.7rem 1.8rem;
-            font-size: 0.95rem;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
             text-decoration: none;
             border-radius: 50px;
             transition: all 0.3s ease;
@@ -163,20 +176,20 @@
         .content-grid {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
-            gap: 1.2rem;
-            margin-bottom: 1.5rem;
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
 
         .features {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.8rem;
+            gap: 0.6rem;
         }
 
         .feature {
             background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 12px;
+            padding: 0.8rem;
+            border-radius: 10px;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -188,36 +201,36 @@
         }
 
         .feature i {
-            font-size: 1.8rem;
-            margin-bottom: 0.6rem;
+            font-size: 1.5rem;
+            margin-bottom: 0.4rem;
             color: #ffffff;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         .feature h3 {
-            font-size: 0.95rem;
-            margin-bottom: 0.4rem;
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
             color: white;
         }
 
         .feature p {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: rgba(255, 255, 255, 0.8);
         }
 
         .stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 0.8rem;
-            padding: 1rem;
+            gap: 0.6rem;
+            padding: 0.8rem;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
+            border-radius: 10px;
             height: fit-content;
         }
 
         .stat-item {
             text-align: center;
-            padding: 0.8rem;
+            padding: 0.6rem;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
             transition: all 0.3s ease;
@@ -229,26 +242,26 @@
         }
 
         .stat-number {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: white;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.1rem;
         }
 
         .stat-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: rgba(255, 255, 255, 0.8);
         }
 
         .testimonials {
-            margin-top: 1.5rem;
-            padding: 1rem;
+            margin-top: 1rem;
+            padding: 0.8rem;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.8rem;
         }
 
         .testimonial-content {
@@ -256,29 +269,34 @@
         }
 
         .testimonial {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
             font-style: italic;
         }
 
         .testimonial-author {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: rgba(255, 255, 255, 0.7);
         }
 
         .testimonial-icon {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: rgba(255, 255, 255, 0.5);
         }
 
         @media (max-width: 768px) {
             .welcome-container {
-                padding: 1.5rem;
+                padding: 1.2rem;
             }
 
             h1 {
-                font-size: 2.2rem;
+                font-size: 1.8rem;
+            }
+
+            .brand-logo {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
             }
 
             .content-grid {
@@ -312,6 +330,9 @@
     <div id="particles-js"></div>
     <div class="welcome-container">
         <div class="header-section">
+            <div class="brand-logo">
+                <i class="fas fa-leaf"></i>
+            </div>
             <h1>Welcome to KaHejo</h1>
             <p class="welcome-text">Your trusted platform for health and wellness. Join us on your journey to better health.</p>
             
@@ -364,7 +385,7 @@
             <i class="fas fa-quote-left testimonial-icon"></i>
             <div class="testimonial-content">
                 <p class="testimonial">"KaHejo has transformed my health journey. The community support and tracking features are amazing!"</p>
-                <p class="testimonial-author">- Sarah Johnson, Fitness Enthusiast</p>
+                <p class="testimonial-author">- Asherakmal, CEO OF KAHEJO </p>
             </div>
         </div>
     </div>

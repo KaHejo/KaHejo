@@ -24,13 +24,13 @@
         }
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 0.75rem;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 0.5rem;
         }
         .timeline-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 0.75rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
         }
         .btn-back {
             transition: all 0.3s ease;
@@ -40,7 +40,8 @@
         }
         .section-title {
             position: relative;
-            padding-left: 1.75rem;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
         }
         .section-title::before {
             content: '';
@@ -48,19 +49,16 @@
             left: 0;
             top: 50%;
             transform: translateY(-50%);
-            width: 1.25rem;
-            height: 1.25rem;
+            width: 1rem;
+            height: 1rem;
             background: #10b981;
-            border-radius: 0.375rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 0.25rem;
         }
         .info-card {
             background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
+            border-radius: 0.375rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            padding: 0.75rem !important;
         }
         .info-card:hover {
             transform: translateY(-2px);
@@ -69,8 +67,8 @@
         .success-badge {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
-            padding: 0.375rem 0.75rem;
-            border-radius: 1.5rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
             display: inline-flex;
             align-items: center;
             gap: 0.375rem;
@@ -102,21 +100,21 @@
 
             <!-- Main Card -->
             <div class="card-hover bg-white shadow-lg rounded-lg border border-gray-100 overflow-hidden">
-                <div class="px-5 py-4 border-b border-gray-100">
+                <div class="px-4 py-3 border-b border-gray-100">
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
-                            <div class="p-2 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                <i class="fas fa-chart-line text-xl text-green-600"></i>
+                            <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+                                <i class="fas fa-chart-line text-lg text-green-600"></i>
                             </div>
                         </div>
-                        <div class="ml-3">
-                            <h3 class="text-lg font-semibold text-gray-900">Hasil Konsumsi Energi</h3>
+                        <div class="ml-2">
+                            <h3 class="text-base font-semibold text-gray-900">Hasil Konsumsi Energi</h3>
                             <p class="text-xs text-gray-500">Detail informasi konsumsi energi perusahaan</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="p-4 space-y-4">
+                <div class="p-3 space-y-3">
                     <!-- Energy Source Section -->
                     <div>
                         <div class="section-title mb-3">
@@ -126,13 +124,13 @@
                             <div class="info-card p-3">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0">
-                                        <div class="p-1.5 rounded-lg bg-green-50">
-                                            <i class="fas fa-plug text-green-600"></i>
+                                        <div class="p-1 rounded-lg bg-green-50">
+                                            <i class="fas fa-plug text-sm text-green-600"></i>
                                         </div>
                                     </div>
-                                    <div class="ml-3">
+                                    <div class="ml-2">
                                         <p class="text-xs font-medium text-gray-500">Jenis</p>
-                                        <p class="text-sm font-semibold text-gray-900">{{ $result['source_type'] }}</p>
+                                        <p class="text-xs font-semibold text-gray-900">{{ $result['source_type'] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -298,9 +296,9 @@
                 </div>
 
                 <!-- Back Button at Bottom Left -->
-                <div class="px-5 py-4 border-t border-gray-100">
-                    <a href="{{ url('/company') }}" class="btn-back inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-full text-white bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                        <i class="fas fa-arrow-left mr-1.5"></i>
+                <div class="px-4 py-3 border-t border-gray-100">
+                    <a href="{{ url('/company') }}" class="btn-back inline-flex items-center px-2.5 py-1 border border-transparent text-xs font-medium rounded-full text-white bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        <i class="fas fa-arrow-left mr-1"></i>
                         Kembali ke Form
                     </a>
                 </div>

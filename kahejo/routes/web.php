@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarbonFootprintController; 
 use App\Http\Controllers\MainController;
-use App\Http\Controllers\EmissionsController;
+use App\Http\Controllers\EmissionsFactorController;
 use App\Http\Controllers\CompanyEnergyController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
@@ -46,3 +46,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/company/history', [CompanyEnergyController::class, 'history'])->name('company.history');
     
 }); 
+// Routes untuk faktor emisi - dapat diakses tanpa login
+Route::resource('emission-factors', App\Http\Controllers\EmissionFactorController::class);

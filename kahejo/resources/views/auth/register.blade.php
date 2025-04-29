@@ -168,10 +168,14 @@
             height: 45px;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
-            padding: 0 20px 0 50px;
+            padding: 0 20px 0 40px;
             font-size: 1rem;
             transition: all 0.3s ease;
             background-color: #f8f9fa;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23bdc3c7'%3E%3Cpath d='M12 17a2 2 0 100-4 2 2 0 000 4z'/%3E%3Cpath d='M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: 12px center;
+            background-size: 20px;
         }
 
         .form-control:focus {
@@ -181,17 +185,7 @@
         }
 
         .form-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #95a5a6;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus + .form-icon {
-            color: var(--primary-color);
+            display: none;
         }
 
         .password-toggle {
@@ -447,7 +441,6 @@
                 <div class="form-group">
                     <input type="password" class="form-control @error('password') is-invalid @enderror" 
                            id="password" name="password" placeholder="Password" required>
-                    
                     <i class="fas fa-eye password-toggle" id="togglePassword"></i>
                     @error('password')
                         <div class="error">{{ $message }}</div>
@@ -475,7 +468,6 @@
                     <input type="password" class="form-control" 
                            id="password_confirmation" name="password_confirmation" 
                            placeholder="Confirm Password" required>
-                    <i class="fas fa-lock form-icon"></i>
                     <i class="fas fa-eye password-toggle" id="toggleConfirmPassword"></i>
                 </div>
 
