@@ -17,7 +17,7 @@ class CompanyEnergyController extends Controller
 
     public function index()
     {
-        return view('compan.index');
+        return view('company.index');
     }
 
     public function store(Request $request)
