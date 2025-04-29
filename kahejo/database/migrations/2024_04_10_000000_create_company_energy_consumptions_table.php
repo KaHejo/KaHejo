@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('unit_measurement'); // Satuan pengukuran (liter, kg, kWh)
             $table->string('activity_type'); // Jenis aktivitas (transportasi, produksi, dll)
             $table->string('location_name')->nullable(); // Nama fasilitas/lokasi
-            $table->string('department')->nullable(); // Departemen
             $table->date('consumption_date'); // Tanggal konsumsi
             $table->string('reporting_period'); // Periode pelaporan (bulanan/tahunan)
             $table->timestamps();

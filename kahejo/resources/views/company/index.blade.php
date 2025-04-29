@@ -256,19 +256,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="department" class="block text-sm font-medium text-gray-700">Department</label>
-                            <div class="mt-1 relative rounded-md shadow-sm group">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-building text-gray-400 group-hover:text-green-500 transition-colors"></i>
-                                </div>
-                                <input type="text" name="department" id="department" class="focus:ring-green-500 focus:border-green-500 block w-full pl-10 sm:text-sm border-gray-200 rounded-md hover:border-green-300 transition-colors" placeholder="Enter department name">
-                            </div>
-                            @error('department')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
                             <label for="consumption_date" class="block text-sm font-medium text-gray-700">
                                 Consumption Date
                             </label>
@@ -276,7 +263,7 @@
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <i class="fas fa-calendar text-gray-400 group-hover:text-green-500 transition-colors"></i>
                                 </div>
-                                <input type="date" name="consumption_date" id="consumption_date" class="focus:ring-green-500 focus:border-green-500 block w-full pl-10 sm:text-sm border-gray-200 rounded-md hover:border-green-300 transition-colors" required>
+                                <input type="month" name="consumption_date" id="consumption_date" class="focus:ring-green-500 focus:border-green-500 block w-full pl-10 sm:text-sm border-gray-200 rounded-md hover:border-green-300 transition-colors" required>
                             </div>
                             @error('consumption_date')
                                 <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
@@ -349,8 +336,11 @@
             }
         });
 
-        // Set today's date as default for consumption date
-        document.getElementById('consumption_date').valueAsDate = new Date();
+        // Set current month and year as default for consumption date
+        const today = new Date();
+        const currentMonth = String(today.getMonth() + 1).padStart(2, '0');
+        const currentYear = today.getFullYear();
+        document.getElementById('consumption_date').value = `${currentYear}-${currentMonth}`;
     </script>
 </body>
 </html> 

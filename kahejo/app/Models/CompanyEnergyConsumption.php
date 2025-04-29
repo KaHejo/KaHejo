@@ -21,7 +21,6 @@ class CompanyEnergyConsumption extends Model
         'unit_measurement',
         'activity_type',
         'location_name',
-        'department',
         'consumption_date',
         'reporting_period'
     ];

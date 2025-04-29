@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -213,6 +215,16 @@
                 </div>
             </div>
 
+            <!-- Energy Consumption Chart -->
+            <div class="bg-white shadow rounded-lg overflow-hidden mb-8 hover:shadow-lg transition-shadow duration-200">
+                <div class="px-4 py-5 sm:px-6 border-b border-gray-100">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Energy Consumption Trend</h3>
+                </div>
+                <div class="p-6">
+                    <canvas id="consumptionChart" height="300"></canvas>
+                </div>
+            </div>
+
             <!-- History Table -->
             <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200">
                 <div class="px-4 py-5 sm:px-6 border-b border-gray-100">
@@ -276,5 +288,97 @@
             @endif
         </div>
     </div>
+
+    <script>
+        // Prepare data for the chart
+        const consumptionData = @json($consumptions->map(function($item) {
+            return [
+                'date' => \Carbon\Carbon::parse($item->consumption_date)->format('M Y'),
+                'amount' => $item->consumption_amount,
+                'source' => $item->source_type
+            ];
+        }));
+
+        // Group data by source type
+        const groupedData = {};
+        consumptionData.forEach(item => {
+            if (!groupedData[item.source]) {
+                groupedData[item.source] = [];
+            }
+            groupedData[item.source].push(item);
+        });
+
+        // Get unique dates
+        const dates = [...new Set(consumptionData.map(item => item.date))].sort();
+
+        // Create datasets for each source type
+        const datasets = Object.entries(groupedData).map(([source, data]) => {
+            const amounts = dates.map(date => {
+                const item = data.find(d => d.date === date);
+                return item ? item.amount : 0;
+            });
+
+            return {
+                label: source.charAt(0).toUpperCase() + source.slice(1),
+                data: amounts,
+                borderColor: getRandomColor(),
+                tension: 0.4,
+                fill: false
+            };
+        });
+
+        // Create the chart
+        const ctx = document.getElementById('consumptionChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Consumption Amount'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Helper function to generate random colors
+        function getRandomColor() {
+            const colors = [
+                '#10B981', // Green
+                '#3B82F6', // Blue
+                '#F59E0B', // Yellow
+                '#EF4444', // Red
+                '#8B5CF6', // Purple
+                '#EC4899', // Pink
+                '#14B8A6', // Teal
+                '#F97316'  // Orange
+            ];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+    </script>
 </body>
 </html> 

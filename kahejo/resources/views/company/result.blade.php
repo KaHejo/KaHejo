@@ -182,19 +182,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="info-card p-3">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <div class="p-1.5 rounded-lg bg-green-50">
-                                            <i class="fas fa-building text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-3">
-                                        <p class="text-xs font-medium text-gray-500">Departemen</p>
-                                        <p class="text-sm font-semibold text-gray-900">{{ $result['department'] ?? 'Tidak ditentukan' }}</p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 

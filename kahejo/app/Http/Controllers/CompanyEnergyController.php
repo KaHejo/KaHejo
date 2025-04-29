@@ -28,7 +28,6 @@ class CompanyEnergyController extends Controller
             'unit_measurement' => 'required|string',
             'activity_type' => 'required|string',
             'location_name' => 'nullable|string',
-            'department' => 'nullable|string',
             'consumption_date' => 'required|date',
             'reporting_period' => 'required|string|in:monthly,yearly',
         ]);
@@ -40,7 +39,6 @@ class CompanyEnergyController extends Controller
             'unit_measurement' => $validated['unit_measurement'],
             'activity_type' => $validated['activity_type'],
             'location_name' => $validated['location_name'],
-            'department' => $validated['department'],
             'consumption_date' => $validated['consumption_date'],
             'reporting_period' => $validated['reporting_period'],
         ]);
@@ -52,7 +50,6 @@ class CompanyEnergyController extends Controller
             'unit_measurement' => $validated['unit_measurement'],
             'activity_type' => $validated['activity_type'],
             'location_name' => $validated['location_name'],
-            'department' => $validated['department'],
             'consumption_date' => $validated['consumption_date'],
             'reporting_period' => $validated['reporting_period'],
             'calculation_date' => now()->format('Y-m-d H:i:s'),

@@ -13,10 +13,11 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f6f7fb 0%, #f1f5f9 100%);
         }
         .nav-link {
             position: relative;
-            transition: color 0.2s ease;
+            transition: all 0.3s ease;
             padding: 0.5rem 1rem;
             border-radius: 0.5rem;
             margin: 0 0.25rem;
@@ -24,6 +25,7 @@
         .nav-link:hover {
             color: #10B981;
             background-color: #F3F4F6;
+            transform: translateY(-1px);
         }
         .nav-link.active {
             color: #10B981;
@@ -40,7 +42,7 @@
             border-radius: 2px;
         }
         .nav-icon {
-            transition: transform 0.2s ease;
+            transition: transform 0.3s ease;
         }
         .nav-link:hover .nav-icon {
             transform: translateY(-1px);
@@ -53,13 +55,13 @@
             font-weight: 700;
         }
         .user-profile {
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
         }
         .user-profile:hover {
             transform: translateY(-1px);
         }
         .logout-btn {
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             background: linear-gradient(to right, #10B981, #059669);
             color: white;
             padding: 0.5rem 1.25rem;
@@ -70,19 +72,47 @@
         .logout-btn:hover {
             opacity: 0.9;
             transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
         .card-hover {
             transition: all 0.3s ease;
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
         .card-hover:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
+        .input-field {
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            width: 100%;
+        }
+        .input-field:focus {
+            border-color: #10B981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        .btn-primary {
+            background: #10B981;
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
-<body class="bg-gray-50">
+<body>
     <!-- Navbar -->
-    <nav class="bg-white shadow-md">
+    <nav class="bg-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <!-- Logo and Navigation -->
@@ -137,43 +167,26 @@
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <!-- Profile Section -->
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Profile Settings</h1>
-            <p class="mt-2 text-gray-600">Manage your account settings and preferences.</p>
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold text-gray-900">Profile Settings</h1>
+            <p class="mt-1 text-sm text-gray-600">Manage your account settings and preferences.</p>
         </div>
 
         <!-- Profile Cards -->
         <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <!-- Personal Information Card -->
-            <div class="card-hover bg-white overflow-hidden shadow rounded-lg border border-gray-100">
+            <div class="card-hover">
                 <div class="p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-semibold text-gray-900">Personal Information</h2>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-semibold text-gray-900">Personal Information</h2>
                         <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
                             <i class="fas fa-user text-green-600"></i>
                         </div>
                     </div>
-                    <form class="space-y-4" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+                    <form class="space-y-4" action="{{ route('profile.update') }}" method="POST">
                         @csrf
                         @method('PUT')
                         
-                        <!-- Profile Picture Upload -->
-                        <div class="flex items-center space-x-4 mb-6">
-                            <div class="relative">
-                                <img class="h-24 w-24 rounded-full object-cover ring-4 ring-green-100" 
-                                     src="{{ Auth::user()->profile_photo_url ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) }}" 
-                                     alt="Profile">
-                                <label class="absolute bottom-0 right-0 bg-white rounded-full p-2 shadow-md cursor-pointer hover:bg-gray-50 transition-colors">
-                                    <i class="fas fa-camera text-green-600"></i>
-                                    <input type="file" name="photo" class="hidden" onchange="previewImage(this)">
-                                </label>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-medium text-gray-900">{{ Auth::user()->name }}</h3>
-                                <p class="text-sm text-gray-500">Upload a new profile picture</p>
-                            </div>
-                        </div>
-
                         <div class="space-y-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
@@ -182,7 +195,7 @@
                                         <i class="fas fa-user text-gray-400"></i>
                                     </div>
                                     <input type="text" name="name" value="{{ Auth::user()->name }}" 
-                                        class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 @error('name') border-red-500 @enderror"
+                                        class="input-field @error('name') border-red-500 @enderror"
                                         placeholder="Enter your full name">
                                 </div>
                                 @error('name')
@@ -197,7 +210,7 @@
                                         <i class="fas fa-envelope text-gray-400"></i>
                                     </div>
                                     <input type="email" name="email" value="{{ Auth::user()->email }}" 
-                                        class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 @error('email') border-red-500 @enderror"
+                                        class="input-field @error('email') border-red-500 @enderror"
                                         placeholder="Enter your email address">
                                 </div>
                                 @error('email')
@@ -207,7 +220,7 @@
                         </div>
 
                         <div class="flex items-center justify-end pt-4">
-                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+                            <button type="submit" class="btn-primary inline-flex items-center">
                                 <i class="fas fa-save mr-2"></i>
                                 Save Changes
                             </button>
@@ -217,10 +230,10 @@
             </div>
 
             <!-- Security Settings Card -->
-            <div class="card-hover bg-white overflow-hidden shadow rounded-lg border border-gray-100">
+            <div class="card-hover">
                 <div class="p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-semibold text-gray-900">Security Settings</h2>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-semibold text-gray-900">Security Settings</h2>
                         <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
                             <i class="fas fa-shield-alt text-green-600"></i>
                         </div>
@@ -237,7 +250,7 @@
                                         <i class="fas fa-lock text-gray-400"></i>
                                     </div>
                                     <input type="password" name="current_password" 
-                                        class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 @error('current_password') border-red-500 @enderror"
+                                        class="input-field @error('current_password') border-red-500 @enderror"
                                         placeholder="Enter your current password">
                                 </div>
                                 @error('current_password')
@@ -252,7 +265,7 @@
                                         <i class="fas fa-key text-gray-400"></i>
                                     </div>
                                     <input type="password" name="password" 
-                                        class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 @error('password') border-red-500 @enderror"
+                                        class="input-field @error('password') border-red-500 @enderror"
                                         placeholder="Enter your new password">
                                 </div>
                                 @error('password')
@@ -267,14 +280,14 @@
                                         <i class="fas fa-key text-gray-400"></i>
                                     </div>
                                     <input type="password" name="password_confirmation" 
-                                        class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+                                        class="input-field"
                                         placeholder="Confirm your new password">
                                 </div>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-end pt-4">
-                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors">
+                            <button type="submit" class="btn-primary inline-flex items-center">
                                 <i class="fas fa-lock mr-2"></i>
                                 Update Password
                             </button>
@@ -284,18 +297,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function previewImage(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = input.closest('.relative').querySelector('img');
-                    preview.src = e.target.result;
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 </body>
 </html> 
