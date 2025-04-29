@@ -47,4 +47,3 @@ Route::middleware(['auth'])->group(function () {
     
 }); 
 // Routes untuk faktor emisi - dapat diakses tanpa login
-Route::resource('emission-factors', App\Http\Controllers\EmissionFactorController::class);
