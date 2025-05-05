@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KaHejo - Dashboard</title>
+    <title>KaHejo - Admin Dashboard</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -91,7 +91,7 @@
                         <span class="logo-text text-2xl">KaHejo</span>
                     </div>
                     <div class="hidden md:flex md:ml-10">
-                        <a href="{{ route('main') }}" class="nav-link active flex items-center text-sm font-medium">
+                        <a href="{{ route('company') }}" class="nav-link active flex items-center text-sm font-medium">
                             <i class="nav-icon fas fa-home text-lg mr-2"></i>
                             Dashboard
                         </a>
@@ -248,42 +248,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Recent Activity -->
-        <div class="mt-8">
-            <div class="bg-white shadow rounded-lg border border-gray-100">
-                <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">Recent Activity</h3>
-                    <button class="text-sm text-green-600 hover:text-green-700 font-medium">
-                        View All
-                    </button>
-                </div>
-                <div class="border-t border-gray-200">
-                    <ul class="divide-y divide-gray-200">
-                        @foreach($activities as $activity)
-                        <li class="px-4 py-4 sm:px-6 hover:bg-gray-50 transition-colors duration-150">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <div class="p-2 rounded-full bg-green-50">
-                                            <i class="fas fa-{{ $activity['icon'] }} text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-900">{{ $activity['title'] }}</p>
-                                        <p class="text-sm text-gray-500">{{ $activity['time'] }}</p>
-                                    </div>
-                                </div>
-                                <div class="text-sm text-gray-500">
-                                    <i class="fas fa-chevron-right"></i>
-                                </div>
-                            </div>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
     </div>
 </body>
-</html>
+</html> 
