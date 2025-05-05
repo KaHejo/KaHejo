@@ -32,7 +32,7 @@ class AuthController extends Controller
             
             // Check if user is admin
             if (Auth::user()->isAdmin()) {
-                return redirect()->intended('company');
+                return redirect()->intended('admin');
             }
             
             return redirect()->intended('main');
