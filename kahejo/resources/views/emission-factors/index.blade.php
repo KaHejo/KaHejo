@@ -57,10 +57,10 @@
     
     <div class="card mt-4">
         <div class="card-header">
-            Penjelasan Fitur
+            Tata Cara Penggunaan
         </div>
         <div class="card-body">
-            <p>Halaman ini digunakan untuk mengelola faktor konversi emisi yang akan digunakan dalam kalkulasi carbon footprint. Faktor konversi ini perlu diperbarui sesuai dengan regulasi atau referensi terbaru untuk memastikan perhitungan tetap relevan dan akurat.</p>
+            <p>Halaman ini digunakan untuk mengelola faktor konversi emisi berdasarkan ketetapan yang ada. Faktor konversi ini perlu diperbarui sesuai dengan regulasi atau referensi terbaru untuk memastikan perhitungan tetap relevan dan akurat.</p>
             
             <h5 class="mt-3">Cara Penggunaan:</h5>
             <ul>
