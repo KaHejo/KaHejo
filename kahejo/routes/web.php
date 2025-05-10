@@ -1,45 +1,57 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CarbonFootprintController; 
 use App\Http\Controllers\MainController;
-use App\Http\Controllers\CarbonFootprintController;
+use App\Http\Controllers\EmissionsFactorController;
+use App\Http\Controllers\CompanyEnergyController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RewardController;
-use App\Http\Controllers\Admin\PointRuleController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\CalculatorRuleController; // <- pastikan ada controller ini
 
-// Landing page
+// Welcome Route
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Carbon Calculator
-Route::get('/carbon', [CarbonFootprintController::class, 'index'])->name('carbon');
-Route::post('/carbon/calculate', [CarbonFootprintController::class, 'calculate']);
+// Authentication Routes
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Main pages
-Route::get('/main', [MainController::class, 'index'])->name('main');
-Route::get('/profile', [MainController::class, 'profile'])->name('profile');
-Route::get('/settings', [MainController::class, 'settings'])->name('settings');
+// Protected Routes
+Route::middleware(['auth'])->group(function () {
+    // Main Routes
+    Route::get('/main', [MainController::class, 'index'])->name('main');
+    Route::get('/profile', [MainController::class, 'profile'])->name('profile');
+    Route::put('/profile', [MainController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/profile/password', [MainController::class, 'updatePassword'])->name('password.update');
+    Route::get('/settings', [MainController::class, 'settings'])->name('settings');
+    
+    // Admin Routes
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    
+    // Carbon Footprint Routes
+    Route::get('/carbon', [CarbonFootprintController::class, 'index'])->name('carbon');
+    Route::post('/carbon/calculate', [CarbonFootprintController::class, 'calculate'])->name('carbon.calculate');
+
+    // Emissions Routes
+    Route::get('/emissions', [EmissionsController::class, 'index'])->name('emissions');
+    Route::post('/emissions', [EmissionsController::class, 'store'])->name('emissions.store');
+
+    // Company Energy Consumption Routes
+    Route::get('/company', [CompanyEnergyController::class, 'index'])->name('company');
+    Route::post('/company', [CompanyEnergyController::class, 'store'])->name('company.result');
+    Route::get('/company/history', [CompanyEnergyController::class, 'history'])->name('company.history');
+    
+}); 
 
 // Admin Routes
 Route::prefix('admin')->name('admin.')->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    // Point Rules Management
-    Route::get('/point-rules', [PointRuleController::class, 'index'])->name('point-rules.index');
-    Route::get('/point-rules/create', [PointRuleController::class, 'create'])->name('point-rules.create');
-    Route::post('/point-rules', [PointRuleController::class, 'store'])->name('point-rules.store');
-    Route::get('/point-rules/{pointRule}/edit', [PointRuleController::class, 'edit'])->name('point-rules.edit');
-    Route::put('/point-rules/{pointRule}', [PointRuleController::class, 'update'])->name('point-rules.update');
-    Route::delete('/point-rules/{pointRule}', [PointRuleController::class, 'destroy'])->name('point-rules.destroy');
-    Route::post('/point-rules/test', [PointRuleController::class, 'testRule'])->name('point-rules.test');
-
-    // Emission Calculator Rules Management
-    Route::get('/calculator-rules', [CalculatorRuleController::class, 'index'])->name('calculator-rules.index');
-
-
     Route::prefix('rewards')->group(function () {
         // Route untuk menampilkan semua reward (index)
         Route::get('/', [RewardController::class, 'index'])->name('rewards.index');
@@ -60,6 +72,4 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('/{id}', [RewardController::class, 'destroy'])->name('rewards.destroy');
     });
 
-    // Admin Rewards routes
-
-});
+// Routes untuk faktor emisi - dapat diakses tanpa login
