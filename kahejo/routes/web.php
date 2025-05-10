@@ -7,6 +7,7 @@ use App\Http\Controllers\EmissionsFactorController;
 use App\Http\Controllers\CompanyEnergyController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RewardController;
 
 // Welcome Route
 Route::get('/', function () {
@@ -46,4 +47,29 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/company/history', [CompanyEnergyController::class, 'history'])->name('company.history');
     
 }); 
+
+// Admin Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::prefix('rewards')->group(function () {
+        // Route untuk menampilkan semua reward (index)
+        Route::get('/', [RewardController::class, 'index'])->name('rewards.index');
+
+        // Route untuk halaman form untuk menambah reward baru
+        Route::get('/create', [RewardController::class, 'create'])->name('rewards.create');
+
+        // Route untuk menyimpan reward baru
+        Route::post('/', [RewardController::class, 'store'])->name('rewards.store');
+
+        // Route untuk menampilkan halaman edit reward
+        Route::get('{id}/edit', [RewardController::class, 'edit'])->name('rewards.edit');
+
+        // Route untuk memperbarui data reward
+        Route::put('/{id}', [RewardController::class, 'update'])->name('rewards.update');
+
+        // Route untuk menghapus reward
+        Route::delete('/{id}', [RewardController::class, 'destroy'])->name('rewards.destroy');
+    });
+
 // Routes untuk faktor emisi - dapat diakses tanpa login
