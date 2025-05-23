@@ -459,7 +459,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control @error('name') is-invalid @enderror"
                            id="name" name="name" value="{{ old('name') }}"
-                           placeholder="Your Name" required autofocus>
+                           placeholder="Your Full Name" required autofocus>
                     <i class="fas fa-user form-icon"></i>
                     @error('name')
                         <div class="error">{{ $message }}</div>
