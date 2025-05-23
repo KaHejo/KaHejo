@@ -7,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  </head>
     <style>
         :root {
             --primary-color: #2ecc71;
@@ -318,7 +317,7 @@
 
         .register-link {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         .register-link p {
@@ -450,16 +449,16 @@
         </div>
         <div class="login-form">
             <div class="form-header">
-                <h2>Login</h2>
+                <h2>Login Admin</h2>
                 <p>Please enter your credentials to access your account</p>
             </div>
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('admin.login') }}">
                 @csrf
 
                 <div class="form-group">
                     <input type="text" class="form-control @error('name') is-invalid @enderror"
-                           id="name" name="name" value="{{ old('name') }}"
-                           placeholder="Your Name" required autofocus>
+                           id="email" name="email" value="{{ old('name') }}"
+                           placeholder="Your Email" required autofocus>
                     <i class="fas fa-user form-icon"></i>
                     @error('name')
                         <div class="error">{{ $message }}</div>
@@ -475,23 +474,14 @@
                     @enderror
                 </div>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="remember" id="remember">
-                    <label class="form-check-label" for="remember">
-                        Remember Me
-                    </label>
-                </div>
-
                 <button type="submit" class="btn btn-login">
-                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                    <i class="fas fa-sign-in-alt me-2"></i>Login as Admin
                 </button>
 
-                <div class="register-link">
-                    <p>Don't have an account? <a href="{{ route('register') }}">Register here</a></p>
-                </div>
             </form>
-            <div class="register-link w-full flex items-center justify-center">
-                <p>Login As <a href="{{route('admin.login')}}">Admin</span></p>
+
+            <div class="register-link w-full inline-flex items-center justify-center mt-10">
+                <p>Login As <a href="{{route('login')}}">Users</a></p>
             </div>
         </div>
     </div>

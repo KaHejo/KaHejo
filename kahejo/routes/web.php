@@ -1,16 +1,24 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CarbonFootprintController; 
-use App\Http\Controllers\MainController;
-use App\Http\Controllers\EmissionsFactorController;
-use App\Http\Controllers\CompanyEnergyController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CompanyEnergyController;
+use App\Http\Controllers\CarbonFootprintController;
+use App\Http\Controllers\EmissionsFactorController;
 
 // Welcome Route
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/clear-session', function () {
+    Auth::guard('web')->logout();
+    Auth::guard('admin')->logout();
+    session()->flush();
+    return redirect('/admin/login');
 });
 
 // Authentication Routes
@@ -24,14 +32,15 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     // Main Routes
     Route::get('/main', [MainController::class, 'index'])->name('main');
+    // Route::get('/main', [MainController::class, 'index'])->name('main');
     Route::get('/profile', [MainController::class, 'profile'])->name('profile');
     Route::put('/profile', [MainController::class, 'updateProfile'])->name('profile.update');
     Route::put('/profile/password', [MainController::class, 'updatePassword'])->name('password.update');
     Route::get('/settings', [MainController::class, 'settings'])->name('settings');
-    
-    // Admin Routes
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-    
+
+    // // Admin Routes
+    // Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+
     // Carbon Footprint Routes
     Route::get('/carbon', [CarbonFootprintController::class, 'index'])->name('carbon');
     Route::post('/carbon/calculate', [CarbonFootprintController::class, 'calculate'])->name('carbon.calculate');
@@ -44,6 +53,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/company', [CompanyEnergyController::class, 'index'])->name('company');
     Route::post('/company', [CompanyEnergyController::class, 'store'])->name('company.result');
     Route::get('/company/history', [CompanyEnergyController::class, 'history'])->name('company.history');
-    
-}); 
+
+});
 // Routes untuk faktor emisi - dapat diakses tanpa login
+
+require __DIR__.'/admin-auth.php';
