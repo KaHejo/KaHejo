@@ -1,73 +1,77 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="page-title">Manajemen Faktor Konversi Emisi</h2>
-    
-    <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <span>Daftar Faktor Emisi</span>
-            <a href="{{ route('emission-factors.create') }}" class="btn btn-primary btn-sm">
-                <i class="bi bi-plus"></i> Tambah Faktor Baru
-            </a>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
+    <div class="max-w-7xl mx-auto px-4 py-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Manajemen Faktor Konversi Emisi</h2>
+
+        <!-- Daftar Faktor Emisi -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="flex justify-between items-center px-6 py-4 border-b">
+                <span class="text-lg font-medium text-gray-700">Daftar Faktor Emisi</span>
+                <a href="{{ route('emission-factors.create') }}" class="bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded-full inline-flex items-center">
+                    <i class="fas fa-plus mr-2"></i> Tambah Faktor Baru
+                </a>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+                    <thead class="bg-gray-100 text-gray-600 uppercase">
                         <tr>
-                            <th>Nama</th>
-                            <th>Kategori</th>
-                            <th>Nilai</th>
-                            <th>Unit</th>
-                            <th>Sumber</th>
-                            <th style="width: 150px;">Aksi</th>
+                            <th class="px-6 py-3">Nama</th>
+                            <th class="px-6 py-3">Kategori</th>
+                            <th class="px-6 py-3">Nilai</th>
+                            <th class="px-6 py-3">Unit</th>
+                            <th class="px-6 py-3">Sumber</th>
+                            <th class="px-6 py-3">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="divide-y divide-gray-100 text-gray-700">
                         @forelse($factors as $factor)
-                            <tr>
-                                <td>{{ $factor->name }}</td>
-                                <td>{{ $factor->category }}</td>
-                                <td>{{ $factor->value }}</td>
-                                <td>{{ $factor->unit }}</td>
-                                <td>{{ $factor->source ?? '-' }}</td>
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="{{ route('emission-factors.edit', $factor) }}" class="btn btn-sm btn-outline-secondary me-2">
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4">{{ $factor->name }}</td>
+                                <td class="px-6 py-4">{{ $factor->category }}</td>
+                                <td class="px-6 py-4">{{ $factor->value }}</td>
+                                <td class="px-6 py-4">{{ $factor->unit }}</td>
+                                <td class="px-6 py-4">{{ $factor->source ?? '-' }}</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex space-x-2">
+                                        <a href="{{ route('emission-factors.edit', $factor) }}" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
                                             Edit
                                         </a>
                                         <form action="{{ route('emission-factors.destroy', $factor) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
+                                            <button type="submit" class="text-red-600 hover:text-red-800 text-sm font-medium">
+                                                Hapus
+                                            </button>
                                         </form>
                                     </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">Belum ada data faktor emisi</td>
+                                <td colspan="6" class="px-6 py-4 text-center text-gray-500">Belum ada data faktor emisi</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>
-    
-    <div class="card mt-4">
-        <div class="card-header">
-            Tata Cara Penggunaan
-        </div>
-        <div class="card-body">
-            <p>Halaman ini digunakan untuk mengelola faktor konversi emisi berdasarkan ketetapan yang ada. Faktor konversi ini perlu diperbarui sesuai dengan regulasi atau referensi terbaru untuk memastikan perhitungan tetap relevan dan akurat.</p>
-            
-            <h5 class="mt-3">Cara Penggunaan:</h5>
-            <ul>
-                <li>Gunakan tombol <strong>Tambah Faktor Baru</strong> untuk menambahkan faktor konversi baru</li>
-                <li>Gunakan tombol <strong>Edit</strong> untuk mengubah data faktor konversi yang sudah ada</li>
-                <li>Gunakan tombol <strong>Hapus</strong> untuk menghapus faktor konversi yang tidak diperlukan lagi</li>
-            </ul>
+
+        <!-- Tata Cara Penggunaan -->
+        <div class="bg-white shadow rounded-lg mt-8">
+            <div class="px-6 py-4 border-b">
+                <h3 class="text-lg font-medium text-gray-800">Tata Cara Penggunaan</h3>
+            </div>
+            <div class="px-6 py-4 text-gray-700">
+                <p>Halaman ini digunakan untuk mengelola faktor konversi emisi berdasarkan ketetapan yang ada. Faktor konversi ini perlu diperbarui sesuai dengan regulasi atau referensi terbaru untuk memastikan perhitungan tetap relevan dan akurat.</p>
+
+                <h4 class="mt-4 font-semibold">Cara Penggunaan:</h4>
+                <ul class="list-disc list-inside mt-2 space-y-1">
+                    <li>Gunakan tombol <strong>Tambah Faktor Baru</strong> untuk menambahkan faktor konversi baru</li>
+                    <li>Gunakan tombol <strong>Edit</strong> untuk mengubah data faktor konversi yang sudah ada</li>
+                    <li>Gunakan tombol <strong>Hapus</strong> untuk menghapus faktor konversi yang tidak diperlukan lagi</li>
+                </ul>
+            </div>
         </div>
     </div>
 @endsection

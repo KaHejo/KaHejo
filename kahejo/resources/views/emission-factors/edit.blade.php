@@ -1,76 +1,80 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="page-title">Edit Faktor Konversi Emisi</h2>
+<div class="max-w-2xl mx-auto px-4 py-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Edit Faktor Konversi Emisi</h2>
 
-    <div class="card">
-        <div class="card-header">
-            Form Edit Faktor Emisi
+    <form action="{{ route('emission-factors.update', $emissionFactor) }}" method="POST" class="bg-white p-6 rounded shadow">
+        @csrf
+        @method('PUT')
+
+        {{-- Nama Faktor --}}
+        <div class="mb-4">
+            <label for="name" class="block font-medium text-gray-700">Nama Faktor <span class="text-red-500">*</span></label>
+            <input type="text" id="name" name="name" value="{{ old('name', $emissionFactor->name) }}"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('name') border-red-500 @enderror" required>
+            @error('name')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
-        <div class="card-body">
-            <form action="{{ route('emission-factors.update', $emissionFactor) }}" method="POST">
-                @csrf
-                @method('PUT')
-                
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nama Faktor <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $emissionFactor->name) }}" required>
-                    @error('name')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                
-                <div class="mb-3">
-                    <label for="category" class="form-label">Kategori <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control @error('category') is-invalid @enderror" id="category" name="category" value="{{ old('category', $emissionFactor->category) }}" required>
-                    @error('category')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="value" class="form-label">Nilai <span class="text-danger">*</span></label>
-                            <input type="number" step="0.0001" class="form-control @error('value') is-invalid @enderror" id="value" name="value" value="{{ old('value', $emissionFactor->value) }}" required>
-                            @error('value')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="unit" class="form-label">Unit <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit', $emissionFactor->unit) }}" required>
-                            @error('unit')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="source" class="form-label">Sumber Referensi</label>
-                    <input type="text" class="form-control @error('source') is-invalid @enderror" id="source" name="source" value="{{ old('source', $emissionFactor->source) }}">
-                    @error('source')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                
-                <div class="mb-3">
-                    <label for="description" class="form-label">Deskripsi</label>
-                    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3">{{ old('description', $emissionFactor->description) }}</textarea>
-                    @error('description')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                
-                <div class="d-flex justify-content-between mt-4">
-                    <a href="{{ route('emission-factors.index') }}" class="btn btn-secondary">Kembali</a>
-                    <button type="submit" class="btn btn-primary">Perbarui</button>
-                </div>
-            </form>
+
+        {{-- Kategori --}}
+        <div class="mb-4">
+            <label for="category" class="block font-medium text-gray-700">Kategori <span class="text-red-500">*</span></label>
+            <input type="text" id="category" name="category" value="{{ old('category', $emissionFactor->category) }}"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('category') border-red-500 @enderror" required>
+            @error('category')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
-    </div>
+
+        {{-- Nilai dan Unit --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+                <label for="value" class="block font-medium text-gray-700">Nilai <span class="text-red-500">*</span></label>
+                <input type="number" step="0.0001" id="value" name="value" value="{{ old('value', $emissionFactor->value) }}"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('value') border-red-500 @enderror" required>
+                @error('value')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+            <div>
+                <label for="unit" class="block font-medium text-gray-700">Unit <span class="text-red-500">*</span></label>
+                <input type="text" id="unit" name="unit" value="{{ old('unit', $emissionFactor->unit) }}"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('unit') border-red-500 @enderror" required>
+                @error('unit')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+        </div>
+
+        {{-- Sumber Referensi --}}
+        <div class="mb-4">
+            <label for="source" class="block font-medium text-gray-700">Sumber Referensi</label>
+            <input type="text" id="source" name="source" value="{{ old('source', $emissionFactor->source) }}"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('source') border-red-500 @enderror">
+            @error('source')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        {{-- Deskripsi --}}
+        <div class="mb-4">
+            <label for="description" class="block font-medium text-gray-700">Deskripsi</label>
+            <textarea id="description" name="description" rows="3"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('description') border-red-500 @enderror">{{ old('description', $emissionFactor->description) }}</textarea>
+            @error('description')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        {{-- Tombol --}}
+        <div class="flex justify-between mt-6">
+            <a href="{{ route('emission-factors.index') }}"
+               class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition">Kembali</a>
+            <button type="submit"
+               class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">Perbarui</button>
+        </div>
+    </form>
+</div>
 @endsection
