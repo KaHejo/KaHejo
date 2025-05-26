@@ -35,12 +35,25 @@ class MainController extends Controller
                 ];
             });
 
+        // Get lowest carbon footprint
+        $lowestFootprint = CarbonFootprint::where('user_id', $user->id)
+            ->orderBy('total', 'asc')
+            ->first();
+
         // Calculate user-specific stats
         $stats = [
             'totalCarbonFootprint' => $carbonHistory->sum('total'),
             'averageMonthlyFootprint' => $carbonHistory->avg('total'),
             'lastMonthFootprint' => $carbonHistory->first()['total'] ?? 0,
-            'improvement' => $this->calculateImprovement($carbonHistory)
+            'improvement' => $this->calculateImprovement($carbonHistory),
+            'lowestFootprint' => $lowestFootprint ? [
+                'value' => $lowestFootprint->total,
+                'date' => Carbon::parse($lowestFootprint->created_at)->format('M Y'),
+                'electricity' => $lowestFootprint->electricity,
+                'transportation' => $lowestFootprint->transportation,
+                'waste' => $lowestFootprint->waste,
+                'water' => $lowestFootprint->water
+            ] : null
         ];
 
         // Get user's recent activities
