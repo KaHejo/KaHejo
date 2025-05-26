@@ -31,5 +31,8 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
-    
-} 
+    public function achievements()
+    {
+        return $this->belongsToMany(\App\Models\Achievement::class, 'user_achievements');
+    }
+}

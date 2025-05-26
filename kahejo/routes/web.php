@@ -50,6 +50,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/company', [CompanyEnergyController::class, 'store'])->name('company.result');
     Route::get('/company/history', [CompanyEnergyController::class, 'history'])->name('company.history');
     
+    // achievements
+    Route::get('/achievements', [AchievementController::class, 'main'])->name('achievements');
 }); 
 
 // Admin Routes

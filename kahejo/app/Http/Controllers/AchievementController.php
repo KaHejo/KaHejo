@@ -7,6 +7,8 @@ use App\Models\Achievement;
 
 class AchievementController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      */
@@ -15,6 +17,12 @@ class AchievementController extends Controller
         $achievements = Achievement::paginate(5);
         return view('Admin.achievements.index', compact('achievements'));
         
+    }
+
+    public function main()
+    {
+        $achievements = Achievement::paginate(5);
+        return view('achievements.index', compact('achievements'));
     }
 
     /**

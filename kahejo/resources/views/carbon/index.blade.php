@@ -75,6 +75,19 @@
         .user-profile:hover {
             transform: translateY(-1px);
         }
+        .logout-btn {
+            transition: all 0.2s ease;
+            background: linear-gradient(to right, #10B981, #059669);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            border: none;
+        }
+        .logout-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -103,6 +116,10 @@
                         <a href="{{ route('company') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('company') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-chart-line text-lg mr-2"></i>
                             Energy Consumption
+                        </a>
+                        <a href="{{ route('achievements') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('achievements') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-trophy text-lg mr-2"></i>
+                            Achievements
                         </a>
                     </div>
                 </div>
