@@ -134,7 +134,7 @@
                             <i class="nav-icon fas fa-chart-line text-lg mr-2"></i>
                             Energy Consumption
                         </a>
-                        <a href="{{ route('education') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
+                        <a href="{{ route('education') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 dark:text-dark-text-secondary">
                             <i class="nav-icon fas fa-graduation-cap text-lg mr-2"></i>
                             Education
                         </a>
