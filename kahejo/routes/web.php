@@ -5,8 +5,9 @@ use App\Http\Controllers\CarbonFootprintController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\EmissionsFactorController;
 use App\Http\Controllers\CompanyEnergyController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\RewardController;
 
 // Welcome Route
@@ -52,6 +53,8 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Users Management
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::prefix('rewards')->group(function () {
         // Route untuk menampilkan semua reward (index)
         Route::get('/', [RewardController::class, 'index'])->name('rewards.index');
@@ -71,6 +74,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Route untuk menghapus reward
         Route::delete('/{id}', [RewardController::class, 'destroy'])->name('rewards.destroy');
     });
+
 
 // Routes untuk faktor emisi - dapat diakses tanpa login
 });

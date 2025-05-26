@@ -12,7 +12,7 @@ class RewardController extends Controller
      */
     public function index()
     {
-        $rewards = Reward::all();
+        $rewards = Reward::paginate(5);
         return view('Admin.rewards.index', compact('rewards'));
     }
 
@@ -48,7 +48,7 @@ class RewardController extends Controller
         ]);
 
 
-        return redirect()->route('Admin.rewards.index')->with('success', 'Rewards berhasil ditambahkan');
+        return redirect()->route('admin.rewards.index')->with('success', 'Rewards berhasil ditambahkan');
 
 
     }
@@ -106,7 +106,7 @@ class RewardController extends Controller
         }  
         $reward->update($validatedData);
 
-        return redirect()->route('Admin.rewards.index')->with('success', 'Reward berhasil diperbarui');
+        return redirect()->route('admin.rewards.index')->with('success', 'Reward berhasil diperbarui');
     }
 
     /**
@@ -127,6 +127,6 @@ class RewardController extends Controller
         // Hapus UKM dari database  
         $rewards->delete();  
 
-        return redirect()->route('Admin.rewards.index')->with('success', 'Reward berhasil dihapus');
+        return redirect()->route('admin.rewards.index')->with('success', 'Reward berhasil dihapus');
     }
 }

@@ -247,8 +247,8 @@
                                         </div>
                                     </div>
                                     <div class="ml-3">
-                                        <p class="text-xs font-medium text-gray-500">ID Record</p>
-                                        <p class="text-sm font-semibold text-gray-900">#{{ $consumption->id }}</p>
+                                        <p class="text-xs font-medium text-gray-500">Dibuat Oleh</p>
+                                        <p class="text-sm font-semibold text-gray-900">{{ $result['user_name'] }}</p>
                                     </div>
                                 </div>
                             </div>

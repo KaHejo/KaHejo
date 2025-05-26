@@ -22,6 +22,7 @@ class CompanyEnergyController extends Controller
 
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'source_type' => 'required|string',
             'consumption_amount' => 'required|numeric|min:0',
@@ -34,6 +35,7 @@ class CompanyEnergyController extends Controller
 
         // Save to database using service
         $consumption = $this->companyEnergyService->store([
+            'user_id' => Auth::id(),
             'source_type' => $validated['source_type'],
             'consumption_amount' => $validated['consumption_amount'],
             'unit_measurement' => $validated['unit_measurement'],
@@ -45,6 +47,7 @@ class CompanyEnergyController extends Controller
 
         // Prepare result data for the view
         $result = [
+            'user_name' => Auth::user()->name,
             'source_type' => $validated['source_type'],
             'consumption_amount' => $validated['consumption_amount'],
             'unit_measurement' => $validated['unit_measurement'],

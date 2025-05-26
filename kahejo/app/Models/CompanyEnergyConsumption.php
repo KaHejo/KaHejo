@@ -15,6 +15,7 @@ class CompanyEnergyConsumption extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'company_id',
         'source_type',
         'consumption_amount',
@@ -42,4 +43,12 @@ class CompanyEnergyConsumption extends Model
     {
         return $this->belongsTo(Company::class);
     }
+    /**
+     * Get the user that owns the energy consumption record.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
 } 
