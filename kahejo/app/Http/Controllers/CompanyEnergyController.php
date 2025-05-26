@@ -35,21 +35,25 @@ class CompanyEnergyController extends Controller
             'reporting_period' => 'required|string|in:monthly,yearly',
         ]);
 
-        //saya mau terdapat code yang otomatis tertambah ketika user sudah menyelesaikan menginputkan company_energy_consumption lalu nanti akan ada proses dimana mengecek consumption_amount, source_type yang sudah diinputkan user apakah ada yang sesuai sesuai dengan achievement yang ada di database
         $achievements = Achievement::where('points_needed', '<=', $validated['consumption_amount'])
             ->where('category', $validated['source_type'])
             ->get();
 
         foreach ($achievements as $achievement) {
-            UserAchievement::updateOrCreate([
+            $alreadyHas = UserAchievement::where('user_id', Auth::id())
+            ->where('achievement_id', $achievement->id)
+            ->exists();
+
+            if (!$alreadyHas) {
+            UserAchievement::create([
                 'user_id' => Auth::id(),
                 'achievement_id' => $achievement->id,
             ]);
             session()->flash('achievement', 'Congratulations! You have earned the achievement: ' . $achievement->name);
-            //tambahkan point ke user
             $user = Auth::user();
             $user->points += $achievement->points_awarded;
             $user->save();
+            }
         }
 
         // Save to database using service
