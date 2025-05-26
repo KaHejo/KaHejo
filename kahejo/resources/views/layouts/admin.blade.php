@@ -18,7 +18,7 @@
                 <ul class="space-y-2">
                     <li><a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 rounded {{ request()->is('admin/dashboard') ? 'bg-red-800' : 'hover:bg-red-800' }}">Dashboard</a></li>
                     <li><a href="{{ route('admin.users.index') }}" class="block px-4 py-2 rounded hover:bg-red-800">Users</a></li>
-                    <li><a href="#" class="block px-4 py-2 rounded hover:bg-red-800">Achievements</a></li>
+                    <li><a href="{{ route('admin.achievements.index') }}" class="block px-4 py-2 rounded hover:bg-red-800">Achievements</a></li>
                     <li><a href="#" class="block px-4 py-2 rounded hover:bg-red-800">User Achievements</a></li>
                     <li><a href="{{ route('admin.rewards.index') }}" class="block px-4 py-2 rounded hover:bg-red-800">Rewards</a></li>
                     <li><a href="#" class="block px-4 py-2 rounded hover:bg-red-800">History Claim</a></li>

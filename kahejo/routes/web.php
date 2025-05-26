@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\RewardController;
+use App\Http\Controllers\AchievementController;
 
 // Welcome Route
 Route::get('/', function () {
@@ -73,6 +74,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Route untuk menghapus reward
         Route::delete('/{id}', [RewardController::class, 'destroy'])->name('rewards.destroy');
+    });
+
+    // Achievement Management
+    Route::prefix('achievements')->group(function () {
+        Route::get('/', [AchievementController::class, 'index'])->name('achievements.index');
+        Route::get('/create', [AchievementController::class, 'create'])->name('achievements.create');
+        Route::post('/', [AchievementController::class, 'store'])->name('achievements.store');
+        Route::get('{id}/edit', [AchievementController::class, 'edit'])->name('achievements.edit');
+        Route::put('/{id}', [AchievementController::class, 'update'])->name('achievements.update');
+        Route::delete('/{id}', [AchievementController::class, 'destroy'])->name('achievements.destroy');
     });
 
 
