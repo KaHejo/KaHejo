@@ -94,9 +94,15 @@
             <div class="mb-4">
                 <div class="success-badge">
                     <i class="fas fa-check-circle"></i>
-                    <span class="text-sm font-medium">Data konsumsi energi berhasil disimpa</span>
+                    <span class="text-sm font-medium">Data konsumsi energi berhasil disimpan</span>
                 </div>
             </div>
+            <!-- Achievement Alert -->
+            @if(session('achievement'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                    {{ session('achievement') }}
+                </div>
+            @endif
 
             <!-- Main Card -->
             <div class="card-hover bg-white shadow-lg rounded-lg border border-gray-100 overflow-hidden">
@@ -293,4 +299,4 @@
         </div>
     </div>
 </body>
-</html> 
+</html>

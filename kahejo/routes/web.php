@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\AchievementController;
+use App\Http\Controllers\UserAchievementController;
 
 // Welcome Route
 Route::get('/', function () {
@@ -85,6 +86,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/{id}', [AchievementController::class, 'update'])->name('achievements.update');
         Route::delete('/{id}', [AchievementController::class, 'destroy'])->name('achievements.destroy');
     });
+
+    // User Achievements Management 
+    Route::get('/user-achievements', [UserAchievementController::class, 'index'])->name('user-achievements.index');
+    
 
 
 // Routes untuk faktor emisi - dapat diakses tanpa login
