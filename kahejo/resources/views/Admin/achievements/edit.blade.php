@@ -45,8 +45,12 @@
                 </select>
             </div>
             <div class="mb-4">
-                <label for="points" class="block text-sm font-medium text-gray-700">Points</label>
-                <input type="number" name="points" id="points" value="{{ old('points', $achievement->points) }}" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                <label for="points_needed" class="block text-sm font-medium text-gray-700">Points Needed</label>
+                <input type="number" name="points_needed" id="points_needed" value="{{ old('points_needed', $achievement->points_needed) }}" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="points_awarded" class="block text-sm font-medium text-gray-700">Points Awarded</label>
+                <input type="number" name="points_awarded" id="points_awarded" value="{{ old('points_awarded', $achievement->points_awarded) }}" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
             </div>
             <div class="mb-4">
                 <label for="icon" class="block text-sm font-medium text-gray-700">Icon</label>

@@ -35,7 +35,8 @@ class AchievementController extends Controller
             'description' => 'required|string|max:1000',
             'icon' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'category' => 'nullable|string|max:255',
-            'points' => 'required|integer|min:0',
+            'points_needed' => 'required|integer|min:0',
+            'points_awarded' => 'required|integer|min:0',
         ]);
 
         $imageExtension = $request->icon->extension(); // Ambil ekstensi file
@@ -76,7 +77,8 @@ class AchievementController extends Controller
             'description' => 'required|string|max:1000',
             'icon' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'category' => 'nullable|string|max:255',
-            'points' => 'required|integer|min:0',
+            'points_needed' => 'required|integer|min:0',
+            'points_awarded' => 'required|integer|min:0',
         ]);
 
         if ($request->hasFile('icon')) {

@@ -29,7 +29,8 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Points</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Point Needed</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Point Awarded</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Icon</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
@@ -50,7 +51,10 @@
                         {{ $achievement->category ?? '-' }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ $achievement->points }}
+                        {{ $achievement->points_needed }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ $achievement->points_awarded }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         @if($achievement->icon)
@@ -88,7 +92,8 @@
                         <h4>Details:</h4>
                         <ul>
                             <li>Achievement Name: {{ $item->name }}</li>
-                            <li>Points Required: {{ $item->points }}</li>
+                            <li>Points Required: {{ $item->points_needed }}</li>
+                            <li>Points Awarded: {{ $item->points_awarded }}</li>
                             <li>Category: {{ $item->category ?? '-' }}</li>
                             <li>Description: {{ $item->description }}</li>
                             <li>Image: <br>

@@ -16,7 +16,8 @@ class Achievement extends Model
         'description',
         'icon',
         'category',
-        'points',
+        'points_needed',
+        'points_awarded',
     ];
 
     /**
@@ -25,6 +26,7 @@ class Achievement extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'points' => 'integer',
+        'points_needed' => 'integer',
+        'points_awarded' => 'integer',
     ];
 }
