@@ -187,7 +187,7 @@
                         <img class="h-8 w-8 rounded-full ring-2 ring-green-500" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User">
                         <div class="ml-3">
                             <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name }}</p>
-                            <p class="text-xs text-gray-500">Administrator</p>
+                            <p class="text-xs text-gray-500">User</p>
                         </div>
                     </div>
 
