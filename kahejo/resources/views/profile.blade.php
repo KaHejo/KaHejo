@@ -137,6 +137,10 @@
                             <i class="nav-icon fas fa-chart-line text-lg mr-2"></i>
                             Energy Consumption
                         </a>
+                        <a href="{{ route('education') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
+                            <i class="nav-icon fas fa-graduation-cap text-lg mr-2"></i>
+                            Education
+                        </a>
                     </div>
                 </div>
 
@@ -183,7 +187,7 @@
                             <i class="fas fa-user text-green-600"></i>
                         </div>
                     </div>
-                    <form class="space-y-4" action="{{ route('profile.update') }}" method="POST">
+                    <form class="space-y-4" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         
@@ -262,6 +266,21 @@
                                     </select>
                                 </div>
                                 @error('gender')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Company</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-building text-gray-400"></i>
+                                    </div>
+                                    <input type="text" name="company" value="{{ Auth::user()->company }}" 
+                                        class="input-field @error('company') border-red-500 @enderror"
+                                        placeholder="Enter your company name">
+                                </div>
+                                @error('company')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>

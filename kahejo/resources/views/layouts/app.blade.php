@@ -78,6 +78,10 @@
                             <i class="fas fa-chart-line w-6 text-green-600"></i>
                             <span class="ml-2">Energy Consumption</span>
                         </a>
+                        <a href="{{ route('education') }}" class="nav-link inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500">
+                            <i class="fas fa-graduation-cap w-6 text-green-600"></i>
+                            <span class="ml-2">Education</span>
+                        </a>
                     </div>
                 </div>
 

@@ -88,7 +88,9 @@ class MainController extends Controller
             'phone' => 'nullable|string|max:20',
             'birth_date' => 'nullable|date',
             'gender' => 'nullable|in:male,female,other',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'company' => 'nullable|string|max:255',
+            'profile_photo_path' => 'nullable|string|max:255',
         ]);
 
         $user = Auth::user();
@@ -97,6 +99,7 @@ class MainController extends Controller
         $user->phone = $request->phone;
         $user->birth_date = $request->birth_date;
         $user->gender = $request->gender;
+        $user->company = $request->company;
 
         if ($request->hasFile('photo')) {
             $path = $request->file('photo')->store('profile-photos', 'public');
@@ -124,7 +127,6 @@ class MainController extends Controller
 
     public function settings()
     {
-        $user = null; // Will be Auth::user() when auth is implemented
-        return view('settings', compact('user'));
+        return view('settings');
     }
 } 

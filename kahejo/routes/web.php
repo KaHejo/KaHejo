@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompanyEnergyController;
 use App\Http\Controllers\CarbonFootprintController;
 use App\Http\Controllers\EmissionsFactorController;
+use App\Http\Controllers\EducationController;
 
 // Welcome Route
 Route::get('/', function () {
@@ -52,6 +53,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/company', [CompanyEnergyController::class, 'index'])->name('company');
     Route::post('/company', [CompanyEnergyController::class, 'store'])->name('company.result');
     Route::get('/company/history', [CompanyEnergyController::class, 'history'])->name('company.history');
+
+    // Education Routes
+    Route::get('/education', [EducationController::class, 'education'])->name('education');
+    Route::get('/education/article/{slug}', [EducationController::class, 'article'])->name('education.article');
+
+    // Routes for creating and storing articles
+    Route::get('/education/articles/create', [EducationController::class, 'createArticle'])->name('education.articles.create');
+    Route::post('/education/articles', [EducationController::class, 'storeArticle'])->name('education.articles.store');
 
 });
 // Routes untuk faktor emisi - dapat diakses tanpa login
