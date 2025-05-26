@@ -11,5 +11,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             EmissionFactorSeeder::class,
         ]);
+
+        $this->call([
+            AdminSeeder::class,
+        ]);
     }
 }
