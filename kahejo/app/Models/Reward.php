@@ -10,6 +10,7 @@ class Reward extends Model
         'reward_name',
         'reward_description',
         'points_required',
-        'reward_image'
+        'reward_image',
+        'stock'
     ];
 }

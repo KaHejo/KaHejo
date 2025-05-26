@@ -29,6 +29,7 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reward Name</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Points Required</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
@@ -47,6 +48,9 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {{ $item->points_required }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {{ $item->stock }}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         @if($item->reward_image)
@@ -86,6 +90,7 @@
                         <ul>
                             <li>Reward Name: {{ $item->reward_name }}</li>
                             <li>Points Required: {{ $item->points_required }}</li>
+                            <li>Stock: {{ $item->stock }}</li>
                             <li>Description: {{ $item->reward_description }}</li>
                             <li>Image: <br>
                                 @if($item->reward_image)

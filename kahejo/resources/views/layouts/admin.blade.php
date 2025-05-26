@@ -21,7 +21,7 @@
                     <li><a href="{{ route('admin.achievements.index') }}" class="block px-4 py-2 rounded hover:bg-red-800">Achievements</a></li>
                     <li><a href="{{ route('admin.user-achievements.index') }}" class="block px-4 py-2 rounded hover:bg-red-800">User Achievements</a></li>
                     <li><a href="{{ route('admin.rewards.index') }}" class="block px-4 py-2 rounded hover:bg-red-800">Rewards</a></li>
-                    <li><a href="#" class="block px-4 py-2 rounded hover:bg-red-800">History Claim</a></li>
+                    <li><a href="{{ route('admin.history-claims.index') }}" class="block px-4 py-2 rounded hover:bg-red-800">History Claim</a></li>
                 </ul>
             </nav>
         </aside>

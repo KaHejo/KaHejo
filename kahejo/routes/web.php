@@ -12,6 +12,7 @@ use App\Http\Controllers\RewardController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\UserAchievementController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HistoryClaimController;
 
 // Welcome Route
 Route::get('/', function () {
@@ -52,6 +53,11 @@ Route::middleware(['auth'])->group(function () {
     
     // achievements
     Route::get('/achievements', [AchievementController::class, 'main'])->name('achievements');
+
+    // Rewards
+    Route::get('/rewards', [RewardController::class, 'main'])->name('rewards');
+    Route::get('/rewards/{id}', [RewardController::class, 'show'])->name('rewards.show');
+    Route::post('/rewards/{id}/redeem', [RewardController::class, 'redeem'])->name('rewards.redeem');
 }); 
 
 // Admin Routes
@@ -92,6 +98,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // User Achievements Management 
     Route::get('/user-achievements', [UserAchievementController::class, 'index'])->name('user-achievements.index');
+
+    // History Claims Management
+    Route::get('/history-claims', [HistoryClaimController::class, 'index'])->name('history-claims.index');
     
 
 

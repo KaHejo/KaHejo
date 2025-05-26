@@ -189,7 +189,7 @@
                         Total Points: {{ $totalPoints }}
                     </span>
                 </div>
-                <a href="#"
+                <a href="{{ route('rewards') }}"
                    class="inline-flex items-center px-4 py-2 rounded-lg bg-kahejo-dark hover:bg-kahejo-darkest text-white font-semibold shadow transition">
                     <i class="fas fa-gift mr-2"></i>
                     Go to Rewards

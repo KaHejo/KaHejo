@@ -36,6 +36,15 @@
                     @enderror  
                 </div>  
 
+                <!-- Stok Reward -->
+                <div class="mb-4">
+                    <label for="stock" class="block text-gray-700 font-medium">Stok Reward</label>
+                    <input type="number" class="form-control @error('stock') is-invalid @enderror mt-2 p-3 border rounded-lg w-full" name="stock" id="stock" placeholder="Jumlah Stok" value="{{ old('stock') }}">
+                    @error('stock')  
+                        <span class="text-sm text-red-500">{{ $message }}</span>  
+                    @enderror
+                </div>
+
                 <!-- Gambar Reward -->
                 <div class="mb-4">
                     <label for="reward_image" class="block text-gray-700 font-medium">Gambar Reward</label>
