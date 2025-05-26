@@ -31,8 +31,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
     // Main Routes
-    Route::get('/main', [MainController::class, 'index'])->name('main');
-    // Route::get('/main', [MainController::class, 'index'])->name('main');
+    Route::get('/main', [MainController::class, 'index'])->name('dashboard');
     Route::get('/profile', [MainController::class, 'profile'])->name('profile');
     Route::put('/profile', [MainController::class, 'updateProfile'])->name('profile.update');
     Route::put('/profile/password', [MainController::class, 'updatePassword'])->name('password.update');
