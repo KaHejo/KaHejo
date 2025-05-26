@@ -73,3 +73,4 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
 // Routes untuk faktor emisi - dapat diakses tanpa login
+});
