@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CarbonFootprint;
+use Illuminate\Support\Facades\DB;
 
 class CarbonFootprintController extends Controller
 {
@@ -21,14 +22,19 @@ class CarbonFootprintController extends Controller
             'water' => 'required|numeric',
         ]);
 
+        // Ambil faktor emisi dari database
+        $factors = DB::table('emission_factors')
+            ->whereIn('category', ['Listrik', 'Bensin', 'Limbah', 'Air'])
+            ->pluck('value', 'category');
+
         // Calculate carbon footprint
         $results = [
-            'electricity' => $validated['electricity'] * 0.5, // 0.5 kg CO2 per kWh
-            'transportation' => $validated['transportation'] * 0.2, // 0.2 kg CO2 per km
-            'waste' => $validated['waste'] * 2.5, // 2.5 kg CO2 per kg of waste
-            'water' => $validated['water'] * 0.3, // 0.3 kg CO2 per m3 of water
+            'electricity' => $validated['electricity'] * ($factors['Listrik'] ?? 0.5), // 0.5 kg CO2 per kWh
+            'transportation' => $validated['transportation'] * ($factors['Bensin'] ?? 0.2), // 0.2 kg CO2 per km
+            'waste' => $validated['waste'] * ($factors['Limbah'] ?? 2.5), // 2.5 kg CO2 per kg of waste
+            'water' => $validated['water'] * ($factors['Air'] ?? 0.3), // 0.3 kg CO2 per m3 of water
         ];
-
+ 
         // Calculate total
         $results['total'] = array_sum($results);
 

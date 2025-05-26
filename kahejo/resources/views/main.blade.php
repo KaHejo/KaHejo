@@ -265,6 +265,49 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Lowest Carbon Footprint Card -->
+            @if($stats['lowestFootprint'])
+            <div class="col-span-full bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border card-hover">
+                <div class="p-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
+                                    <i class="fas fa-trophy text-green-600 dark:text-green-400 text-2xl"></i>
+                                </div>
+                            </div>
+                            <div class="ml-5">
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-dark-text-primary">Lowest Carbon Footprint Achievement</h3>
+                                <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Your best performance in reducing carbon emissions</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">{{ number_format($stats['lowestFootprint']['value'], 2) }} kg CO₂</div>
+                            <div class="text-sm text-gray-500 dark:text-dark-text-secondary">Achieved in {{ $stats['lowestFootprint']['date'] }}</div>
+                        </div>
+                    </div>
+                    <div class="mt-6 grid grid-cols-4 gap-6">
+                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
+                            <div class="text-sm text-gray-500 dark:text-dark-text-secondary">Electricity</div>
+                            <div class="mt-1 text-lg font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lowestFootprint']['electricity'], 2) }} kg</div>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
+                            <div class="text-sm text-gray-500 dark:text-dark-text-secondary">Transportation</div>
+                            <div class="mt-1 text-lg font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lowestFootprint']['transportation'], 2) }} kg</div>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
+                            <div class="text-sm text-gray-500 dark:text-dark-text-secondary">Waste</div>
+                            <div class="mt-1 text-lg font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lowestFootprint']['waste'], 2) }} kg</div>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
+                            <div class="text-sm text-gray-500 dark:text-dark-text-secondary">Water</div>
+                            <div class="mt-1 text-lg font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lowestFootprint']['water'], 2) }} kg</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
 
         <!-- Recent Activities -->
