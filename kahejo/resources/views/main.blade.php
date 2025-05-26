@@ -150,19 +150,14 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <div class="p-3 rounded-full bg-green-50">
-                                <i class="fas fa-users text-green-600 text-2xl"></i>
+                                <i class="fas fa-leaf text-green-600 text-2xl"></i>
                             </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">Total Users</dt>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Total Carbon Footprint</dt>
                                 <dd class="flex items-baseline">
-                                    <div class="text-2xl font-semibold text-gray-900">{{ number_format($stats['totalUsers']) }}</div>
-                                    <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
-                                        <i class="fas fa-arrow-up"></i>
-                                        <span class="sr-only">Increased by</span>
-                                        12%
-                                    </div>
+                                    <div class="text-2xl font-semibold text-gray-900">{{ number_format($stats['totalCarbonFootprint'], 2) }} kg</div>
                                 </dd>
                             </dl>
                         </div>
@@ -181,14 +176,9 @@
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">Growth</dt>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Monthly Average</dt>
                                 <dd class="flex items-baseline">
-                                    <div class="text-2xl font-semibold text-gray-900">{{ $stats['growth'] }}%</div>
-                                    <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
-                                        <i class="fas fa-arrow-up"></i>
-                                        <span class="sr-only">Increased by</span>
-                                        8%
-                                    </div>
+                                    <div class="text-2xl font-semibold text-gray-900">{{ number_format($stats['averageMonthlyFootprint'], 2) }} kg</div>
                                 </dd>
                             </dl>
                         </div>
@@ -202,19 +192,14 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <div class="p-3 rounded-full bg-green-50">
-                                <i class="fas fa-tasks text-green-600 text-2xl"></i>
+                                <i class="fas fa-calendar-alt text-green-600 text-2xl"></i>
                             </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">Active Tasks</dt>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Last Month</dt>
                                 <dd class="flex items-baseline">
-                                    <div class="text-2xl font-semibold text-gray-900">{{ $stats['activeTasks'] }}</div>
-                                    <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
-                                        <i class="fas fa-arrow-up"></i>
-                                        <span class="sr-only">Increased by</span>
-                                        5%
-                                    </div>
+                                    <div class="text-2xl font-semibold text-gray-900">{{ number_format($stats['lastMonthFootprint'], 2) }} kg</div>
                                 </dd>
                             </dl>
                         </div>
@@ -228,18 +213,18 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <div class="p-3 rounded-full bg-green-50">
-                                <i class="fas fa-calendar-check text-green-600 text-2xl"></i>
+                                <i class="fas fa-arrow-trend-down text-green-600 text-2xl"></i>
                             </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="text-sm font-medium text-gray-500 truncate">Completed</dt>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Improvement</dt>
                                 <dd class="flex items-baseline">
-                                    <div class="text-2xl font-semibold text-gray-900">{{ $stats['completed'] }}</div>
-                                    <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
-                                        <i class="fas fa-arrow-up"></i>
-                                        <span class="sr-only">Increased by</span>
-                                        15%
+                                    <div class="text-2xl font-semibold text-gray-900">{{ $stats['improvement'] }}%</div>
+                                    <div class="ml-2 flex items-baseline text-sm font-semibold {{ $stats['improvement'] >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                                        <i class="fas {{ $stats['improvement'] >= 0 ? 'fa-arrow-down' : 'fa-arrow-up' }}"></i>
+                                        <span class="sr-only">{{ $stats['improvement'] >= 0 ? 'Decreased by' : 'Increased by' }}</span>
+                                        {{ abs($stats['improvement']) }}%
                                     </div>
                                 </dd>
                             </dl>
@@ -249,33 +234,58 @@
             </div>
         </div>
 
-        <!-- Recent Activity -->
+        <!-- Recent Activities -->
         <div class="mt-8">
-            <div class="bg-white shadow rounded-lg border border-gray-100">
-                <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">Recent Activity</h3>
-                    <button class="text-sm text-green-600 hover:text-green-700 font-medium">
-                        View All
-                    </button>
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Recent Activities</h2>
+            <div class="bg-white shadow rounded-lg divide-y divide-gray-200">
+                @forelse($activities as $activity)
+                    <div class="p-4 flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="p-2 rounded-full bg-{{ $activity['color'] }}-50">
+                                <i class="fas fa-{{ $activity['icon'] }} text-{{ $activity['color'] }}-600"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <p class="text-sm font-medium text-gray-900">{{ $activity['title'] }}</p>
+                            <p class="text-sm text-gray-500">{{ $activity['time'] }}</p>
+                            @if(isset($activity['value']))
+                                <p class="text-sm text-gray-600">Carbon footprint: {{ number_format($activity['value'], 2) }} kg</p>
+                            @endif
+                        </div>
+                    </div>
+                @empty
+                    <div class="p-4 text-center text-gray-500">
+                        No recent activities found.
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+        <!-- Recent Activity
+        <div class="mt-8">
+            <div class="bg-white shadow rounded-lg border border-kahejo-light/20">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-kahejo-darkest">Recent Carbon Calculations</h3>
                 </div>
-                <div class="border-t border-gray-200">
-                    <ul class="divide-y divide-gray-200">
-                        @foreach($activities as $activity)
-                        <li class="px-4 py-4 sm:px-6 hover:bg-gray-50 transition-colors duration-150">
+                <div class="border-t border-kahejo-light/20">
+                    <ul class="divide-y divide-kahejo-light/20">
+                        @foreach($carbonHistory->take(3) as $calculation)
+                        <li class="px-4 py-4 sm:px-6 hover:bg-kahejo-lightest/5">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0">
-                                        <div class="p-2 rounded-full bg-green-50">
-                                            <i class="fas fa-{{ $activity['icon'] }} text-green-600"></i>
-                                        </div>
+                                        <i class="fas fa-calculator text-kahejo-dark"></i>
                                     </div>
                                     <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-900">{{ $activity['title'] }}</p>
-                                        <p class="text-sm text-gray-500">{{ $activity['time'] }}</p>
+                                        <p class="text-sm font-medium text-kahejo-darkest">Carbon Calculation for {{ $calculation['date'] }}</p>
+                                        <div class="text-sm text-kahejo-medium">
+                                            <span class="inline-block mr-4">Total: {{ number_format($calculation['total'], 2) }} kg CO₂</span>
+                                            <span class="inline-block mr-4">Electricity: {{ number_format($calculation['electricity'], 2) }} kg CO₂</span>
+                                            <span class="inline-block mr-4">Transportation: {{ number_format($calculation['transportation'], 2) }} kg CO₂</span>
+                                            <span class="inline-block mr-4">Waste: {{ number_format($calculation['waste'], 2) }} kg CO₂</span>
+                                            <span class="inline-block">Water: {{ number_format($calculation['water'], 2) }} kg CO₂</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="text-sm text-gray-500">
-                                    <i class="fas fa-chevron-right"></i>
                                 </div>
                             </div>
                         </li>
@@ -283,7 +293,124 @@
                     </ul>
                 </div>
             </div>
+        </div> -->
+
+        <!-- Carbon Footprint History -->
+        <div class="mt-8">
+            <div class="bg-white shadow rounded-lg border border-kahejo-light/20">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-kahejo-darkest">Carbon Footprint History</h3>
+                    <p class="mt-1 text-sm text-kahejo-medium">Your carbon footprint trends over the last 12 months.</p>
+                </div>
+                <div class="border-t border-kahejo-light/20 px-4 py-5 sm:p-6">
+                    <!-- Chart Container -->
+                    <div class="h-96">
+                        <canvas id="carbonChart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Prepare data for the chart
+        const carbonData = @json($carbonHistory);
+        const dates = carbonData.map(item => item.date);
+        const totals = carbonData.map(item => item.total);
+        const electricity = carbonData.map(item => item.electricity);
+        const transportation = carbonData.map(item => item.transportation);
+        const waste = carbonData.map(item => item.waste);
+        const water = carbonData.map(item => item.water);
+
+        // Create the chart
+        const ctx = document.getElementById('carbonChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [
+                    {
+                        label: 'Total',
+                        data: totals,
+                        borderColor: 'rgb(34, 197, 94)',
+                        backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Electricity',
+                        data: electricity,
+                        borderColor: 'rgb(234, 179, 8)',
+                        backgroundColor: 'rgba(234, 179, 8, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Transportation',
+                        data: transportation,
+                        borderColor: 'rgb(59, 130, 246)',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Waste',
+                        data: waste,
+                        borderColor: 'rgb(239, 68, 68)',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Water',
+                        data: water,
+                        borderColor: 'rgb(168, 85, 247)',
+                        backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Monthly Carbon Footprint (kg CO₂)',
+                        color: '#374151'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'kg CO₂',
+                            color: '#374151'
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Month',
+                            color: '#374151'
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>

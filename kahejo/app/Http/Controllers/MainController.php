@@ -12,22 +12,16 @@ class MainController extends Controller
 {
     public function __construct()
     {
-        // Uncomment this if you want to use authentication
-        // $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     public function index()
     {
-        // Sample data for dashboard
-        $stats = [
-            'totalUsers' => 1234,
-            'growth' => 24,
-            'activeTasks' => 56,
-            'completed' => 89
-        ];
+        $user = Auth::user();
 
-        // Get carbon footprint history
-        $carbonHistory = CarbonFootprint::orderBy('created_at', 'desc')
+        // Get user's carbon footprint history
+        $carbonHistory = CarbonFootprint::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
             ->take(12) // Last 12 months
             ->get()
             ->map(function ($record) {
@@ -41,30 +35,16 @@ class MainController extends Controller
                 ];
             });
 
-        // Recent activities
-        $activities = [
-            [
-                'icon' => 'user-plus',
-                'color' => 'green',
-                'title' => 'New user registered',
-                'time' => '2 hours ago'
-            ],
-            [
-                'icon' => 'tasks',
-                'color' => 'blue',
-                'title' => 'Task completed',
-                'time' => '4 hours ago'
-            ],
-            [
-                'icon' => 'comment',
-                'color' => 'yellow',
-                'title' => 'New comment',
-                'time' => '6 hours ago'
-            ]
+        // Calculate user-specific stats
+        $stats = [
+            'totalCarbonFootprint' => $carbonHistory->sum('total'),
+            'averageMonthlyFootprint' => $carbonHistory->avg('total'),
+            'lastMonthFootprint' => $carbonHistory->first()['total'] ?? 0,
+            'improvement' => $this->calculateImprovement($carbonHistory)
         ];
 
-        // For now, we'll pass null as user since auth is not implemented yet
-        $user = null;
+        // Get user's recent activities
+        $activities = $this->getUserActivities($user->id);
 
         return view('main', [
             'user' => $user,
@@ -72,6 +52,42 @@ class MainController extends Controller
             'activities' => $activities,
             'carbonHistory' => $carbonHistory
         ]);
+    }
+
+    private function calculateImprovement($carbonHistory)
+    {
+        if ($carbonHistory->count() < 2) {
+            return 0;
+        }
+
+        $lastMonth = $carbonHistory->first()['total'];
+        $previousMonth = $carbonHistory->get(1)['total'];
+
+        if ($previousMonth == 0) {
+            return 0;
+        }
+
+        return round((($previousMonth - $lastMonth) / $previousMonth) * 100, 1);
+    }
+
+    private function getUserActivities($userId)
+    {
+        // Get user's recent carbon footprint calculations
+        $recentCalculations = CarbonFootprint::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get()
+            ->map(function ($record) {
+                return [
+                    'icon' => 'calculator',
+                    'color' => 'green',
+                    'title' => 'New carbon footprint calculation',
+                    'time' => Carbon::parse($record->created_at)->diffForHumans(),
+                    'value' => $record->total
+                ];
+            });
+
+        return $recentCalculations;
     }
 
     public function profile()
