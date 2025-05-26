@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\UserAchievementController;
+use App\Http\Controllers\AuthController;
 
 // Welcome Route
 Route::get('/', function () {
