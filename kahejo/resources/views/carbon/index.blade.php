@@ -12,11 +12,11 @@
                 extend: {
                     colors: {
                         'kahejo': {
-                            'darkest': '#3E362E',
-                            'dark': '#865D36',
-                            'medium': '#93785B',
-                            'light': '#AC8968',
-                            'lightest': '#A69080',
+                            'darkest': '#064e3b',  // Darkest green
+                            'dark': '#059669',     // Dark green
+                            'medium': '#10b981',   // Medium green
+                            'light': '#34d399',    // Light green
+                            'lightest': '#6ee7b7', // Lightest green
                         },
                     },
                 },
@@ -75,6 +75,19 @@
         .user-profile:hover {
             transform: translateY(-1px);
         }
+        .logout-btn {
+            transition: all 0.2s ease;
+            background: linear-gradient(to right, #10B981, #059669);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            border: none;
+        }
+        .logout-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -113,7 +126,7 @@
                         <img class="h-8 w-8 rounded-full ring-2 ring-green-500" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User">
                         <div class="ml-3">
                             <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name ?? 'Kasino' }}</p>
-                            <p class="text-xs text-gray-500">Administrator</p>
+                            <p class="text-xs text-gray-500">User</p>
                         </div>
                     </div>
                     <!-- Logout Button -->
