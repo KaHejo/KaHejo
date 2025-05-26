@@ -43,6 +43,8 @@ Route::middleware(['auth'])->group(function () {
     // Carbon Footprint Routes
     Route::get('/carbon', [CarbonFootprintController::class, 'index'])->name('carbon');
     Route::post('/carbon/calculate', [CarbonFootprintController::class, 'calculate'])->name('carbon.calculate');
+    Route::get('/carbon/history', [CarbonFootprintController::class, 'history'])->name('carbon.history');
+    Route::get('/carbon/{id}', [CarbonFootprintController::class, 'view'])->name('carbon.view');
 
     // Emissions Routes
     Route::get('/emissions', [EmissionsController::class, 'index'])->name('emissions');
@@ -52,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/company', [CompanyEnergyController::class, 'index'])->name('company');
     Route::post('/company', [CompanyEnergyController::class, 'store'])->name('company.result');
     Route::get('/company/history', [CompanyEnergyController::class, 'history'])->name('company.history');
+    Route::get('/company/view/{id}', [CompanyEnergyController::class, 'view'])->name('company.view');
 
 });
 // Routes untuk faktor emisi - dapat diakses tanpa login

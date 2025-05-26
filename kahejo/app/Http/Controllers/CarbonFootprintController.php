@@ -44,4 +44,23 @@ class CarbonFootprintController extends Controller
 
         return view('carbon.index', compact('results'));
     }
+
+    public function view($id)
+    {
+        try {
+            $carbon = CarbonFootprint::findOrFail($id);
+            return view('carbon.view', compact('carbon'));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()->route('carbon')->with('error', 'Carbon footprint record not found.');
+        }
+    }
+
+    public function history()
+    {
+        $carbonFootprints = CarbonFootprint::where('user_id', auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+            
+        return view('carbon.history', compact('carbonFootprints'));
+    }
 }
