@@ -28,6 +28,11 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Admin Routes
+Route::get('/admin', function () {
+    return redirect()->route('admin.login');
+})->name('admin');
+
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
     // Main Routes

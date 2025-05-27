@@ -179,12 +179,9 @@
                                 Register here
                             </a>
                         </p>
-                        <p class="text-gray-600">
-                            Login As 
-                            <a href="{{ route('admin.login') }}" class="text-primary font-semibold hover:text-secondary transition-colors duration-200">
-                                Admin
-                            </a>
-                        </p>
+                        <div class="register-link w-full inline-flex items-center justify-center mt-10">
+                            <p>Login As <a href="{{ route('admin.login') }}" class="text-green-600 hover:text-green-700">Admin</a></p>
+                        </div>
                 </div>
             </form>
             </div>

@@ -34,6 +34,7 @@ class CompanyEnergyController extends Controller
 
         // Save to database using service
         $consumption = $this->companyEnergyService->store([
+            'user_id' => Auth::id(),
             'source_type' => $validated['source_type'],
             'consumption_amount' => $validated['consumption_amount'],
             'unit_measurement' => $validated['unit_measurement'],
