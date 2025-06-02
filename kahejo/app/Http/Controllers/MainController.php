@@ -74,6 +74,7 @@ class MainController extends Controller
             'totalCarbonFootprint' => $carbonHistory->sum('total'),
             'averageMonthlyFootprint' => $carbonHistory->avg('total'),
             'lastMonthFootprint' => $carbonHistory->first()['total'] ?? 0,
+<<<<<<< HEAD
             'improvement' => $this->calculateImprovement($carbonHistory),
             'lowestFootprint' => $lowestFootprint ? [
                 'value' => $lowestFootprint->total,
@@ -83,7 +84,12 @@ class MainController extends Controller
                 'waste' => $lowestFootprint->waste,
                 'water' => $lowestFootprint->water
             ] : null
+<<<<<<< HEAD
                 'lowestFootprint' => $lowestFootprint ? [
+=======
+=======
+            'lowestFootprint' => $lowestFootprint ? [
+>>>>>>> 224f474eb44da373580c29e8f45802bd66989f23
                 'value' => $lowestFootprint->total,
                 'date' => Carbon::parse($lowestFootprint->month)->format('M Y')
             ] : null,
@@ -92,6 +98,10 @@ class MainController extends Controller
                 'date' => Carbon::parse($highestFootprint->month)->format('M Y')
             ] : null,
             'improvement' => $this->calculateImprovement($carbonHistory)
+<<<<<<< HEAD
+=======
+>>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
+>>>>>>> 224f474eb44da373580c29e8f45802bd66989f23
         ];
 
         // Get user's recent activities
@@ -197,6 +207,10 @@ class MainController extends Controller
         return view('settings', compact('user'));
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 224f474eb44da373580c29e8f45802bd66989f23
     private function calculateEnergyEfficiencyScore($energyConsumption)
     {
         if ($energyConsumption->isEmpty()) {
@@ -231,6 +245,10 @@ class MainController extends Controller
 
         // Ensure score is between 0 and 100
         return max(0, min(100, round($score)));
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 224f474eb44da373580c29e8f45802bd66989f23
     private function calculateImprovement($carbonHistory)
     {
         if ($carbonHistory->count() < 2) {
@@ -245,5 +263,9 @@ class MainController extends Controller
         }
 
         return (($previousMonth - $currentMonth) / $previousMonth) * 100;
+<<<<<<< HEAD
+=======
+>>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
+>>>>>>> 224f474eb44da373580c29e8f45802bd66989f23
     }
 } 
