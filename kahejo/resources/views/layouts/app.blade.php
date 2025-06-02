@@ -78,6 +78,10 @@
                             <i class="fas fa-chart-line w-6 text-green-600"></i>
                             <span class="ml-2">Energy Consumption</span>
                         </a>
+                        <a href="{{ route('faqs.index') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
+                            <i class="nav-icon fas fa-question-circle text-lg mr-2"></i>
+                            FAQ
+                        </a>
                     </div>
                 </div>
 

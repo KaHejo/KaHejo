@@ -104,6 +104,10 @@
                             <i class="nav-icon fas fa-chart-line text-lg mr-2"></i>
                             Energy Consumption
                         </a>
+                        <a href="{{ route('faqs.index') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
+                            <i class="nav-icon fas fa-question-circle text-lg mr-2"></i>
+                            FAQ
+                        </a>
                     </div>
                 </div>
                 <!-- Right side of navbar -->
