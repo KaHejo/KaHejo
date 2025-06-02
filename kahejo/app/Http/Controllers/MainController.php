@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\CarbonFootprint;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use App\Models\CompanyEnergyConsumption;
 
 class MainController extends Controller
 {
@@ -35,24 +36,50 @@ class MainController extends Controller
                 ];
             });
 
-        // Get lowest carbon footprint
+        // Get energy consumption data
+        $energyConsumption = CompanyEnergyConsumption::where('user_id', $user->id)
+            ->orderBy('consumption_date', 'desc')
+            ->take(12) // Last 12 months
+            ->get()
+            ->map(function ($record) {
+                return [
+                    'date' => Carbon::parse($record->consumption_date)->format('M Y'),
+                    'electricity' => $record->source_type === 'electricity' ? $record->consumption_amount : 0,
+                    'gas' => $record->source_type === 'gas' ? $record->consumption_amount : 0,
+                    'water' => $record->source_type === 'water' ? $record->consumption_amount : 0
+                ];
+            });
+
+        // Calculate energy stats
+        $energyStats = [
+            'totalUsage' => $energyConsumption->sum(function ($record) {
+                return $record['electricity'] + $record['gas'] + $record['water'];
+            }),
+            'averageDaily' => $energyConsumption->avg(function ($record) {
+                return $record['electricity'] + $record['gas'] + $record['water'];
+            })
+        ];
+
+        // Get lowest and highest carbon footprint
         $lowestFootprint = CarbonFootprint::where('user_id', $user->id)
             ->orderBy('total', 'asc')
+            ->first();
+
+        $highestFootprint = CarbonFootprint::where('user_id', $user->id)
+            ->orderBy('total', 'desc')
             ->first();
 
         // Calculate user-specific stats
         $stats = [
             'totalCarbonFootprint' => $carbonHistory->sum('total'),
             'averageMonthlyFootprint' => $carbonHistory->avg('total'),
-            'lastMonthFootprint' => $carbonHistory->first()['total'] ?? 0,
-            'improvement' => $this->calculateImprovement($carbonHistory),
             'lowestFootprint' => $lowestFootprint ? [
                 'value' => $lowestFootprint->total,
-                'date' => Carbon::parse($lowestFootprint->month)->format('M Y'),
-                'electricity' => $lowestFootprint->electricity,
-                'transportation' => $lowestFootprint->transportation,
-                'waste' => $lowestFootprint->waste,
-                'water' => $lowestFootprint->water
+                'date' => Carbon::parse($lowestFootprint->month)->format('M Y')
+            ] : null,
+            'highestFootprint' => $highestFootprint ? [
+                'value' => $highestFootprint->total,
+                'date' => Carbon::parse($highestFootprint->month)->format('M Y')
             ] : null
         ];
 
@@ -63,24 +90,10 @@ class MainController extends Controller
             'user' => $user,
             'stats' => $stats,
             'activities' => $activities,
-            'carbonHistory' => $carbonHistory
+            'carbonHistory' => $carbonHistory,
+            'energyConsumption' => $energyConsumption,
+            'energyStats' => $energyStats
         ]);
-    }
-
-    private function calculateImprovement($carbonHistory)
-    {
-        if ($carbonHistory->count() < 2) {
-            return 0;
-        }
-
-        $lastMonth = $carbonHistory->first()['total'];
-        $previousMonth = $carbonHistory->get(1)['total'];
-
-        if ($previousMonth == 0) {
-            return 0;
-        }
-
-        return round((($previousMonth - $lastMonth) / $previousMonth) * 100, 1);
     }
 
     private function getUserActivities($userId)
@@ -153,7 +166,7 @@ class MainController extends Controller
 
     public function settings()
     {
-        $user = null; // Will be Auth::user() when auth is implemented
+        $user = Auth::user();
         return view('settings', compact('user'));
     }
 } 
