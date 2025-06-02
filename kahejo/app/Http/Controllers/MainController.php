@@ -22,12 +22,12 @@ class MainController extends Controller
 
         // Get user's carbon footprint history
         $carbonHistory = CarbonFootprint::where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('month', 'asc')
             ->take(12) // Last 12 months
             ->get()
             ->map(function ($record) {
                 return [
-                    'date' => Carbon::parse($record->created_at)->format('M Y'),
+                    'date' => Carbon::parse($record->month)->format('M Y'),
                     'total' => $record->total,
                     'electricity' => $record->electricity,
                     'transportation' => $record->transportation,
@@ -77,7 +77,7 @@ class MainController extends Controller
             'improvement' => $this->calculateImprovement($carbonHistory),
             'lowestFootprint' => $lowestFootprint ? [
                 'value' => $lowestFootprint->total,
-                'date' => Carbon::parse($lowestFootprint->created_at)->format('M Y'),
+                'date' => Carbon::parse($lowestFootprint->month)->format('M Y'),
                 'electricity' => $lowestFootprint->electricity,
                 'transportation' => $lowestFootprint->transportation,
                 'waste' => $lowestFootprint->waste,
@@ -118,15 +118,15 @@ class MainController extends Controller
     {
         // Get user's recent carbon footprint calculations
         $recentCalculations = CarbonFootprint::where('user_id', $userId)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('month', 'desc')
             ->take(3)
             ->get()
             ->map(function ($record) {
                 return [
                     'icon' => 'calculator',
                     'color' => 'green',
-                    'title' => 'New carbon footprint calculation',
-                    'time' => Carbon::parse($record->created_at)->diffForHumans(),
+                    'title' => 'Carbon footprint for ' . Carbon::parse($record->month)->format('F Y'),
+                    'time' => Carbon::parse($record->month)->diffForHumans(),
                     'value' => $record->total
                 ];
             });

@@ -16,6 +16,7 @@ class CarbonFootprintController extends Controller
     public function calculate(Request $request)
     {
         $validated = $request->validate([
+            'month' => 'required|date',
             'electricity' => 'required|numeric',
             'transportation' => 'required|numeric',
             'waste' => 'required|numeric',
@@ -41,6 +42,7 @@ class CarbonFootprintController extends Controller
         // Save to database
         CarbonFootprint::create([
             'user_id' => auth()->id(), // Will be null if not authenticated
+            'month' => $validated['month'],
             'electricity' => $results['electricity'],
             'transportation' => $results['transportation'],
             'waste' => $results['waste'],
