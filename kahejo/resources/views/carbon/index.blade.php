@@ -153,6 +153,19 @@
             <div class="border-t border-kahejo-light/20">
                 <form action="{{ url('/carbon/calculate') }}" method="POST" class="p-6 space-y-6">
                     @csrf
+                    <!-- Month Selection -->
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <div>
+                            <label for="month" class="block text-sm font-medium text-kahejo-darkest">Month</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-calendar text-kahejo-dark"></i>
+                                </div>
+                                <input type="month" name="month" id="month" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" required>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Electricity Usage -->
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div>

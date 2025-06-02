@@ -192,6 +192,7 @@
                                 <dd class="flex items-baseline">
                                     <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['totalCarbonFootprint'], 2) }} kg</div>
                                 </dd>
+                                <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">Last 12 months</dd>
                             </dl>
                         </div>
                     </div>
@@ -213,6 +214,7 @@
                                 <dd class="flex items-baseline">
                                     <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['averageMonthlyFootprint'], 2) }} kg</div>
                                 </dd>
+                                <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">Based on monthly records</dd>
                             </dl>
                         </div>
                     </div>
@@ -234,6 +236,7 @@
                                 <dd class="flex items-baseline">
                                     <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lastMonthFootprint'], 2) }} kg</div>
                                 </dd>
+                                <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">{{ $carbonHistory->first()['date'] ?? 'No data' }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -251,15 +254,11 @@
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Improvement</dt>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Best Month</dt>
                                 <dd class="flex items-baseline">
-                                    <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ $stats['improvement'] }}%</div>
-                                    <div class="ml-2 flex items-baseline text-sm font-semibold {{ $stats['improvement'] >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
-                                        <i class="fas {{ $stats['improvement'] >= 0 ? 'fa-arrow-down' : 'fa-arrow-up' }}"></i>
-                                        <span class="sr-only">{{ $stats['improvement'] >= 0 ? 'Decreased by' : 'Increased by' }}</span>
-                                        {{ abs($stats['improvement']) }}%
-                                    </div>
+                                    <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lowestFootprint']['value'] ?? 0, 2) }} kg</div>
                                 </dd>
+                                <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">{{ $stats['lowestFootprint']['date'] ?? 'No data' }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -469,7 +468,9 @@
                             color: html.classList.contains('dark') ? '#ffffff' : '#374151'
                         },
                         ticks: {
-                            color: html.classList.contains('dark') ? '#a0aec0' : '#6B7280'
+                            color: html.classList.contains('dark') ? '#a0aec0' : '#6B7280',
+                            maxRotation: 45,
+                            minRotation: 45
                         },
                         grid: {
                             color: html.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
