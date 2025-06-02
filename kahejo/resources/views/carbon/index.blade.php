@@ -209,7 +209,11 @@
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <!-- Carbon Calculator Form -->
+<<<<<<< HEAD
         <div class="form-card bg-white shadow rounded-lg border border-kahejo-light/20 animate-fade-in">
+=======
+        <div class="bg-white shadow rounded-lg border border-kahejo-light/20">
+>>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
             <div class="px-4 py-5 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-kahejo-darkest">Carbon Footprint Calculator</h3>
                 <p class="mt-1 text-sm text-kahejo-medium">Calculate your carbon footprint based on your daily activities.</p>
@@ -217,6 +221,7 @@
             <div class="border-t border-kahejo-light/20">
                 <form action="{{ url('/carbon/calculate') }}" method="POST" class="p-6 space-y-6">
                     @csrf
+<<<<<<< HEAD
                     <!-- Electricity Usage -->
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div class="input-group animate-slide-up" style="animation-delay: 0.1s">
@@ -227,18 +232,75 @@
                                     <span class="tooltip-text">Enter your monthly electricity consumption in kilowatt-hours</span>
                                 </span>
                             </label>
+=======
+                    <!-- Month Selection -->
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <div>
+                            <label for="month" class="block text-sm font-medium text-kahejo-darkest">Month</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-calendar text-kahejo-dark"></i>
+                                </div>
+                                <input type="month" name="month" id="month" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Electricity Usage -->
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <div>
+                            <label for="electricity" class="block text-sm font-medium text-kahejo-darkest">Monthly Electricity Usage (kWh)</label>
+>>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <i class="fas fa-bolt text-kahejo-dark"></i>
                                 </div>
+<<<<<<< HEAD
                                 <input type="number" name="electricity" id="electricity" 
                                     class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" 
                                     placeholder="0"
                                     min="0"
                                     step="0.1">
+=======
+                                <input type="number" name="electricity" id="electricity" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
                             </div>
                         </div>
 
+                        <!-- Transportation -->
+                        <div>
+                            <label for="transportation" class="block text-sm font-medium text-kahejo-darkest">Daily Transportation (km)</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-car text-kahejo-dark"></i>
+                                </div>
+                                <input type="number" name="transportation" id="transportation" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
+                            </div>
+                        </div>
+
+                        <!-- Waste -->
+                        <div>
+                            <label for="waste" class="block text-sm font-medium text-kahejo-darkest">Monthly Waste (kg)</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-trash text-kahejo-dark"></i>
+                                </div>
+                                <input type="number" name="waste" id="waste" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
+                            </div>
+                        </div>
+
+                        <!-- Water Usage -->
+                        <div>
+                            <label for="water" class="block text-sm font-medium text-kahejo-darkest">Monthly Water Usage (m³)</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-water text-kahejo-dark"></i>
+                                </div>
+                                <input type="number" name="water" id="water" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
+>>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
+                            </div>
+                        </div>
+
+<<<<<<< HEAD
                         <!-- Transportation -->
                         <div class="input-group animate-slide-up" style="animation-delay: 0.2s">
                             <label for="transportation" class="block text-sm font-medium text-kahejo-darkest">
@@ -312,6 +374,32 @@
                             <i class="fas fa-history mr-2"></i>
                             View History
                         </a>
+=======
+                <!-- Action Buttons -->
+                <div class="mt-8 flex justify-end space-x-4" data-aos="fade-up" data-aos-delay="500">
+                    <button type="submit" id="calculateButton" class="inline-flex items-center px-8 py-3 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 transform hover:-translate-y-1">
+                        <i class="fas fa-calculator mr-2"></i>
+                        Calculate Footprint
+                    </button>
+                    <a href="{{ route('carbon.history') }}" class="inline-flex items-center px-6 py-3 border-2 border-green-500 text-green-600 dark:text-green-400 rounded-lg text-sm font-medium hover:bg-green-50 dark:hover:bg-green-900/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform hover:-translate-y-1">
+                        <i class="fas fa-history mr-2"></i>
+                        View History
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Results Section (if available) -->
+    @if(isset($results))
+    <div class="mt-8 bg-white/90 dark:bg-dark-bg-secondary backdrop-blur-md shadow-xl rounded-xl border-l-4 border-green-500 dark:border-dark-border transform transition-all duration-300 hover:shadow-2xl" data-aos="fade-up" data-aos-duration="1000">
+        <!-- Header Section -->
+        <div class="px-6 py-6 sm:px-8 border-b border-gray-100 dark:border-dark-border">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
+                        <i class="fas fa-chart-pie text-2xl text-green-600 dark:text-green-400"></i>
+>>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
                     </div>
                 </form>
             </div>

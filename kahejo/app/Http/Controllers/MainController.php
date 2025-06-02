@@ -74,6 +74,7 @@ class MainController extends Controller
             'totalCarbonFootprint' => $carbonHistory->sum('total'),
             'averageMonthlyFootprint' => $carbonHistory->avg('total'),
             'lastMonthFootprint' => $carbonHistory->first()['total'] ?? 0,
+<<<<<<< HEAD
             'improvement' => $this->calculateImprovement($carbonHistory),
             'lowestFootprint' => $lowestFootprint ? [
                 'value' => $lowestFootprint->total,
@@ -83,6 +84,17 @@ class MainController extends Controller
                 'waste' => $lowestFootprint->waste,
                 'water' => $lowestFootprint->water
             ] : null
+=======
+            'lowestFootprint' => $lowestFootprint ? [
+                'value' => $lowestFootprint->total,
+                'date' => Carbon::parse($lowestFootprint->month)->format('M Y')
+            ] : null,
+            'highestFootprint' => $highestFootprint ? [
+                'value' => $highestFootprint->total,
+                'date' => Carbon::parse($highestFootprint->month)->format('M Y')
+            ] : null,
+            'improvement' => $this->calculateImprovement($carbonHistory)
+>>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
         ];
 
         // Get user's recent activities
@@ -188,6 +200,7 @@ class MainController extends Controller
         return view('settings', compact('user'));
     }
 
+<<<<<<< HEAD
     private function calculateEnergyEfficiencyScore($energyConsumption)
     {
         if ($energyConsumption->isEmpty()) {
@@ -222,5 +235,21 @@ class MainController extends Controller
 
         // Ensure score is between 0 and 100
         return max(0, min(100, round($score)));
+=======
+    private function calculateImprovement($carbonHistory)
+    {
+        if ($carbonHistory->count() < 2) {
+            return 0;
+        }
+
+        $currentMonth = $carbonHistory->first()['total'];
+        $previousMonth = $carbonHistory->get(1)['total'];
+
+        if ($previousMonth == 0) {
+            return 0;
+        }
+
+        return (($previousMonth - $currentMonth) / $previousMonth) * 100;
+>>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
     }
 } 
