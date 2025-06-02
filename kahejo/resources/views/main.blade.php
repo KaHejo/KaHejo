@@ -56,7 +56,6 @@
             </div>
         </div>
 
-<<<<<<< HEAD
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <!-- Card 1 -->
@@ -76,7 +75,6 @@
                                 </dd>
                                 <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">Last 12 months</dd>
                             </dl>
-=======
         <!-- Card 3 -->
         <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
             <div class="p-5">
@@ -84,12 +82,10 @@
                     <div class="flex-shrink-0">
                         <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
                             <i class="fas fa-arrow-trend-down text-green-600 dark:text-green-400 text-2xl"></i>
->>>>>>> 79e412034f3115827acf162434fe7c8605502913
                         </div>
                     </div>
                     <div class="ml-5 w-0 flex-1">
                         <dl>
-<<<<<<< HEAD
                             <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Last Month</dt>
                             <dd class="flex items-baseline">
                                 <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lastMonthFootprint'], 2) }} kg</div>
@@ -377,7 +373,6 @@
                 }
             },
             scales: {
-<<<<<<< HEAD
                 y: {
                     beginAtZero: true,
                     title: {
@@ -399,7 +394,6 @@
                         grid: {
                             color: html.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
                         }
-=======
                 x: {
                     grid: {
                         color: document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
@@ -414,7 +408,6 @@
                     },
                     ticks: {
                         color: document.documentElement.classList.contains('dark') ? '#e5e7eb' : '#374151'
->>>>>>> 79e412034f3115827acf162434fe7c8605502913
                     }
                 }
             }
