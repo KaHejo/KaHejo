@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CarbonFootprint;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class CarbonFootprintController extends Controller
 {
@@ -35,13 +36,13 @@ class CarbonFootprintController extends Controller
             'waste' => $validated['waste'] * ($factors['Limbah'] ?? 2.5), // 2.5 kg CO2 per kg of waste
             'water' => $validated['water'] * ($factors['Air'] ?? 0.3), // 0.3 kg CO2 per m3 of water
         ];
- 
+
         // Calculate total
         $results['total'] = array_sum($results);
 
         // Save to database
-        CarbonFootprint::create([
-            'user_id' => auth()->id(), // Will be null if not authenticated
+        $carbonFootprint = CarbonFootprint::create([
+            'user_id' => Auth::id(),
             'month' => $validated['month'],
             'electricity' => $results['electricity'],
             'transportation' => $results['transportation'],
@@ -50,7 +51,11 @@ class CarbonFootprintController extends Controller
             'total' => $results['total']
         ]);
 
-        return view('carbon.index', compact('results'));
+        // Return to the same page with results
+        return view('carbon.index', [
+            'results' => $results,
+            'success' => 'Carbon footprint calculation saved successfully! Your total carbon footprint is ' . number_format($results['total'], 2) . ' kg CO₂'
+        ]);
     }
 
     public function view($id)

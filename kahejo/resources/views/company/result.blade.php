@@ -26,6 +26,7 @@
                         'float': 'float 6s ease-in-out infinite',
                         'pulse': 'pulse 2s infinite',
                         'shimmer': 'shimmer 2s infinite',
+                        'wave': 'wave 2s infinite',
                     },
                     keyframes: {
                         fadeIn: {
@@ -52,6 +53,13 @@
                         shimmer: {
                             '0%': { backgroundPosition: '-200% 0' },
                             '100%': { backgroundPosition: '200% 0' },
+                        },
+                        wave: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '25%': { transform: 'rotate(-5deg)' },
+                            '50%': { transform: 'rotate(0deg)' },
+                            '75%': { transform: 'rotate(5deg)' },
+                            '100%': { transform: 'rotate(0deg)' },
                         },
                     },
                 },
@@ -363,6 +371,109 @@
         .notification.error {
             border-left: 4px solid #EF4444;
         }
+        /* New styles for enhanced visual appeal */
+        .result-header {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .result-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        .result-header-content {
+            position: relative;
+            z-index: 1;
+        }
+        .result-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .result-header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(16, 185, 129, 0.2), transparent);
+            margin: 2rem 0;
+        }
+        .info-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(16, 185, 129, 0.1);
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+        .info-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+        }
+        .info-card-title {
+            font-size: 0.8rem;
+            color: #6B7280;
+            margin-bottom: 0.25rem;
+        }
+        .info-card-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #10B981;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        .action-button {
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.4rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.3s ease;
+        }
+        .action-button-primary {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+        }
+        .action-button-secondary {
+            background: white;
+            color: #10B981;
+            border: 2px solid #10B981;
+        }
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -383,201 +494,137 @@
 
         <!-- Main Content -->
         <div class="max-w-6xl mx-auto py-4 sm:px-4 lg:px-6">
-            
+            <!-- Result Header -->
+            <div class="result-header" data-aos="fade-up">
+                <div class="result-header-content">
+                    <h1>Hasil Konsumsi Energi</h1>
+                    <p>Detail informasi konsumsi energi perusahaan Anda</p>
+                </div>
+            </div>
 
             <!-- Main Card -->
-            <div class="card-hover bg-white/90 backdrop-blur-md shadow-lg rounded-lg border border-gray-100 overflow-hidden" data-aos="fade-up">
-                <div class="px-4 py-3 border-b border-gray-100">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                <i class="fas fa-chart-line text-lg text-green-600"></i>
-                            </div>
-                        </div>
-                        <div class="ml-3">
-                            <h3 class="text-base font-semibold text-gray-900">Hasil Konsumsi Energi</h3>
-                            <p class="text-xs text-gray-500">Detail informasi konsumsi energi perusahaan</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="p-4 space-y-4">
+            <div class="card-hover bg-white/90 backdrop-blur-md shadow-lg rounded-md border border-gray-100 overflow-hidden" data-aos="fade-up">
+                <div class="p-5 space-y-5">
                     <!-- Energy Source Section -->
                     <div data-aos="fade-up" data-aos-delay="200">
                         <div class="section-title">
                             <h4 class="text-base font-semibold text-gray-900">Sumber Energi</h4>
                         </div>
-                        <div class="info-grid">
-                            <div class="info-card floating-card">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-plug text-base text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-2">
-                                        <p class="text-xs font-medium text-gray-500">Jenis</p>
-                                        <p class="text-sm font-semibold stat-value">{{ $result['source_type'] }}</p>
-                                    </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <i class="fas fa-plug"></i>
                                 </div>
+                                <div class="info-card-title">Jenis Sumber</div>
+                                <div class="info-card-value">{{ $result['source_type'] }}</div>
                             </div>
-                            <div class="info-card floating-card">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-bolt text-base text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-2">
-                                        <p class="text-xs font-medium text-gray-500">Jumlah</p>
-                                        <p class="text-sm font-semibold stat-value">{{ $result['consumption_amount'] }} {{ $result['unit_measurement'] }}</p>
-                                    </div>
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <i class="fas fa-bolt"></i>
                                 </div>
+                                <div class="info-card-title">Jumlah Konsumsi</div>
+                                <div class="info-card-value">{{ $result['consumption_amount'] }} {{ $result['unit_measurement'] }}</div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="section-divider"></div>
 
                     <!-- Activity Information Section -->
                     <div data-aos="fade-up" data-aos-delay="300">
                         <div class="section-title">
                             <h4 class="text-base font-semibold text-gray-900">Informasi Aktivitas</h4>
                         </div>
-                        <div class="info-grid">
-                            <div class="info-card floating-card">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-tasks text-base text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-2">
-                                        <p class="text-xs font-medium text-gray-500">Jenis</p>
-                                        <p class="text-sm font-semibold stat-value">{{ $result['activity_type'] }}</p>
-                                    </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <i class="fas fa-tasks"></i>
                                 </div>
+                                <div class="info-card-title">Jenis Aktivitas</div>
+                                <div class="info-card-value">{{ $result['activity_type'] }}</div>
                             </div>
-                            <div class="info-card floating-card">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-map-marker-alt text-base text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-2">
-                                        <p class="text-xs font-medium text-gray-500">Lokasi</p>
-                                        <p class="text-sm font-semibold stat-value">{{ $result['location_name'] ?? 'Tidak ditentukan' }}</p>
-                                    </div>
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
                                 </div>
+                                <div class="info-card-title">Lokasi</div>
+                                <div class="info-card-value">{{ $result['location_name'] ?? 'Tidak ditentukan' }}</div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="section-divider"></div>
 
                     <!-- Time Information Section -->
                     <div data-aos="fade-up" data-aos-delay="400">
                         <div class="section-title">
                             <h4 class="text-base font-semibold text-gray-900">Informasi Waktu</h4>
                         </div>
-                        <div class="timeline-grid">
-                            <div class="info-card floating-card">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-clock text-base text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-2">
-                                        <p class="text-xs font-medium text-gray-500">Tanggal Konsumsi</p>
-                                        <p class="text-sm font-semibold stat-value">{{ $result['consumption_date'] }}</p>
-                                    </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <i class="fas fa-calendar"></i>
                                 </div>
+                                <div class="info-card-title">Tanggal Konsumsi</div>
+                                <div class="info-card-value">{{ $result['consumption_date'] }}</div>
                             </div>
-                            <div class="info-card floating-card">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-calendar-alt text-base text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-2">
-                                        <p class="text-xs font-medium text-gray-500">Periode Pelaporan</p>
-                                        <p class="text-sm font-semibold stat-value">{{ $result['reporting_period'] }}</p>
-                                    </div>
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <i class="fas fa-clock"></i>
                                 </div>
+                                <div class="info-card-title">Periode Pelaporan</div>
+                                <div class="info-card-value">{{ $result['reporting_period'] }}</div>
                             </div>
-                            <div class="info-card floating-card">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-save text-base text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-2">
-                                        <p class="text-xs font-medium text-gray-500">Tanggal Pencatatan</p>
-                                        <p class="text-sm font-semibold stat-value">{{ $result['calculation_date'] }}</p>
-                                    </div>
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <i class="fas fa-save"></i>
                                 </div>
+                                <div class="info-card-title">Tanggal Pencatatan</div>
+                                <div class="info-card-value">{{ $result['calculation_date'] }}</div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="section-divider"></div>
 
                     <!-- Database Information Section -->
                     <div data-aos="fade-up" data-aos-delay="500">
                         <div class="section-title">
                             <h4 class="text-base font-semibold text-gray-900">Informasi Data</h4>
                         </div>
-                        <div class="info-grid">
-                            <div class="info-card floating-card">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-hashtag text-base text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-2">
-                                        <p class="text-xs font-medium text-gray-500">ID Record</p>
-                                        <p class="text-sm font-semibold stat-value">#{{ $consumption->id }}</p>
-                                    </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <i class="fas fa-hashtag"></i>
                                 </div>
+                                <div class="info-card-title">ID Record</div>
+                                <div class="info-card-value">#{{ $consumption->id }}</div>
                             </div>
-                            <div class="info-card floating-card">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-calendar-plus text-base text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-2">
-                                        <p class="text-xs font-medium text-gray-500">Dibuat Pada</p>
-                                        <p class="text-sm font-semibold stat-value">{{ $consumption->created_at->format('d M Y') }}</p>
-                                    </div>
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <i class="fas fa-calendar-plus"></i>
                                 </div>
+                                <div class="info-card-title">Dibuat Pada</div>
+                                <div class="info-card-value">{{ $consumption->created_at->format('d M Y') }}</div>
                             </div>
-                            <div class="info-card floating-card">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-calendar-check text-base text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-2">
-                                        <p class="text-xs font-medium text-gray-500">Diperbarui Pada</p>
-                                        <p class="text-sm font-semibold stat-value">{{ $consumption->updated_at->format('d M Y') }}</p>
-                                    </div>
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <i class="fas fa-calendar-check"></i>
                                 </div>
+                                <div class="info-card-title">Diperbarui Pada</div>
+                                <div class="info-card-value">{{ $consumption->updated_at->format('d M Y') }}</div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Action Buttons -->
-                <div class="px-4 py-3 border-t border-gray-100 flex justify-between items-center">
-                    <a href="{{ url('/company') }}" class="btn-back inline-flex items-center px-3 py-1.5 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                        <i class="fas fa-arrow-left mr-1.5"></i>
-                        Kembali ke Form
-                    </a>
-                    <div class="flex space-x-2">
-                        <button onclick="window.print()" class="action-button inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                            <i class="fas fa-print mr-1.5"></i>
+                    <!-- Action Buttons -->
+                    <div class="action-buttons" data-aos="fade-up" data-aos-delay="600">
+                        <a href="{{ route('company.history') }}" class="action-button action-button-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Back To History
+                        </a>
+                        <button onclick="window.print()" class="action-button action-button-primary">
+                            <i class="fas fa-print"></i>
                             Cetak Laporan
                         </button>
                     </div>
@@ -644,7 +691,7 @@
                 
                 // Create a clone of the element for PDF generation
                 const clone = element.cloneNode(true);
-                clone.style.width = '210mm'; // A4 width
+                clone.style.width = '210mm';
                 clone.style.padding = '20mm';
                 document.body.appendChild(clone);
                 

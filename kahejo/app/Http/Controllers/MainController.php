@@ -69,12 +69,16 @@ class MainController extends Controller
             ->orderBy('total', 'asc')
             ->first();
 
+        // Get highest carbon footprint
+        $highestFootprint = CarbonFootprint::where('user_id', $user->id)
+            ->orderBy('total', 'desc')
+            ->first();
+
         // Calculate user-specific stats
         $stats = [
             'totalCarbonFootprint' => $carbonHistory->sum('total'),
             'averageMonthlyFootprint' => $carbonHistory->avg('total'),
             'lastMonthFootprint' => $carbonHistory->first()['total'] ?? 0,
-<<<<<<< HEAD
             'improvement' => $this->calculateImprovement($carbonHistory),
             'lowestFootprint' => $lowestFootprint ? [
                 'value' => $lowestFootprint->total,
@@ -83,25 +87,15 @@ class MainController extends Controller
                 'transportation' => $lowestFootprint->transportation,
                 'waste' => $lowestFootprint->waste,
                 'water' => $lowestFootprint->water
-            ] : null
-<<<<<<< HEAD
-                'lowestFootprint' => $lowestFootprint ? [
-=======
-=======
-            'lowestFootprint' => $lowestFootprint ? [
->>>>>>> 224f474eb44da373580c29e8f45802bd66989f23
-                'value' => $lowestFootprint->total,
-                'date' => Carbon::parse($lowestFootprint->month)->format('M Y')
             ] : null,
             'highestFootprint' => $highestFootprint ? [
                 'value' => $highestFootprint->total,
-                'date' => Carbon::parse($highestFootprint->month)->format('M Y')
-            ] : null,
-            'improvement' => $this->calculateImprovement($carbonHistory)
-<<<<<<< HEAD
-=======
->>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
->>>>>>> 224f474eb44da373580c29e8f45802bd66989f23
+                'date' => Carbon::parse($highestFootprint->created_at)->format('M Y'),
+                'electricity' => $highestFootprint->electricity,
+                'transportation' => $highestFootprint->transportation,
+                'waste' => $highestFootprint->waste,
+                'water' => $highestFootprint->water
+            ] : null
         ];
 
         // Get user's recent activities
@@ -117,20 +111,56 @@ class MainController extends Controller
         ]);
     }
 
+    private function calculateEnergyEfficiencyScore($energyConsumption)
+    {
+        if ($energyConsumption->isEmpty()) {
+            return 0;
+        }
+
+        // Calculate average consumption
+        $avgConsumption = $energyConsumption->avg(function ($record) {
+            return $record['electricity'] + $record['gas'] + $record['water'];
+        });
+
+        // If average consumption is 0, return 0 to avoid division by zero
+        if ($avgConsumption == 0) {
+            return 0;
+        }
+
+        // Calculate standard deviation
+        $variance = $energyConsumption->map(function ($record) use ($avgConsumption) {
+            $total = $record['electricity'] + $record['gas'] + $record['water'];
+            return pow($total - $avgConsumption, 2);
+        })->avg();
+
+        $stdDev = sqrt($variance);
+
+        // Calculate efficiency score (100 - (stdDev/avgConsumption * 100))
+        // If standard deviation is 0, return 100 (perfect efficiency)
+        if ($stdDev == 0) {
+            return 100;
+        }
+
+        $score = 100 - (($stdDev / $avgConsumption) * 100);
+
+        // Ensure score is between 0 and 100
+        return max(0, min(100, round($score)));
+    }
+
     private function calculateImprovement($carbonHistory)
     {
         if ($carbonHistory->count() < 2) {
             return 0;
         }
 
-        $lastMonth = $carbonHistory->first()['total'];
+        $currentMonth = $carbonHistory->first()['total'];
         $previousMonth = $carbonHistory->get(1)['total'];
 
         if ($previousMonth == 0) {
             return 0;
         }
 
-        return round((($previousMonth - $lastMonth) / $previousMonth) * 100, 1);
+        return round((($previousMonth - $currentMonth) / $previousMonth) * 100, 1);
     }
 
     private function getUserActivities($userId)
@@ -205,67 +235,5 @@ class MainController extends Controller
     {
         $user = null; // Will be Auth::user() when auth is implemented
         return view('settings', compact('user'));
-    }
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 224f474eb44da373580c29e8f45802bd66989f23
-    private function calculateEnergyEfficiencyScore($energyConsumption)
-    {
-        if ($energyConsumption->isEmpty()) {
-            return 0;
-        }
-
-        // Calculate average consumption
-        $avgConsumption = $energyConsumption->avg(function ($record) {
-            return $record['electricity'] + $record['gas'] + $record['water'];
-        });
-
-        // If average consumption is 0, return 0 to avoid division by zero
-        if ($avgConsumption == 0) {
-            return 0;
-        }
-
-        // Calculate standard deviation
-        $variance = $energyConsumption->map(function ($record) use ($avgConsumption) {
-            $total = $record['electricity'] + $record['gas'] + $record['water'];
-            return pow($total - $avgConsumption, 2);
-        })->avg();
-
-        $stdDev = sqrt($variance);
-
-        // Calculate efficiency score (100 - (stdDev/avgConsumption * 100))
-        // If standard deviation is 0, return 100 (perfect efficiency)
-        if ($stdDev == 0) {
-            return 100;
-        }
-
-        $score = 100 - (($stdDev / $avgConsumption) * 100);
-
-        // Ensure score is between 0 and 100
-        return max(0, min(100, round($score)));
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 224f474eb44da373580c29e8f45802bd66989f23
-    private function calculateImprovement($carbonHistory)
-    {
-        if ($carbonHistory->count() < 2) {
-            return 0;
-        }
-
-        $currentMonth = $carbonHistory->first()['total'];
-        $previousMonth = $carbonHistory->get(1)['total'];
-
-        if ($previousMonth == 0) {
-            return 0;
-        }
-
-        return (($previousMonth - $currentMonth) / $previousMonth) * 100;
-<<<<<<< HEAD
-=======
->>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
->>>>>>> 224f474eb44da373580c29e8f45802bd66989f23
     }
 } 
