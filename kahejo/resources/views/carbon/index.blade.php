@@ -40,7 +40,7 @@
                 <p class="mt-1 text-sm text-kahejo-medium">Calculate your carbon footprint based on your daily activities.</p>
             </div>
             <div class="border-t border-kahejo-light/20">
-                <form action="{{ url('/carbon/calculate') }}" method="POST" class="p-6 space-y-6">
+                <form id="carbonForm" action="{{ url('/carbon/calculate') }}" method="POST" class="p-6 space-y-6">
                     @csrf
                     <!-- Month Selection -->
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">

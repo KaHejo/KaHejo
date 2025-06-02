@@ -14,6 +14,8 @@ use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\UserAchievementController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HistoryClaimController;
+use App\Http\Controllers\EmissionsController;
+use App\Http\Controllers\Admin\Auth\LoginController;
 
 
 // Welcome Route
@@ -43,14 +45,11 @@ Route::get('/admin', function () {
 // Protected Routes
 Route::middleware(['auth'])->group(function () {
     // Main Routes
-    Route::get('/main', [MainController::class, 'index'])->name('dashboard');
+    Route::get('/main', [MainController::class, 'index'])->name('main');
     Route::get('/profile', [MainController::class, 'profile'])->name('profile');
     Route::put('/profile', [MainController::class, 'updateProfile'])->name('profile.update');
     Route::put('/profile/password', [MainController::class, 'updatePassword'])->name('password.update');
     Route::get('/settings', [MainController::class, 'settings'])->name('settings');
-
-    // // Admin Routes
-    // Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
     // Carbon Footprint Routes
     Route::get('/carbon', [CarbonFootprintController::class, 'index'])->name('carbon');
@@ -66,40 +65,39 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/company', [CompanyEnergyController::class, 'index'])->name('company');
     Route::post('/company', [CompanyEnergyController::class, 'store'])->name('company.result');
     Route::get('/company/history', [CompanyEnergyController::class, 'history'])->name('company.history');
-   Route::get('/company/view/{id}', [CompanyEnergyController::class, 'view'])->name('company.view');
+    Route::get('/company/view/{id}', [CompanyEnergyController::class, 'view'])->name('company.view');
 
-    
-    // achievements
+    // Achievements
     Route::get('/achievements', [AchievementController::class, 'main'])->name('achievements');
 
     // Rewards
     Route::get('/rewards', [RewardController::class, 'main'])->name('rewards');
     Route::get('/rewards/{id}', [RewardController::class, 'show'])->name('rewards.show');
     Route::post('/rewards/{id}/redeem', [RewardController::class, 'redeem'])->name('rewards.redeem');
-}); 
+});
 
 // Admin Routes
 Route::prefix('admin')->name('admin.')->group(function () {
+    // Login Route
+    Route::get('/login', [LoginController::class, 'create'])->name('login');
+    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+    
     // Dashboard
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     // Users Management
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::prefix('rewards')->group(function () {
         // Route untuk menampilkan semua reward (index)
         Route::get('/', [RewardController::class, 'index'])->name('rewards.index');
-
         // Route untuk halaman form untuk menambah reward baru
         Route::get('/create', [RewardController::class, 'create'])->name('rewards.create');
-
         // Route untuk menyimpan reward baru
         Route::post('/', [RewardController::class, 'store'])->name('rewards.store');
-
         // Route untuk menampilkan halaman edit reward
         Route::get('{id}/edit', [RewardController::class, 'edit'])->name('rewards.edit');
-
         // Route untuk memperbarui data reward
         Route::put('/{id}', [RewardController::class, 'update'])->name('rewards.update');
-
         // Route untuk menghapus reward
         Route::delete('/{id}', [RewardController::class, 'destroy'])->name('rewards.destroy');
     });
@@ -119,9 +117,4 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // History Claims Management
     Route::get('/history-claims', [HistoryClaimController::class, 'index'])->name('history-claims.index');
-    
-
-
-// Routes untuk faktor emisi - dapat diakses tanpa login
-
-require __DIR__.'/admin-auth.php';
+});
