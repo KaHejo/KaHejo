@@ -22,12 +22,12 @@ class MainController extends Controller
 
         // Get user's carbon footprint history
         $carbonHistory = CarbonFootprint::where('user_id', $user->id)
-            ->orderBy('month', 'asc')
+            ->orderBy('created_at', 'desc')
             ->take(12) // Last 12 months
             ->get()
             ->map(function ($record) {
                 return [
-                    'date' => Carbon::parse($record->month)->format('M Y'),
+                    'date' => Carbon::parse($record->created_at)->format('M Y'),
                     'total' => $record->total,
                     'electricity' => $record->electricity,
                     'transportation' => $record->transportation,
@@ -57,29 +57,31 @@ class MainController extends Controller
             }),
             'averageDaily' => $energyConsumption->avg(function ($record) {
                 return $record['electricity'] + $record['gas'] + $record['water'];
-            })
+            }),
+            'peakTime' => $energyConsumption->max(function ($record) {
+                return $record['electricity'] + $record['gas'] + $record['water'];
+            }),
+            'efficiencyScore' => $this->calculateEnergyEfficiencyScore($energyConsumption)
         ];
 
-        // Get lowest and highest carbon footprint
+        // Get lowest carbon footprint
         $lowestFootprint = CarbonFootprint::where('user_id', $user->id)
             ->orderBy('total', 'asc')
-            ->first();
-
-        $highestFootprint = CarbonFootprint::where('user_id', $user->id)
-            ->orderBy('total', 'desc')
             ->first();
 
         // Calculate user-specific stats
         $stats = [
             'totalCarbonFootprint' => $carbonHistory->sum('total'),
             'averageMonthlyFootprint' => $carbonHistory->avg('total'),
+            'lastMonthFootprint' => $carbonHistory->first()['total'] ?? 0,
+            'improvement' => $this->calculateImprovement($carbonHistory),
             'lowestFootprint' => $lowestFootprint ? [
                 'value' => $lowestFootprint->total,
-                'date' => Carbon::parse($lowestFootprint->month)->format('M Y')
-            ] : null,
-            'highestFootprint' => $highestFootprint ? [
-                'value' => $highestFootprint->total,
-                'date' => Carbon::parse($highestFootprint->month)->format('M Y')
+                'date' => Carbon::parse($lowestFootprint->created_at)->format('M Y'),
+                'electricity' => $lowestFootprint->electricity,
+                'transportation' => $lowestFootprint->transportation,
+                'waste' => $lowestFootprint->waste,
+                'water' => $lowestFootprint->water
             ] : null
         ];
 
@@ -96,19 +98,35 @@ class MainController extends Controller
         ]);
     }
 
+    private function calculateImprovement($carbonHistory)
+    {
+        if ($carbonHistory->count() < 2) {
+            return 0;
+        }
+
+        $lastMonth = $carbonHistory->first()['total'];
+        $previousMonth = $carbonHistory->get(1)['total'];
+
+        if ($previousMonth == 0) {
+            return 0;
+        }
+
+        return round((($previousMonth - $lastMonth) / $previousMonth) * 100, 1);
+    }
+
     private function getUserActivities($userId)
     {
         // Get user's recent carbon footprint calculations
         $recentCalculations = CarbonFootprint::where('user_id', $userId)
-            ->orderBy('month', 'desc')
+            ->orderBy('created_at', 'desc')
             ->take(3)
             ->get()
             ->map(function ($record) {
                 return [
                     'icon' => 'calculator',
                     'color' => 'green',
-                    'title' => 'Carbon footprint for ' . Carbon::parse($record->month)->format('F Y'),
-                    'time' => Carbon::parse($record->month)->diffForHumans(),
+                    'title' => 'New carbon footprint calculation',
+                    'time' => Carbon::parse($record->created_at)->diffForHumans(),
                     'value' => $record->total
                 ];
             });
@@ -166,7 +184,43 @@ class MainController extends Controller
 
     public function settings()
     {
-        $user = Auth::user();
+        $user = null; // Will be Auth::user() when auth is implemented
         return view('settings', compact('user'));
+    }
+
+    private function calculateEnergyEfficiencyScore($energyConsumption)
+    {
+        if ($energyConsumption->isEmpty()) {
+            return 0;
+        }
+
+        // Calculate average consumption
+        $avgConsumption = $energyConsumption->avg(function ($record) {
+            return $record['electricity'] + $record['gas'] + $record['water'];
+        });
+
+        // If average consumption is 0, return 0 to avoid division by zero
+        if ($avgConsumption == 0) {
+            return 0;
+        }
+
+        // Calculate standard deviation
+        $variance = $energyConsumption->map(function ($record) use ($avgConsumption) {
+            $total = $record['electricity'] + $record['gas'] + $record['water'];
+            return pow($total - $avgConsumption, 2);
+        })->avg();
+
+        $stdDev = sqrt($variance);
+
+        // Calculate efficiency score (100 - (stdDev/avgConsumption * 100))
+        // If standard deviation is 0, return 100 (perfect efficiency)
+        if ($stdDev == 0) {
+            return 100;
+        }
+
+        $score = 100 - (($stdDev / $avgConsumption) * 100);
+
+        // Ensure score is between 0 and 100
+        return max(0, min(100, round($score)));
     }
 } 
