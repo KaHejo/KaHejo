@@ -334,11 +334,13 @@
                 <i class="fas fa-leaf"></i>
             </div>
             <h1>Welcome to KaHejo</h1>
-            <p class="welcome-text">Your trusted platform for health and wellness. Join us on your journey to better health.</p>
+            <p class="welcome-text">
+                Start tracking your carbon footprint and contribute to a greener planet.
+            </p>
             
             <div class="button-group">
-                <a href="{{ route('company') }}" class="btn primary-btn">Get Started</a>
-                <a href="#" class="btn secondary-btn">Learn More</a>
+                <a href="{{ route('login') }}" class="btn primary-btn">Get Started</a>
+                <a href="#learn-more" class="btn secondary-btn">Learn More</a>
             </div>
         </div>
 

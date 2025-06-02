@@ -121,7 +121,7 @@
                         <span class="logo-text text-2xl">KaHejo</span>
                     </div>
                     <div class="hidden md:flex md:ml-10">
-                        <a href="{{ route('main') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
+                        <a href="{{ route('dashboard') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
                             <i class="nav-icon fas fa-home text-lg mr-2"></i>
                             Dashboard
                         </a>
@@ -151,7 +151,7 @@
                         <img class="h-8 w-8 rounded-full ring-2 ring-green-500" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User">
                         <div class="ml-3">
                             <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name }}</p>
-                            <p class="text-xs text-gray-500">Administrator</p>
+                            <p class="text-xs text-gray-500">User</p>
                         </div>
                     </div>
 
@@ -218,6 +218,54 @@
                                         placeholder="Enter your email address">
                                 </div>
                                 @error('email')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-phone text-gray-400"></i>
+                                    </div>
+                                    <input type="text" name="phone" value="{{ Auth::user()->phone }}" 
+                                        class="input-field @error('phone') border-red-500 @enderror"
+                                        placeholder="Enter your phone number">
+                                </div>
+                                @error('phone')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Birth Date</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-calendar-alt text-gray-400"></i>
+                                    </div>
+                                    <input type="date" name="birth_date" value="{{ Auth::user()->birth_date }}" 
+                                        class="input-field @error('birth_date') border-red-500 @enderror"
+                                        placeholder="Select your birth date">
+                                </div>
+                                @error('birth_date')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-venus-mars text-gray-400"></i>
+                                    </div>
+                                    <select name="gender" class="input-field @error('gender') border-red-500 @enderror pl-10">
+                                        <option value="" disabled selected>Select your gender</option>
+                                        <option value="male" {{ Auth::user()->gender == 'male' ? 'selected' : '' }}>Male</option>
+                                        <option value="female" {{ Auth::user()->gender == 'female' ? 'selected' : '' }}>Female</option>
+                                        <option value="other" {{ Auth::user()->gender == 'other' ? 'selected' : '' }}>Other</option>
+                                    </select>
+                                </div>
+                                @error('gender')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>

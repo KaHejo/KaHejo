@@ -78,7 +78,7 @@
                     <div class="flex-shrink-0 flex items-center">
                         <span class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-600">KaHejo</span>
                     </div>
-                                        <div class="hidden md:flex md:ml-10">
+                      <div class="hidden md:flex md:ml-10">
                         <a href="{{ route('main') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('main') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-home text-lg mr-2"></i>
                             Dashboard
@@ -158,3 +158,4 @@
     </script>
 </body>
 </html> 
+
