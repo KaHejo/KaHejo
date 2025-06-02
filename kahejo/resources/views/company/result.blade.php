@@ -382,8 +382,21 @@
         </div>
 
         <!-- Main Content -->
-        <div class="max-w-6xl mx-auto py-4 sm:px-4 lg:px-6">
-            
+        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <!-- Success Alert -->
+            <div class="mb-6" data-aos="fade-down">
+                <div class="success-badge">
+                    <i class="fas fa-check-circle"></i>
+
+                    <span class="text-sm font-medium">Data konsumsi energi berhasil disimpan</span>
+                </div>
+            </div>
+            <!-- Achievement Alert -->
+            @if(session('achievement'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                    {{ session('achievement') }}
+                </div>
+            @endif
 
             <!-- Main Card -->
             <div class="card-hover bg-white/90 backdrop-blur-md shadow-lg rounded-lg border border-gray-100 overflow-hidden" data-aos="fade-up">
@@ -533,9 +546,9 @@
                                             <i class="fas fa-hashtag text-base text-green-600"></i>
                                         </div>
                                     </div>
-                                    <div class="ml-2">
-                                        <p class="text-xs font-medium text-gray-500">ID Record</p>
-                                        <p class="text-sm font-semibold stat-value">#{{ $consumption->id }}</p>
+                                    <div class="ml-3">
+                                        <p class="text-xs font-medium text-gray-500">Dibuat Oleh</p>
+                                        <p class="text-sm font-semibold text-gray-900">{{ $result['user_name'] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -744,4 +757,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
