@@ -114,7 +114,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // History Claims Management
     Route::get('/history-claims', [HistoryClaimController::class, 'index'])->name('history-claims.index');
-    
+});
 
 
 // Routes untuk faktor emisi - dapat diakses tanpa login
