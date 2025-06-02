@@ -157,7 +157,7 @@
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Total Users</dt>
                                 <dd class="flex items-baseline">
-                                    {{-- <div class="text-2xl font-semibold text-gray-900">{{ number_format($stats['totalUsers']) }}</div> --}}
+                                    <div class="text-2xl font-semibold text-gray-900">{{ number_format($stats['totalUsers']) }}</div>
                                     <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
                                         <i class="fas fa-arrow-up"></i>
                                         <span class="sr-only">Increased by</span>
@@ -183,7 +183,7 @@
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Growth</dt>
                                 <dd class="flex items-baseline">
-                                    {{-- <div class="text-2xl font-semibold text-gray-900">{{ $stats['growth'] }}%</div> --}}
+                                    <div class="text-2xl font-semibold text-gray-900">{{ $stats['growth'] }}%</div>
                                     <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
                                         <i class="fas fa-arrow-up"></i>
                                         <span class="sr-only">Increased by</span>
@@ -209,7 +209,7 @@
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Active Tasks</dt>
                                 <dd class="flex items-baseline">
-                                    {{-- <div class="text-2xl font-semibold text-gray-900">{{ $stats['activeTasks'] }}</div> --}}
+                                    <div class="text-2xl font-semibold text-gray-900">{{ $stats['activeTasks'] }}</div>
                                     <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
                                         <i class="fas fa-arrow-up"></i>
                                         <span class="sr-only">Increased by</span>
@@ -235,7 +235,7 @@
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Completed</dt>
                                 <dd class="flex items-baseline">
-                                    {{-- <div class="text-2xl font-semibold text-gray-900">{{ $stats['completed'] }}</div> --}}
+                                    <div class="text-2xl font-semibold text-gray-900">{{ $stats['completed'] }}</div>
                                     <div class="ml-2 flex items-baseline text-sm font-semibold text-green-600">
                                         <i class="fas fa-arrow-up"></i>
                                         <span class="sr-only">Increased by</span>
@@ -250,4 +250,4 @@
         </div>
     </div>
 </body>
-</html>
+</html> 

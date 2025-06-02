@@ -11,7 +11,6 @@ class CarbonFootprint extends Model
 
     protected $fillable = [
         'user_id',
-        'month',
         'electricity',
         'transportation',
         'waste',
@@ -20,7 +19,6 @@ class CarbonFootprint extends Model
     ];
 
     protected $casts = [
-        'month' => 'date',
         'electricity' => 'decimal:2',
         'transportation' => 'decimal:2',
         'waste' => 'decimal:2',

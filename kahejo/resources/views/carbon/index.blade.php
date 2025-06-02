@@ -12,11 +12,11 @@
                 extend: {
                     colors: {
                         'kahejo': {
-                            'darkest': '#064e3b',  // Darkest green
-                            'dark': '#059669',     // Dark green
-                            'medium': '#10b981',   // Medium green
-                            'light': '#34d399',    // Light green
-                            'lightest': '#6ee7b7', // Lightest green
+                            'darkest': '#3E362E',
+                            'dark': '#865D36',
+                            'medium': '#93785B',
+                            'light': '#AC8968',
+                            'lightest': '#A69080',
                         },
                     },
                 },
@@ -75,19 +75,6 @@
         .user-profile:hover {
             transform: translateY(-1px);
         }
-        .logout-btn {
-            transition: all 0.2s ease;
-            background: linear-gradient(to right, #10B981, #059669);
-            color: white;
-            padding: 0.5rem 1.25rem;
-            border-radius: 9999px;
-            font-weight: 500;
-            border: none;
-        }
-        .logout-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -101,7 +88,7 @@
                         <span class="logo-text text-2xl font-extrabold">KaHejo</span>
                     </div>
                     <div class="hidden md:flex md:ml-10">
-                        <a href="{{ route('dashboard') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('main') ? 'active' : '' }}">
+                        <a href="{{ route('main') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('main') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-home text-lg mr-2"></i>
                             Dashboard
                         </a>
@@ -126,7 +113,7 @@
                         <img class="h-8 w-8 rounded-full ring-2 ring-green-500" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User">
                         <div class="ml-3">
                             <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name ?? 'Kasino' }}</p>
-                            <p class="text-xs text-gray-500">User</p>
+                            <p class="text-xs text-gray-500">Administrator</p>
                         </div>
                     </div>
                     <!-- Logout Button -->
@@ -153,19 +140,6 @@
             <div class="border-t border-kahejo-light/20">
                 <form action="{{ url('/carbon/calculate') }}" method="POST" class="p-6 space-y-6">
                     @csrf
-                    <!-- Month Selection -->
-                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                        <div>
-                            <label for="month" class="block text-sm font-medium text-kahejo-darkest">Month</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-calendar text-kahejo-dark"></i>
-                                </div>
-                                <input type="month" name="month" id="month" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" required>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Electricity Usage -->
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div>
@@ -212,15 +186,11 @@
                         </div>
                     </div>
 
-                    <div class="flex justify-end space-x-4">
+                    <div class="flex justify-end">
                         <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-kahejo-dark hover:bg-kahejo-darkest focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kahejo-medium">
                             <i class="fas fa-calculator mr-2"></i>
                             Calculate Footprint
                         </button>
-                        <a href="{{ route('carbon.history') }}" class="inline-flex items-center px-4 py-2 border border-kahejo-dark text-sm font-medium rounded-md text-kahejo-dark bg-white hover:bg-kahejo-lightest focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kahejo-medium">
-                            <i class="fas fa-history mr-2"></i>
-                            View History
-                        </a>
                     </div>
                 </form>
             </div>

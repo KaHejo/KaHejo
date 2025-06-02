@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('company_energy_consumptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('source_type'); // Jenis sumber energi (bensin, solar, gas, dll)
             $table->float('consumption_amount'); // Jumlah konsumsi
             $table->string('unit_measurement'); // Satuan pengukuran (liter, kg, kWh)
@@ -31,9 +30,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('company_energy_consumptions');
-        Schema::table('company_energy_consumptions', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
-        });
     }
 }; 

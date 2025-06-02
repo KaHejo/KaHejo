@@ -88,30 +88,4 @@ class CompanyEnergyController extends Controller
         $consumptions = $this->companyEnergyService->getAllConsumptions();
         return view('company.history', compact('consumptions'));
     }
-
-    public function view($id)
-    {
-        try {
-            $consumption = $this->companyEnergyService->find($id);
-            
-            // Prepare result data for the view
-            $result = [
-                'source_type' => $consumption->source_type,
-                'consumption_amount' => $consumption->consumption_amount,
-                'unit_measurement' => $consumption->unit_measurement,
-                'activity_type' => $consumption->activity_type,
-                'location_name' => $consumption->location_name,
-                'consumption_date' => $consumption->consumption_date,
-                'reporting_period' => $consumption->reporting_period,
-                'calculation_date' => $consumption->created_at->format('Y-m-d H:i:s'),
-            ];
-
-            return view('company.result', [
-                'result' => $result,
-                'consumption' => $consumption
-            ]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return redirect()->route('company.history')->with('error', 'Consumption record not found.');
-        }
-    }
 } 

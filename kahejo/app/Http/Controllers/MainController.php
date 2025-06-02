@@ -12,21 +12,27 @@ class MainController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // Uncomment this if you want to use authentication
+        // $this->middleware('auth');
     }
 
     public function index()
     {
-        $user = Auth::user();
+        // Sample data for dashboard
+        $stats = [
+            'totalUsers' => 1234,
+            'growth' => 24,
+            'activeTasks' => 56,
+            'completed' => 89
+        ];
 
-        // Get user's carbon footprint history
-        $carbonHistory = CarbonFootprint::where('user_id', $user->id)
-            ->orderBy('month', 'asc')
+        // Get carbon footprint history
+        $carbonHistory = CarbonFootprint::orderBy('created_at', 'desc')
             ->take(12) // Last 12 months
             ->get()
             ->map(function ($record) {
                 return [
-                    'date' => Carbon::parse($record->month)->format('M Y'),
+                    'date' => Carbon::parse($record->created_at)->format('M Y'),
                     'total' => $record->total,
                     'electricity' => $record->electricity,
                     'transportation' => $record->transportation,
@@ -35,29 +41,30 @@ class MainController extends Controller
                 ];
             });
 
-        // Get lowest carbon footprint
-        $lowestFootprint = CarbonFootprint::where('user_id', $user->id)
-            ->orderBy('total', 'asc')
-            ->first();
-
-        // Calculate user-specific stats
-        $stats = [
-            'totalCarbonFootprint' => $carbonHistory->sum('total'),
-            'averageMonthlyFootprint' => $carbonHistory->avg('total'),
-            'lastMonthFootprint' => $carbonHistory->first()['total'] ?? 0,
-            'improvement' => $this->calculateImprovement($carbonHistory),
-            'lowestFootprint' => $lowestFootprint ? [
-                'value' => $lowestFootprint->total,
-                'date' => Carbon::parse($lowestFootprint->month)->format('M Y'),
-                'electricity' => $lowestFootprint->electricity,
-                'transportation' => $lowestFootprint->transportation,
-                'waste' => $lowestFootprint->waste,
-                'water' => $lowestFootprint->water
-            ] : null
+        // Recent activities
+        $activities = [
+            [
+                'icon' => 'user-plus',
+                'color' => 'green',
+                'title' => 'New user registered',
+                'time' => '2 hours ago'
+            ],
+            [
+                'icon' => 'tasks',
+                'color' => 'blue',
+                'title' => 'Task completed',
+                'time' => '4 hours ago'
+            ],
+            [
+                'icon' => 'comment',
+                'color' => 'yellow',
+                'title' => 'New comment',
+                'time' => '6 hours ago'
+            ]
         ];
 
-        // Get user's recent activities
-        $activities = $this->getUserActivities($user->id);
+        // For now, we'll pass null as user since auth is not implemented yet
+        $user = null;
 
         return view('main', [
             'user' => $user,
@@ -65,42 +72,6 @@ class MainController extends Controller
             'activities' => $activities,
             'carbonHistory' => $carbonHistory
         ]);
-    }
-
-    private function calculateImprovement($carbonHistory)
-    {
-        if ($carbonHistory->count() < 2) {
-            return 0;
-        }
-
-        $lastMonth = $carbonHistory->first()['total'];
-        $previousMonth = $carbonHistory->get(1)['total'];
-
-        if ($previousMonth == 0) {
-            return 0;
-        }
-
-        return round((($previousMonth - $lastMonth) / $previousMonth) * 100, 1);
-    }
-
-    private function getUserActivities($userId)
-    {
-        // Get user's recent carbon footprint calculations
-        $recentCalculations = CarbonFootprint::where('user_id', $userId)
-            ->orderBy('month', 'desc')
-            ->take(3)
-            ->get()
-            ->map(function ($record) {
-                return [
-                    'icon' => 'calculator',
-                    'color' => 'green',
-                    'title' => 'Carbon footprint for ' . Carbon::parse($record->month)->format('F Y'),
-                    'time' => Carbon::parse($record->month)->diffForHumans(),
-                    'value' => $record->total
-                ];
-            });
-
-        return $recentCalculations;
     }
 
     public function profile()
@@ -115,8 +86,6 @@ class MainController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
             'phone' => 'nullable|string|max:20',
-            'birth_date' => 'nullable|date',
-            'gender' => 'nullable|in:male,female,other',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
@@ -124,8 +93,6 @@ class MainController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
-        $user->birth_date = $request->birth_date;
-        $user->gender = $request->gender;
 
         if ($request->hasFile('photo')) {
             $path = $request->file('photo')->store('profile-photos', 'public');

@@ -155,8 +155,7 @@ class CompanyEnergyService
      */
     public function getAllConsumptions()
     {
-        return CompanyEnergyConsumption::where('user_id', Auth::id())
-            ->orderBy('consumption_date', 'desc')
+        return CompanyEnergyConsumption::orderBy('consumption_date', 'desc')
             ->paginate(10);
     }
 } 

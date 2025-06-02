@@ -86,7 +86,7 @@
                         <span class="logo-text text-2xl">KaHejo</span>
                     </div>
                     <div class="hidden md:flex md:ml-10">
-                        <a href="{{ route('dashboard') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
+                        <a href="{{ route('main') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
                             <i class="nav-icon fas fa-home text-lg mr-2"></i>
                             Dashboard
                         </a>
@@ -228,130 +228,50 @@
             <!-- History Table -->
             <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200">
                 <div class="px-4 py-5 sm:px-6 border-b border-gray-100">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">Consumption Records</h3>
-                        <div class="flex items-center space-x-2">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                                <i class="fas fa-info-circle mr-2"></i>
-                                Total Records: {{ $consumptions->total() }}
-                            </span>
-                        </div>
-                    </div>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Consumption Records</h3>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex items-center space-x-1">
-                                        <i class="fas fa-calendar text-gray-400"></i>
-                                        <span>Date</span>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex items-center space-x-1">
-                                        <i class="fas fa-plug text-gray-400"></i>
-                                        <span>Source Type</span>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex items-center space-x-1">
-                                        <i class="fas fa-bolt text-gray-400"></i>
-                                        <span>Amount</span>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex items-center space-x-1">
-                                        <i class="fas fa-ruler text-gray-400"></i>
-                                        <span>Unit</span>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex items-center space-x-1">
-                                        <i class="fas fa-tasks text-gray-400"></i>
-                                        <span>Activity</span>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex items-center space-x-1">
-                                        <i class="fas fa-map-marker-alt text-gray-400"></i>
-                                        <span>Location</span>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex items-center space-x-1">
-                                        <i class="fas fa-building text-gray-400"></i>
-                                        <span>Department</span>
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    <div class="flex items-center space-x-1">
-                                        <i class="fas fa-eye text-gray-400"></i>
-                                        <span>Action</span>
-                                    </div>
-                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Source Type</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unit</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Activity</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($consumptions as $consumption)
                             <tr class="hover:bg-gray-50 transition-colors duration-200">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <div class="flex items-center">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-2">
-                                            <i class="fas fa-calendar-day mr-1"></i>
-                                            {{ \Carbon\Carbon::parse($consumption->consumption_date)->format('d M Y') }}
-                                        </span>
-                                    </div>
+                                    {{ \Carbon\Carbon::parse($consumption->consumption_date)->format('d M Y') }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                        <i class="fas fa-plug mr-1"></i>
-                                        {{ $consumption->source_type }}
-                                    </span>
+                                    {{ $consumption->source_type }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <div class="flex items-center">
-                                        <span class="font-medium">{{ $consumption->consumption_amount }}</span>
-                                    </div>
+                                    {{ $consumption->consumption_amount }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                                        {{ $consumption->unit_measurement }}
-                                    </span>
+                                    {{ $consumption->unit_measurement }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                        <i class="fas fa-tasks mr-1"></i>
-                                        {{ $consumption->activity_type }}
-                                    </span>
+                                    {{ $consumption->activity_type }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <div class="flex items-center">
-                                        <i class="fas fa-map-marker-alt text-red-500 mr-1"></i>
-                                        {{ $consumption->location_name }}
-                                    </div>
+                                    {{ $consumption->location_name }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-                                        <i class="fas fa-building mr-1"></i>
-                                        {{ $consumption->department }}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <a href="{{ route('company.view', ['id' => $consumption->id]) }}" 
-                                       class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
-                                        <i class="fas fa-eye mr-1.5"></i>
-                                        View Details
-                                    </a>
+                                    {{ $consumption->department }}
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="8" class="px-6 py-4 text-center text-sm text-gray-500">
-                                    <div class="flex flex-col items-center justify-center py-8">
-                                        <i class="fas fa-inbox text-4xl text-gray-400 mb-2"></i>
-                                        <p class="text-gray-500">No energy consumption records found.</p>
-                                    </div>
+                                <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500">
+                                    No energy consumption records found.
                                 </td>
                             </tr>
                             @endforelse

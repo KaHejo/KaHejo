@@ -10,15 +10,13 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('phone')->nullable()->after('email');
-            $table->date('birth_date')->nullable()->after('phone');
-            $table->enum('gender', ['male', 'female', 'other'])->nullable()->after('birth_date');
         });
     }
 
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['phone', 'birth_date', 'gender']);
+            $table->dropColumn('phone');
         });
     }
 }; 
