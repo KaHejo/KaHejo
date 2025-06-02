@@ -118,20 +118,20 @@
                     <div class="flex-shrink-0 flex items-center">
                         <span class="logo-text text-2xl">KaHejo</span>
                     </div>
-                    <div class="hidden md:flex md:ml-10">
-                        <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }} flex items-center text-sm font-medium dark:text-dark-text-primary">
+                    <div class="hidden md:flex md:ml-10 space-x-4">
+                        <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }} flex items-center text-sm font-medium text-gray-500 dark:text-dark-text-secondary hover:text-green-600 dark:hover:text-green-400">
                             <i class="nav-icon fas fa-home text-lg mr-2"></i>
                             Dashboard
                         </a>
-                        <a href="{{ route('profile') }}" class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }} flex items-center text-sm font-medium text-gray-500 dark:text-dark-text-secondary">
+                        <a href="{{ route('profile') }}" class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }} flex items-center text-sm font-medium text-gray-500 dark:text-dark-text-secondary hover:text-green-600 dark:hover:text-green-400">
                             <i class="nav-icon fas fa-user text-lg mr-2"></i>
                             Profile
                         </a>
-                        <a href="{{ route('carbon') }}" class="nav-link {{ request()->routeIs('carbon') ? 'active' : '' }} flex items-center text-sm font-medium text-gray-500 dark:text-dark-text-secondary">
+                        <a href="{{ route('carbon') }}" class="nav-link {{ request()->routeIs('carbon') ? 'active' : '' }} flex items-center text-sm font-medium text-gray-500 dark:text-dark-text-secondary hover:text-green-600 dark:hover:text-green-400">
                             <i class="nav-icon fas fa-calculator text-lg mr-2"></i>
                             Carbon Calculator
                         </a>
-                        <a href="{{ route('company') }}" class="nav-link {{ request()->routeIs('company') ? 'active' : '' }} flex items-center text-sm font-medium text-gray-500 dark:text-dark-text-secondary">
+                        <a href="{{ route('company') }}" class="nav-link {{ request()->routeIs('company') ? 'active' : '' }} flex items-center text-sm font-medium text-gray-500 dark:text-dark-text-secondary hover:text-green-600 dark:hover:text-green-400">
                             <i class="nav-icon fas fa-chart-line text-lg mr-2"></i>
                             Energy Consumption
                         </a>
