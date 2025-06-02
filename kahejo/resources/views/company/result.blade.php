@@ -6,6 +6,58 @@
     <title>Hasil Konsumsi Energi Perusahaan</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kahejo': {
+                            'darkest': '#064e3b',  // Darkest green
+                            'dark': '#059669',     // Dark green
+                            'medium': '#10b981',   // Medium green
+                            'light': '#34d399',    // Light green
+                            'lightest': '#6ee7b7', // Lightest green
+                        },
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'bounce-in': 'bounceIn 0.5s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse': 'pulse 2s infinite',
+                        'shimmer': 'shimmer 2s infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        bounceIn: {
+                            '0%': { transform: 'scale(0.3)', opacity: '0' },
+                            '50%': { transform: 'scale(1.05)', opacity: '0.8' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        pulse: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.05)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -27,20 +79,22 @@
             transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(16, 185, 129, 0.1);
         }
         .card-hover:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: rgba(16, 185, 129, 0.3);
         }
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
         }
         .timeline-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
         }
         .btn-back {
             transition: all 0.3s ease;
@@ -53,8 +107,8 @@
         }
         .section-title {
             position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 1rem;
+            padding-left: 1.25rem;
+            margin-bottom: 0.75rem;
         }
         .section-title::before {
             content: '';
@@ -62,24 +116,40 @@
             left: 0;
             top: 50%;
             transform: translateY(-50%);
-            width: 1rem;
-            height: 1rem;
+            width: 0.75rem;
+            height: 0.75rem;
             background: linear-gradient(45deg, #10B981, #059669);
             border-radius: 0.25rem;
             animation: pulse 2s infinite;
         }
-        @keyframes pulse {
-            0% { transform: translateY(-50%) scale(1); }
-            50% { transform: translateY(-50%) scale(1.1); }
-            100% { transform: translateY(-50%) scale(1); }
-        }
         .info-card {
             background: rgba(255, 255, 255, 0.9);
-            border-radius: 0.75rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            padding: 0.75rem;
             transition: all 0.3s ease;
             border: 1px solid rgba(16, 185, 129, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+        .info-card:hover::before {
+            transform: translateX(100%);
         }
         .info-card:hover {
             transform: translateY(-3px);
@@ -103,6 +173,23 @@
         }
         .icon-wrapper {
             transition: all 0.3s ease;
+            position: relative;
+        }
+        .icon-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #10B981, #059669);
+            border-radius: 0.5rem;
+            opacity: 0;
+            transition: 0.3s;
+            z-index: -1;
+        }
+        .info-card:hover .icon-wrapper::after {
+            opacity: 0.1;
         }
         .info-card:hover .icon-wrapper {
             transform: scale(1.1) rotate(5deg);
@@ -113,22 +200,68 @@
             background-clip: text;
             color: transparent;
             font-weight: 600;
+            position: relative;
+        }
+        .stat-value::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(45deg, #10B981, #059669);
+            transform: scaleX(0);
+            transition: 0.3s;
+        }
+        .info-card:hover .stat-value::after {
+            transform: scaleX(1);
         }
         .chart-container {
             position: relative;
             margin: auto;
             height: 300px;
             width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
         }
         .floating-card {
             animation: float 6s ease-in-out infinite;
         }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+        .action-button {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        /* Add styles for PDF generation */
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+        .action-button:hover::before {
+            transform: translateX(100%);
+        }
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
         .pdf-preview {
             display: none;
             position: fixed;
@@ -140,6 +273,7 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(5px);
         }
         .pdf-preview-content {
             background: white;
@@ -148,6 +282,8 @@
             max-width: 90%;
             max-height: 90%;
             overflow: auto;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.3s ease-out;
         }
         .pdf-preview-close {
             position: absolute;
@@ -157,9 +293,17 @@
             font-size: 1.5rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
         }
         .pdf-preview-close:hover {
             transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
         }
         .pdf-loading {
             position: fixed;
@@ -172,9 +316,14 @@
             justify-content: center;
             align-items: center;
             z-index: 1001;
+            backdrop-filter: blur(5px);
         }
         .pdf-loading-content {
             text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
         .pdf-loading-spinner {
             border: 4px solid #f3f3f3;
@@ -188,6 +337,31 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        .notification {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .notification.success {
+            border-left: 4px solid #10B981;
+        }
+        .notification.error {
+            border-left: 4px solid #EF4444;
         }
     </style>
 </head>
@@ -208,64 +382,55 @@
         </div>
 
         <!-- Main Content -->
-        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-            <!-- Success Alert -->
-            <div class="mb-6" data-aos="fade-down">
-                <div class="success-badge">
-                    <i class="fas fa-check-circle text-xl"></i>
-                    <span class="text-sm font-medium">Data konsumsi energi berhasil disimpan</span>
-                </div>
-            </div>
+        <div class="max-w-6xl mx-auto py-4 sm:px-4 lg:px-6">
+            
 
             <!-- Main Card -->
-            <div class="card-hover bg-white/90 backdrop-blur-md shadow-xl rounded-xl border border-gray-100 overflow-hidden" data-aos="fade-up">
-                <div class="px-6 py-4 border-b border-gray-100">
+            <div class="card-hover bg-white/90 backdrop-blur-md shadow-lg rounded-lg border border-gray-100 overflow-hidden" data-aos="fade-up">
+                <div class="px-4 py-3 border-b border-gray-100">
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
-                            <div class="p-2 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                <i class="fas fa-chart-line text-xl text-green-600"></i>
+                            <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+                                <i class="fas fa-chart-line text-lg text-green-600"></i>
                             </div>
                         </div>
                         <div class="ml-3">
-                            <h3 class="text-lg font-semibold text-gray-900">Hasil Konsumsi Energi</h3>
-                            <p class="text-sm text-gray-500">Detail informasi konsumsi energi perusahaan</p>
+                            <h3 class="text-base font-semibold text-gray-900">Hasil Konsumsi Energi</h3>
+                            <p class="text-xs text-gray-500">Detail informasi konsumsi energi perusahaan</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="p-6 space-y-6">
-                    <!-- Energy Consumption Chart -->
-                    
-
+                <div class="p-4 space-y-4">
                     <!-- Energy Source Section -->
                     <div data-aos="fade-up" data-aos-delay="200">
                         <div class="section-title">
-                            <h4 class="text-lg font-semibold text-gray-900">Sumber Energi</h4>
+                            <h4 class="text-base font-semibold text-gray-900">Sumber Energi</h4>
                         </div>
                         <div class="info-grid">
                             <div class="info-card floating-card">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-2 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-plug text-lg text-green-600"></i>
+                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+                                            <i class="fas fa-plug text-base text-green-600"></i>
                                         </div>
                                     </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-500">Jenis</p>
-                                        <p class="text-base font-semibold stat-value">{{ $result['source_type'] }}</p>
+                                    <div class="ml-2">
+                                        <p class="text-xs font-medium text-gray-500">Jenis</p>
+                                        <p class="text-sm font-semibold stat-value">{{ $result['source_type'] }}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="info-card floating-card">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-2 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-bolt text-lg text-green-600"></i>
+                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+                                            <i class="fas fa-bolt text-base text-green-600"></i>
                                         </div>
                                     </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-500">Jumlah</p>
-                                        <p class="text-base font-semibold stat-value">{{ $result['consumption_amount'] }} {{ $result['unit_measurement'] }}</p>
+                                    <div class="ml-2">
+                                        <p class="text-xs font-medium text-gray-500">Jumlah</p>
+                                        <p class="text-sm font-semibold stat-value">{{ $result['consumption_amount'] }} {{ $result['unit_measurement'] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -275,32 +440,32 @@
                     <!-- Activity Information Section -->
                     <div data-aos="fade-up" data-aos-delay="300">
                         <div class="section-title">
-                            <h4 class="text-lg font-semibold text-gray-900">Informasi Aktivitas</h4>
+                            <h4 class="text-base font-semibold text-gray-900">Informasi Aktivitas</h4>
                         </div>
                         <div class="info-grid">
                             <div class="info-card floating-card">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-2 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-tasks text-lg text-green-600"></i>
+                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+                                            <i class="fas fa-tasks text-base text-green-600"></i>
                                         </div>
                                     </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-500">Jenis</p>
-                                        <p class="text-base font-semibold stat-value">{{ $result['activity_type'] }}</p>
+                                    <div class="ml-2">
+                                        <p class="text-xs font-medium text-gray-500">Jenis</p>
+                                        <p class="text-sm font-semibold stat-value">{{ $result['activity_type'] }}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="info-card floating-card">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-2 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-map-marker-alt text-lg text-green-600"></i>
+                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+                                            <i class="fas fa-map-marker-alt text-base text-green-600"></i>
                                         </div>
                                     </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-500">Lokasi</p>
-                                        <p class="text-base font-semibold stat-value">{{ $result['location_name'] ?? 'Tidak ditentukan' }}</p>
+                                    <div class="ml-2">
+                                        <p class="text-xs font-medium text-gray-500">Lokasi</p>
+                                        <p class="text-sm font-semibold stat-value">{{ $result['location_name'] ?? 'Tidak ditentukan' }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -310,45 +475,45 @@
                     <!-- Time Information Section -->
                     <div data-aos="fade-up" data-aos-delay="400">
                         <div class="section-title">
-                            <h4 class="text-lg font-semibold text-gray-900">Informasi Waktu</h4>
+                            <h4 class="text-base font-semibold text-gray-900">Informasi Waktu</h4>
                         </div>
                         <div class="timeline-grid">
                             <div class="info-card floating-card">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-2 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-clock text-lg text-green-600"></i>
+                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+                                            <i class="fas fa-clock text-base text-green-600"></i>
                                         </div>
                                     </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-500">Tanggal Konsumsi</p>
-                                        <p class="text-base font-semibold stat-value">{{ $result['consumption_date'] }}</p>
+                                    <div class="ml-2">
+                                        <p class="text-xs font-medium text-gray-500">Tanggal Konsumsi</p>
+                                        <p class="text-sm font-semibold stat-value">{{ $result['consumption_date'] }}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="info-card floating-card">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-2 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-calendar-alt text-lg text-green-600"></i>
+                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+                                            <i class="fas fa-calendar-alt text-base text-green-600"></i>
                                         </div>
                                     </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-500">Periode Pelaporan</p>
-                                        <p class="text-base font-semibold stat-value">{{ $result['reporting_period'] }}</p>
+                                    <div class="ml-2">
+                                        <p class="text-xs font-medium text-gray-500">Periode Pelaporan</p>
+                                        <p class="text-sm font-semibold stat-value">{{ $result['reporting_period'] }}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="info-card floating-card">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-2 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-save text-lg text-green-600"></i>
+                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+                                            <i class="fas fa-save text-base text-green-600"></i>
                                         </div>
                                     </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-500">Tanggal Pencatatan</p>
-                                        <p class="text-base font-semibold stat-value">{{ $result['calculation_date'] }}</p>
+                                    <div class="ml-2">
+                                        <p class="text-xs font-medium text-gray-500">Tanggal Pencatatan</p>
+                                        <p class="text-sm font-semibold stat-value">{{ $result['calculation_date'] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -358,45 +523,45 @@
                     <!-- Database Information Section -->
                     <div data-aos="fade-up" data-aos-delay="500">
                         <div class="section-title">
-                            <h4 class="text-lg font-semibold text-gray-900">Informasi Data</h4>
+                            <h4 class="text-base font-semibold text-gray-900">Informasi Data</h4>
                         </div>
                         <div class="info-grid">
                             <div class="info-card floating-card">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-2 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-hashtag text-lg text-green-600"></i>
+                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+                                            <i class="fas fa-hashtag text-base text-green-600"></i>
                                         </div>
                                     </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-500">ID Record</p>
-                                        <p class="text-base font-semibold stat-value">#{{ $consumption->id }}</p>
+                                    <div class="ml-2">
+                                        <p class="text-xs font-medium text-gray-500">ID Record</p>
+                                        <p class="text-sm font-semibold stat-value">#{{ $consumption->id }}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="info-card floating-card">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-2 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-calendar-plus text-lg text-green-600"></i>
+                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+                                            <i class="fas fa-calendar-plus text-base text-green-600"></i>
                                         </div>
                                     </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-500">Dibuat Pada</p>
-                                        <p class="text-base font-semibold stat-value">{{ $consumption->created_at->format('d M Y') }}</p>
+                                    <div class="ml-2">
+                                        <p class="text-xs font-medium text-gray-500">Dibuat Pada</p>
+                                        <p class="text-sm font-semibold stat-value">{{ $consumption->created_at->format('d M Y') }}</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="info-card floating-card">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-2 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-calendar-check text-lg text-green-600"></i>
+                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+                                            <i class="fas fa-calendar-check text-base text-green-600"></i>
                                         </div>
                                     </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-500">Diperbarui Pada</p>
-                                        <p class="text-base font-semibold stat-value">{{ $consumption->updated_at->format('d M Y') }}</p>
+                                    <div class="ml-2">
+                                        <p class="text-xs font-medium text-gray-500">Diperbarui Pada</p>
+                                        <p class="text-sm font-semibold stat-value">{{ $consumption->updated_at->format('d M Y') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -405,14 +570,14 @@
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="px-6 py-4 border-t border-gray-100 flex justify-between items-center">
-                    <a href="{{ url('/company') }}" class="btn-back inline-flex items-center px-4 py-2 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                        <i class="fas fa-arrow-left mr-2"></i>
+                <div class="px-4 py-3 border-t border-gray-100 flex justify-between items-center">
+                    <a href="{{ url('/company') }}" class="btn-back inline-flex items-center px-3 py-1.5 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        <i class="fas fa-arrow-left mr-1.5"></i>
                         Kembali ke Form
                     </a>
-                    <div class="flex space-x-3">
-                        <button onclick="window.print()" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-all duration-300 transform hover:-translate-y-1">
-                            <i class="fas fa-print mr-2"></i>
+                    <div class="flex space-x-2">
+                        <button onclick="window.print()" class="action-button inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            <i class="fas fa-print mr-1.5"></i>
                             Cetak Laporan
                         </button>
                     </div>
@@ -439,15 +604,33 @@
         </div>
     </div>
 
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
     <script>
         // Initialize AOS
         AOS.init({
             duration: 800,
-            once: true
+            once: true,
+            offset: 50
         });
 
-        // Initialize Chart
-        
+        // Show notification function
+        function showNotification(message, type = 'success') {
+            const container = document.getElementById('notificationContainer');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} text-${type === 'success' ? 'green' : 'red'}-500"></i>
+                <span>${message}</span>
+            `;
+            container.appendChild(notification);
+            setTimeout(() => notification.classList.add('show'), 100);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
 
         // PDF Generation Function
         async function generatePDF() {
@@ -506,19 +689,12 @@
                 const fileName = `Laporan_Konsumsi_Energi_${new Date().toISOString().split('T')[0]}.pdf`;
                 doc.save(fileName);
                 
-                // Show success message
-                const successBadge = document.createElement('div');
-                successBadge.className = 'success-badge fixed bottom-4 right-4';
-                successBadge.innerHTML = `
-                    <i class="fas fa-check-circle text-xl"></i>
-                    <span class="text-sm font-medium">PDF berhasil diunduh</span>
-                `;
-                document.body.appendChild(successBadge);
-                setTimeout(() => successBadge.remove(), 3000);
+                // Show success notification
+                showNotification('PDF berhasil diunduh');
                 
             } catch (error) {
                 console.error('Error generating PDF:', error);
-                alert('Terjadi kesalahan saat membuat PDF. Silakan coba lagi.');
+                showNotification('Terjadi kesalahan saat membuat PDF', 'error');
             } finally {
                 loading.style.display = 'none';
             }
@@ -554,6 +730,18 @@
             }
         `;
         document.head.appendChild(style);
+
+        // Add hover effects to info cards
+        document.querySelectorAll('.info-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = '0 8px 12px rgba(0, 0, 0, 0.1)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
+        });
     </script>
 </body>
 </html> 

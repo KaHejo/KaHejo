@@ -6,6 +6,43 @@
     <title>Energy Consumption History</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kahejo': {
+                            'darkest': '#064e3b',  // Darkest green
+                            'dark': '#059669',     // Dark green
+                            'medium': '#10b981',   // Medium green
+                            'light': '#34d399',    // Light green
+                            'lightest': '#6ee7b7', // Lightest green
+                        },
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'bounce-in': 'bounceIn 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        bounceIn: {
+                            '0%': { transform: 'scale(0.3)', opacity: '0' },
+                            '50%': { transform: 'scale(1.05)', opacity: '0.8' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -73,6 +110,70 @@
             opacity: 0.9;
             transform: translateY(-1px);
         }
+        .stat-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+        .stat-card:hover::before {
+            transform: translateX(100%);
+        }
+        .chart-container {
+            transition: all 0.3s ease;
+        }
+        .chart-container:hover {
+            transform: scale(1.02);
+        }
+        .table-container {
+            transition: all 0.3s ease;
+        }
+        .table-container:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .table-row {
+            transition: all 0.2s ease;
+        }
+        .table-row:hover {
+            transform: scale(1.01);
+            background-color: #F9FAFB;
+        }
+        .badge {
+            transition: all 0.2s ease;
+        }
+        .badge:hover {
+            transform: scale(1.05);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
+        .animate-bounce-in {
+            animation: bounceIn 0.5s ease-out;
+        }
+        .pagination-link {
+            transition: all 0.2s ease;
+        }
+        .pagination-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -83,7 +184,7 @@
                 <!-- Logo and Navigation -->
                 <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center">
-                        <span class="logo-text text-2xl">KaHejo</span>
+                        <span class="logo-text text-2xl font-extrabold">KaHejo</span>
                     </div>
                     <div class="hidden md:flex md:ml-10">
                         <a href="{{ route('dashboard') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
@@ -133,13 +234,13 @@
     <div class="min-h-screen bg-gray-50 py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header with Back Button -->
-            <div class="mb-8">
+            <div class="mb-8 animate-fade-in">
                 <div class="flex justify-between items-center">
                     <div>
                         <h1 class="text-3xl font-bold text-gray-900">Energy Consumption History</h1>
                         <p class="mt-2 text-sm text-gray-600">View your company's energy consumption records</p>
                     </div>
-                    <a href="{{ route('company') }}" class="inline-flex items-center px-4 py-2 border border-green-500 text-green-500 rounded-md text-sm font-medium hover:bg-green-50 transition-colors duration-200">
+                    <a href="{{ route('company') }}" class="inline-flex items-center px-4 py-2 border border-kahejo-dark text-kahejo-dark rounded-md text-sm font-medium hover:bg-kahejo-lightest focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kahejo-medium transition-all duration-300 transform hover:scale-105">
                         <i class="fas fa-arrow-left mr-2"></i>
                         Back to Form
                     </a>
@@ -148,11 +249,13 @@
 
             <!-- Summary Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-200">
+                <div class="stat-card bg-white overflow-hidden shadow rounded-lg animate-slide-up" style="animation-delay: 0.1s">
                     <div class="p-5">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <i class="fas fa-chart-line text-3xl text-green-500"></i>
+                                <div class="p-3 rounded-full bg-kahejo-lightest/20">
+                                    <i class="fas fa-chart-line text-3xl text-kahejo-dark"></i>
+                                </div>
                             </div>
                             <div class="ml-5 w-0 flex-1">
                                 <dl>
@@ -170,11 +273,13 @@
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-200">
+                <div class="stat-card bg-white overflow-hidden shadow rounded-lg animate-slide-up" style="animation-delay: 0.2s">
                     <div class="p-5">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <i class="fas fa-calendar-alt text-3xl text-green-500"></i>
+                                <div class="p-3 rounded-full bg-kahejo-lightest/20">
+                                    <i class="fas fa-calendar-alt text-3xl text-kahejo-dark"></i>
+                                </div>
                             </div>
                             <div class="ml-5 w-0 flex-1">
                                 <dl>
@@ -192,11 +297,13 @@
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-lg transition-shadow duration-200">
+                <div class="stat-card bg-white overflow-hidden shadow rounded-lg animate-slide-up" style="animation-delay: 0.3s">
                     <div class="p-5">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <i class="fas fa-building text-3xl text-green-500"></i>
+                                <div class="p-3 rounded-full bg-kahejo-lightest/20">
+                                    <i class="fas fa-building text-3xl text-kahejo-dark"></i>
+                                </div>
                             </div>
                             <div class="ml-5 w-0 flex-1">
                                 <dl>
@@ -216,7 +323,7 @@
             </div>
 
             <!-- Energy Consumption Chart -->
-            <div class="bg-white shadow rounded-lg overflow-hidden mb-8 hover:shadow-lg transition-shadow duration-200">
+            <div class="bg-white shadow rounded-lg overflow-hidden mb-8 chart-container animate-fade-in">
                 <div class="px-4 py-5 sm:px-6 border-b border-gray-100">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Energy Consumption Trend</h3>
                 </div>
@@ -226,12 +333,12 @@
             </div>
 
             <!-- History Table -->
-            <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200">
+            <div class="bg-white shadow rounded-lg overflow-hidden table-container animate-fade-in">
                 <div class="px-4 py-5 sm:px-6 border-b border-gray-100">
                     <div class="flex items-center justify-between">
                         <h3 class="text-lg leading-6 font-medium text-gray-900">Consumption Records</h3>
                         <div class="flex items-center space-x-2">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-kahejo-lightest/20 text-kahejo-dark badge">
                                 <i class="fas fa-info-circle mr-2"></i>
                                 Total Records: {{ $consumptions->total() }}
                             </span>
@@ -294,17 +401,17 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($consumptions as $consumption)
-                            <tr class="hover:bg-gray-50 transition-colors duration-200">
+                            <tr class="table-row">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     <div class="flex items-center">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-2">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-2 badge">
                                             <i class="fas fa-calendar-day mr-1"></i>
                                             {{ \Carbon\Carbon::parse($consumption->consumption_date)->format('d M Y') }}
                                         </span>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 badge">
                                         <i class="fas fa-plug mr-1"></i>
                                         {{ $consumption->source_type }}
                                     </span>
@@ -315,12 +422,12 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 badge">
                                         {{ $consumption->unit_measurement }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 badge">
                                         <i class="fas fa-tasks mr-1"></i>
                                         {{ $consumption->activity_type }}
                                     </span>
@@ -332,14 +439,14 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 badge">
                                         <i class="fas fa-building mr-1"></i>
                                         {{ $consumption->department }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     <a href="{{ route('company.view', ['id' => $consumption->id]) }}" 
-                                       class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">
+                                       class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-kahejo-dark hover:bg-kahejo-darkest focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kahejo-medium transition-all duration-300 transform hover:scale-105">
                                         <i class="fas fa-eye mr-1.5"></i>
                                         View Details
                                     </a>
@@ -348,7 +455,7 @@
                             @empty
                             <tr>
                                 <td colspan="8" class="px-6 py-4 text-center text-sm text-gray-500">
-                                    <div class="flex flex-col items-center justify-center py-8">
+                                    <div class="flex flex-col items-center justify-center py-8 animate-bounce-in">
                                         <i class="fas fa-inbox text-4xl text-gray-400 mb-2"></i>
                                         <p class="text-gray-500">No energy consumption records found.</p>
                                     </div>
@@ -425,6 +532,26 @@
                     tooltip: {
                         mode: 'index',
                         intersect: false,
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                        titleColor: '#064e3b',
+                        bodyColor: '#064e3b',
+                        borderColor: '#10b981',
+                        borderWidth: 1,
+                        padding: 10,
+                        boxPadding: 5,
+                        usePointStyle: true,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('en-US', { style: 'decimal' }).format(context.parsed.y);
+                                }
+                                return label;
+                            }
+                        }
                     }
                 },
                 scales: {
@@ -432,15 +559,40 @@
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Consumption Amount'
+                            text: 'Consumption Amount',
+                            font: {
+                                family: 'Poppins',
+                                size: 12,
+                                weight: '500'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
                         }
                     },
                     x: {
                         title: {
                             display: true,
-                            text: 'Date'
+                            text: 'Date',
+                            font: {
+                                family: 'Poppins',
+                                size: 12,
+                                weight: '500'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
                         }
                     }
+                },
+                interaction: {
+                    mode: 'nearest',
+                    axis: 'x',
+                    intersect: false
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuart'
                 }
             }
         });
@@ -459,6 +611,23 @@
             ];
             return colors[Math.floor(Math.random() * colors.length)];
         }
+
+        // Add hover effects to table rows
+        document.querySelectorAll('.table-row').forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.01)';
+                this.style.backgroundColor = '#F9FAFB';
+            });
+            row.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.backgroundColor = '';
+            });
+        });
+
+        // Add animation to pagination links
+        document.querySelectorAll('.pagination-link').forEach(link => {
+            link.classList.add('transition-all', 'duration-200', 'hover:transform', 'hover:scale-105');
+        });
     </script>
 </body>
 </html> 

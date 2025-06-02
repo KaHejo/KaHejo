@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\CarbonFootprint;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use App\Models\CompanyEnergyConsumption;
 
 class MainController extends Controller
 {
@@ -34,6 +35,34 @@ class MainController extends Controller
                     'water' => $record->water
                 ];
             });
+
+        // Get energy consumption data
+        $energyConsumption = CompanyEnergyConsumption::where('user_id', $user->id)
+            ->orderBy('consumption_date', 'desc')
+            ->take(12) // Last 12 months
+            ->get()
+            ->map(function ($record) {
+                return [
+                    'date' => Carbon::parse($record->consumption_date)->format('M Y'),
+                    'electricity' => $record->source_type === 'electricity' ? $record->consumption_amount : 0,
+                    'gas' => $record->source_type === 'gas' ? $record->consumption_amount : 0,
+                    'water' => $record->source_type === 'water' ? $record->consumption_amount : 0
+                ];
+            });
+
+        // Calculate energy stats
+        $energyStats = [
+            'totalUsage' => $energyConsumption->sum(function ($record) {
+                return $record['electricity'] + $record['gas'] + $record['water'];
+            }),
+            'averageDaily' => $energyConsumption->avg(function ($record) {
+                return $record['electricity'] + $record['gas'] + $record['water'];
+            }),
+            'peakTime' => $energyConsumption->max(function ($record) {
+                return $record['electricity'] + $record['gas'] + $record['water'];
+            }),
+            'efficiencyScore' => $this->calculateEnergyEfficiencyScore($energyConsumption)
+        ];
 
         // Get lowest carbon footprint
         $lowestFootprint = CarbonFootprint::where('user_id', $user->id)
@@ -63,7 +92,9 @@ class MainController extends Controller
             'user' => $user,
             'stats' => $stats,
             'activities' => $activities,
-            'carbonHistory' => $carbonHistory
+            'carbonHistory' => $carbonHistory,
+            'energyConsumption' => $energyConsumption,
+            'energyStats' => $energyStats
         ]);
     }
 
@@ -155,5 +186,41 @@ class MainController extends Controller
     {
         $user = null; // Will be Auth::user() when auth is implemented
         return view('settings', compact('user'));
+    }
+
+    private function calculateEnergyEfficiencyScore($energyConsumption)
+    {
+        if ($energyConsumption->isEmpty()) {
+            return 0;
+        }
+
+        // Calculate average consumption
+        $avgConsumption = $energyConsumption->avg(function ($record) {
+            return $record['electricity'] + $record['gas'] + $record['water'];
+        });
+
+        // If average consumption is 0, return 0 to avoid division by zero
+        if ($avgConsumption == 0) {
+            return 0;
+        }
+
+        // Calculate standard deviation
+        $variance = $energyConsumption->map(function ($record) use ($avgConsumption) {
+            $total = $record['electricity'] + $record['gas'] + $record['water'];
+            return pow($total - $avgConsumption, 2);
+        })->avg();
+
+        $stdDev = sqrt($variance);
+
+        // Calculate efficiency score (100 - (stdDev/avgConsumption * 100))
+        // If standard deviation is 0, return 100 (perfect efficiency)
+        if ($stdDev == 0) {
+            return 100;
+        }
+
+        $score = 100 - (($stdDev / $avgConsumption) * 100);
+
+        // Ensure score is between 0 and 100
+        return max(0, min(100, round($score)));
     }
 } 
