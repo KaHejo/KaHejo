@@ -31,11 +31,28 @@
             </div>
         </div>
 
-<<<<<<< HEAD
         <!-- Form Section -->
         <div class="px-6 py-6 sm:p-8">
             <form action="{{ url('/carbon/calculate') }}" method="POST" class="space-y-8" id="carbonForm">
                 @csrf
+                <!-- Month Selection -->
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div class="form-group transform transition-all duration-300 hover:scale-[1.02]" data-aos="fade-up" data-aos-delay="100">
+                        <label for="month" class="block text-sm font-medium text-gray-700 dark:text-dark-text-primary mb-2">
+                            Month
+                            <span class="text-red-500">*</span>
+                        </label>
+                        <div class="mt-1 relative rounded-lg shadow-sm group">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-calendar text-gray-400 dark:text-dark-text-secondary group-hover:text-green-500 transition-colors"></i>
+                            </div>
+                            <input type="month" name="month" id="month" 
+                                class="focus:ring-green-500 focus:border-green-500 focus:border-2 block w-full pl-10 sm:text-sm border-gray-300 dark:border-dark-border dark:bg-dark-bg-primary dark:text-dark-text-primary rounded-lg hover:border-green-400 transition-colors" 
+                                required>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Electricity Usage -->
                 <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
                     <div class="form-group transform transition-all duration-300 hover:scale-[1.02]" data-aos="fade-up" data-aos-delay="100">
@@ -58,74 +75,6 @@
                                 required>
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                 <span class="text-gray-500 dark:text-dark-text-secondary sm:text-sm">kWh</span>
-=======
-    <!-- Main Content -->
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <!-- Carbon Calculator Form -->
-        <div class="bg-white shadow rounded-lg border border-kahejo-light/20">
-            <div class="px-4 py-5 sm:px-6">
-                <h3 class="text-lg leading-6 font-medium text-kahejo-darkest">Carbon Footprint Calculator</h3>
-                <p class="mt-1 text-sm text-kahejo-medium">Calculate your carbon footprint based on your daily activities.</p>
-            </div>
-            <div class="border-t border-kahejo-light/20">
-                <form action="{{ url('/carbon/calculate') }}" method="POST" class="p-6 space-y-6">
-                    @csrf
-                    <!-- Month Selection -->
-                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                        <div>
-                            <label for="month" class="block text-sm font-medium text-kahejo-darkest">Month</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-calendar text-kahejo-dark"></i>
-                                </div>
-                                <input type="month" name="month" id="month" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Electricity Usage -->
-                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                        <div>
-                            <label for="electricity" class="block text-sm font-medium text-kahejo-darkest">Monthly Electricity Usage (kWh)</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-bolt text-kahejo-dark"></i>
-                                </div>
-                                <input type="number" name="electricity" id="electricity" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
-                            </div>
-                        </div>
-
-                        <!-- Transportation -->
-                        <div>
-                            <label for="transportation" class="block text-sm font-medium text-kahejo-darkest">Daily Transportation (km)</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-car text-kahejo-dark"></i>
-                                </div>
-                                <input type="number" name="transportation" id="transportation" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
-                            </div>
-                        </div>
-
-                        <!-- Waste -->
-                        <div>
-                            <label for="waste" class="block text-sm font-medium text-kahejo-darkest">Monthly Waste (kg)</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-trash text-kahejo-dark"></i>
-                                </div>
-                                <input type="number" name="waste" id="waste" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
-                            </div>
-                        </div>
-
-                        <!-- Water Usage -->
-                        <div>
-                            <label for="water" class="block text-sm font-medium text-kahejo-darkest">Monthly Water Usage (m³)</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-water text-kahejo-dark"></i>
-                                </div>
-                                <input type="number" name="water" id="water" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
->>>>>>> 052108013de51d485f13733c4b21da8f70e4df53
                             </div>
                         </div>
                         <p class="mt-2 text-sm text-gray-500 dark:text-dark-text-secondary hidden" id="electricityHelp">

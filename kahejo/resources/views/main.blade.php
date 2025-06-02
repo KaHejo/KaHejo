@@ -27,6 +27,7 @@
                             <dd class="flex items-baseline">
                                 <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['totalCarbonFootprint'], 2) }} kg</div>
                             </dd>
+                            <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">Last 12 months</dd>
                         </dl>
                     </div>
                 </div>
@@ -48,57 +49,14 @@
                             <dd class="flex items-baseline">
                                 <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['averageMonthlyFootprint'], 2) }} kg</div>
                             </dd>
+                            <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">Based on monthly records</dd>
                         </dl>
                     </div>
                 </div>
             </div>
         </div>
 
-<<<<<<< HEAD
         <!-- Card 3 -->
-        <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
-            <div class="p-5">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                            <i class="fas fa-calendar-alt text-green-600 dark:text-green-400 text-2xl"></i>
-=======
-        <!-- Stats Cards -->
-        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            <!-- Card 1 -->
-            <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
-                <div class="p-5">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                                <i class="fas fa-leaf text-green-600 dark:text-green-400 text-2xl"></i>
-                            </div>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Total Carbon Footprint</dt>
-                                <dd class="flex items-baseline">
-                                    <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['totalCarbonFootprint'], 2) }} kg</div>
-                                </dd>
-                                <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">Last 12 months</dd>
-                            </dl>
->>>>>>> 052108013de51d485f13733c4b21da8f70e4df53
-                        </div>
-                    </div>
-                    <div class="ml-5 w-0 flex-1">
-                        <dl>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Last Month</dt>
-                            <dd class="flex items-baseline">
-                                <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lastMonthFootprint'], 2) }} kg</div>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-<<<<<<< HEAD
-        <!-- Card 4 -->
         <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
             <div class="p-5">
                 <div class="flex items-center">
@@ -109,92 +67,33 @@
                     </div>
                     <div class="ml-5 w-0 flex-1">
                         <dl>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Improvement</dt>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Best Month</dt>
                             <dd class="flex items-baseline">
-                                <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ $stats['improvement'] }}%</div>
-                                <div class="ml-2 flex items-baseline text-sm font-semibold {{ $stats['improvement'] >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
-                                    <i class="fas {{ $stats['improvement'] >= 0 ? 'fa-arrow-down' : 'fa-arrow-up' }}"></i>
-                                    <span class="sr-only">{{ $stats['improvement'] >= 0 ? 'Decreased by' : 'Increased by' }}</span>
-                                    {{ abs($stats['improvement']) }}%
-=======
-            <!-- Card 2 -->
-            <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
-                <div class="p-5">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                                <i class="fas fa-chart-line text-green-600 dark:text-green-400 text-2xl"></i>
-                            </div>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Monthly Average</dt>
-                                <dd class="flex items-baseline">
-                                    <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['averageMonthlyFootprint'], 2) }} kg</div>
-                                </dd>
-                                <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">Based on monthly records</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
-                <div class="p-5">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                                <i class="fas fa-calendar-alt text-green-600 dark:text-green-400 text-2xl"></i>
-                            </div>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Last Month</dt>
-                                <dd class="flex items-baseline">
-                                    <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lastMonthFootprint'], 2) }} kg</div>
-                                </dd>
-                                <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">{{ $carbonHistory->first()['date'] ?? 'No data' }}</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
-                <div class="p-5">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                                <i class="fas fa-arrow-trend-down text-green-600 dark:text-green-400 text-2xl"></i>
-                            </div>
-                        </div>
-                        <div class="ml-5 w-0 flex-1">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Best Month</dt>
-                                <dd class="flex items-baseline">
-                                    <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lowestFootprint']['value'] ?? 0, 2) }} kg</div>
-                                </dd>
-                                <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">{{ $stats['lowestFootprint']['date'] ?? 'No data' }}</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Lowest Carbon Footprint Card -->
-            @if($stats['lowestFootprint'])
-            <div class="col-span-full bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border card-hover">
-                <div class="p-6">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                                    <i class="fas fa-trophy text-green-600 dark:text-green-400 text-2xl"></i>
->>>>>>> 052108013de51d485f13733c4b21da8f70e4df53
-                                </div>
+                                <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lowestFootprint']['value'] ?? 0, 2) }} kg</div>
                             </dd>
+                            <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">{{ $stats['lowestFootprint']['date'] ?? 'No data' }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
+                            <i class="fas fa-arrow-trend-up text-green-600 dark:text-green-400 text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Worst Month</dt>
+                            <dd class="flex items-baseline">
+                                <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['highestFootprint']['value'] ?? 0, 2) }} kg</div>
+                            </dd>
+                            <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">{{ $stats['highestFootprint']['date'] ?? 'No data' }}</dd>
                         </dl>
                     </div>
                 </div>
@@ -282,28 +181,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Peak Usage Time</p>
-                                    <p class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ $energyStats['peakTime'] ?? 'N/A' }}</p>
-                                </div>
-                                <div class="p-3 rounded-full bg-yellow-50 dark:bg-yellow-900/30">
-                                    <i class="fas fa-clock text-yellow-600 dark:text-yellow-400 text-xl"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Energy Efficiency Score</p>
-                                    <p class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ $energyStats['efficiencyScore'] ?? 0 }}%</p>
-                                </div>
-                                <div class="p-3 rounded-full bg-purple-50 dark:bg-purple-900/30">
-                                    <i class="fas fa-star text-purple-600 dark:text-purple-400 text-xl"></i>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -380,103 +257,74 @@
                 legend: {
                     position: 'top',
                     labels: {
-                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
+                        color: document.documentElement.classList.contains('dark') ? '#e5e7eb' : '#374151'
                     }
                 },
-                title: {
-                    display: true,
-                    text: 'Monthly Carbon Footprint (kg CO₂)',
-                    color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
                 }
             },
             scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'kg CO₂',
-                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
-                    },
-<<<<<<< HEAD
-                    ticks: {
-                        color: document.documentElement.classList.contains('dark') ? '#a0aec0' : '#6B7280'
-                    },
+                x: {
                     grid: {
                         color: document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                    },
+                    ticks: {
+                        color: document.documentElement.classList.contains('dark') ? '#e5e7eb' : '#374151'
                     }
                 },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Month',
-                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
-                    },
-                    ticks: {
-                        color: document.documentElement.classList.contains('dark') ? '#a0aec0' : '#6B7280'
-                    },
+                y: {
                     grid: {
                         color: document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-=======
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Month',
-                            color: html.classList.contains('dark') ? '#ffffff' : '#374151'
-                        },
-                        ticks: {
-                            color: html.classList.contains('dark') ? '#a0aec0' : '#6B7280',
-                            maxRotation: 45,
-                            minRotation: 45
-                        },
-                        grid: {
-                            color: html.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-                        }
->>>>>>> 052108013de51d485f13733c4b21da8f70e4df53
+                    },
+                    ticks: {
+                        color: document.documentElement.classList.contains('dark') ? '#e5e7eb' : '#374151'
                     }
                 }
             }
         }
     };
 
-    // Create the chart
-    const ctx = document.getElementById('carbonChart').getContext('2d');
-    const chart = new Chart(ctx, chartConfig);
+    // Initialize carbon chart
+    const carbonChart = new Chart(
+        document.getElementById('carbonChart'),
+        chartConfig
+    );
 
-    // Energy Consumption Chart
-    const energyData = @json($energyConsumption ?? []);
+    // Prepare energy data
+    const energyData = @json($energyConsumption);
     const energyDates = energyData.map(item => item.date);
-    const electricityUsage = energyData.map(item => item.electricity);
-    const gasUsage = energyData.map(item => item.gas);
-    const waterUsage = energyData.map(item => item.water);
+    const electricityData = energyData.map(item => item.electricity);
+    const gasData = energyData.map(item => item.gas);
+    const waterData = energyData.map(item => item.water);
 
+    // Energy chart configuration
     const energyChartConfig = {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: energyDates,
             datasets: [
                 {
-                    label: 'Electricity (kWh)',
-                    data: electricityUsage,
-                    borderColor: 'rgb(59, 130, 246)',
-                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    tension: 0.4,
-                    fill: true
-                },
-                {
-                    label: 'Gas (m³)',
-                    data: gasUsage,
+                    label: 'Electricity',
+                    data: electricityData,
+                    backgroundColor: 'rgba(234, 179, 8, 0.7)',
                     borderColor: 'rgb(234, 179, 8)',
-                    backgroundColor: 'rgba(234, 179, 8, 0.1)',
-                    tension: 0.4,
-                    fill: true
+                    borderWidth: 1
                 },
                 {
-                    label: 'Water (m³)',
-                    data: waterUsage,
-                    borderColor: 'rgb(16, 185, 129)',
-                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                    tension: 0.4,
-                    fill: true
+                    label: 'Gas',
+                    data: gasData,
+                    backgroundColor: 'rgba(239, 68, 68, 0.7)',
+                    borderColor: 'rgb(239, 68, 68)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Water',
+                    data: waterData,
+                    backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                    borderColor: 'rgb(59, 130, 246)',
+                    borderWidth: 1
                 }
             ]
         },
@@ -487,77 +335,71 @@
                 legend: {
                     position: 'top',
                     labels: {
-                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
+                        color: document.documentElement.classList.contains('dark') ? '#e5e7eb' : '#374151'
                     }
                 },
-                title: {
-                    display: true,
-                    text: 'Energy Consumption Trends',
-                    color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
                 }
             },
             scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Consumption',
-                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
-                    },
-                    ticks: {
-                        color: document.documentElement.classList.contains('dark') ? '#a0aec0' : '#6B7280'
-                    },
+                x: {
                     grid: {
                         color: document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                    },
+                    ticks: {
+                        color: document.documentElement.classList.contains('dark') ? '#e5e7eb' : '#374151'
                     }
                 },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Date',
-                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
-                    },
-                    ticks: {
-                        color: document.documentElement.classList.contains('dark') ? '#a0aec0' : '#6B7280'
-                    },
+                y: {
                     grid: {
                         color: document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                    },
+                    ticks: {
+                        color: document.documentElement.classList.contains('dark') ? '#e5e7eb' : '#374151'
                     }
                 }
             }
         }
     };
 
-    // Create the energy chart
-    const energyCtx = document.getElementById('energyChart').getContext('2d');
-    const energyChart = new Chart(energyCtx, energyChartConfig);
+    // Initialize energy chart
+    const energyChart = new Chart(
+        document.getElementById('energyChart'),
+        energyChartConfig
+    );
 
     // Update chart colors when dark mode changes
-    document.getElementById('darkModeToggle').addEventListener('click', () => {
-        const isDark = document.documentElement.classList.contains('dark');
-        
-        // Update carbon chart colors
-        chart.options.plugins.legend.labels.color = isDark ? '#ffffff' : '#374151';
-        chart.options.plugins.title.color = isDark ? '#ffffff' : '#374151';
-        chart.options.scales.y.title.color = isDark ? '#ffffff' : '#374151';
-        chart.options.scales.y.ticks.color = isDark ? '#a0aec0' : '#6B7280';
-        chart.options.scales.x.title.color = isDark ? '#ffffff' : '#374151';
-        chart.options.scales.x.ticks.color = isDark ? '#a0aec0' : '#6B7280';
-        chart.options.scales.y.grid.color = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-        chart.options.scales.x.grid.color = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-        
-        // Update energy chart colors
-        energyChart.options.plugins.legend.labels.color = isDark ? '#ffffff' : '#374151';
-        energyChart.options.plugins.title.color = isDark ? '#ffffff' : '#374151';
-        energyChart.options.scales.y.title.color = isDark ? '#ffffff' : '#374151';
-        energyChart.options.scales.y.ticks.color = isDark ? '#a0aec0' : '#6B7280';
-        energyChart.options.scales.x.title.color = isDark ? '#ffffff' : '#374151';
-        energyChart.options.scales.x.ticks.color = isDark ? '#a0aec0' : '#6B7280';
-        energyChart.options.scales.y.grid.color = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-        energyChart.options.scales.x.grid.color = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-        
-        chart.update();
-        energyChart.update();
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.attributeName === 'class') {
+                const isDark = document.documentElement.classList.contains('dark');
+                const textColor = isDark ? '#e5e7eb' : '#374151';
+                const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+
+                // Update carbon chart
+                carbonChart.options.scales.x.ticks.color = textColor;
+                carbonChart.options.scales.y.ticks.color = textColor;
+                carbonChart.options.scales.x.grid.color = gridColor;
+                carbonChart.options.scales.y.grid.color = gridColor;
+                carbonChart.options.plugins.legend.labels.color = textColor;
+                carbonChart.update();
+
+                // Update energy chart
+                energyChart.options.scales.x.ticks.color = textColor;
+                energyChart.options.scales.y.ticks.color = textColor;
+                energyChart.options.scales.x.grid.color = gridColor;
+                energyChart.options.scales.y.grid.color = gridColor;
+                energyChart.options.plugins.legend.labels.color = textColor;
+                energyChart.update();
+            }
+        });
+    });
+
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class']
     });
 </script>
 @endsection
