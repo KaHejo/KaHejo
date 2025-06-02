@@ -73,6 +73,7 @@ class MainController extends Controller
         $stats = [
             'totalCarbonFootprint' => $carbonHistory->sum('total'),
             'averageMonthlyFootprint' => $carbonHistory->avg('total'),
+            'lastMonthFootprint' => $carbonHistory->first()['total'] ?? 0,
             'lowestFootprint' => $lowestFootprint ? [
                 'value' => $lowestFootprint->total,
                 'date' => Carbon::parse($lowestFootprint->month)->format('M Y')
@@ -80,7 +81,8 @@ class MainController extends Controller
             'highestFootprint' => $highestFootprint ? [
                 'value' => $highestFootprint->total,
                 'date' => Carbon::parse($highestFootprint->month)->format('M Y')
-            ] : null
+            ] : null,
+            'improvement' => $this->calculateImprovement($carbonHistory)
         ];
 
         // Get user's recent activities
@@ -168,5 +170,21 @@ class MainController extends Controller
     {
         $user = Auth::user();
         return view('settings', compact('user'));
+    }
+
+    private function calculateImprovement($carbonHistory)
+    {
+        if ($carbonHistory->count() < 2) {
+            return 0;
+        }
+
+        $currentMonth = $carbonHistory->first()['total'];
+        $previousMonth = $carbonHistory->get(1)['total'];
+
+        if ($previousMonth == 0) {
+            return 0;
+        }
+
+        return (($previousMonth - $currentMonth) / $previousMonth) * 100;
     }
 } 
