@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('carbon_footprints', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->date('month');
             $table->decimal('electricity', 10, 2);
             $table->decimal('transportation', 10, 2);
             $table->decimal('waste', 10, 2);

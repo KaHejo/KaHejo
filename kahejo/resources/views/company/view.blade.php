@@ -216,12 +216,6 @@
                     <span class="text-sm font-medium">Data konsumsi energi berhasil disimpan</span>
                 </div>
             </div>
-            <!-- Achievement Alert -->
-            @if(session('achievement'))
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-                    {{ session('achievement') }}
-                </div>
-            @endif
 
             <!-- Main Card -->
             <div class="card-hover bg-white/90 backdrop-blur-md shadow-xl rounded-xl border border-gray-100 overflow-hidden" data-aos="fade-up">
@@ -241,7 +235,14 @@
 
                 <div class="p-6 space-y-6">
                     <!-- Energy Consumption Chart -->
-                    
+                    <div class="mb-8" data-aos="fade-up" data-aos-delay="100">
+                        <div class="section-title">
+                            <h4 class="text-lg font-semibold text-gray-900">Grafik Konsumsi Energi</h4>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="consumptionChart"></canvas>
+                        </div>
+                    </div>
 
                     <!-- Energy Source Section -->
                     <div data-aos="fade-up" data-aos-delay="200">
@@ -453,7 +454,55 @@
         });
 
         // Initialize Chart
-        
+        const ctx = document.getElementById('consumptionChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Konsumsi Energi'],
+                datasets: [{
+                    label: '{{ $result["source_type"] }} ({{ $result["unit_measurement"] }})',
+                    data: [{{ $result['consumption_amount'] }}],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(16, 185, 129, 1)'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Grafik Konsumsi Energi'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                }
+            }
+        });
 
         // PDF Generation Function
         async function generatePDF() {
@@ -562,4 +611,4 @@
         document.head.appendChild(style);
     </script>
 </body>
-</html>
+</html> 
