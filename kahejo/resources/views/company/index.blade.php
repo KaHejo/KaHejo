@@ -157,7 +157,7 @@
                         <span class="logo-text text-2xl">KaHejo</span>
                     </div>
                     <div class="hidden md:flex md:ml-10">
-                        <a href="{{ route('dashboard') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
+                        <a href="{{ route('main') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
                             <i class="nav-icon fas fa-home text-lg mr-2"></i>
                             Dashboard
                         </a>
@@ -172,6 +172,10 @@
                         <a href="{{ route('company') }}" class="nav-link active flex items-center text-sm font-medium">
                             <i class="nav-icon fas fa-chart-line text-lg mr-2"></i>
                             Energy Consumption
+                        </a>
+                        <a href="{{ route('achievements') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
+                            <i class="nav-icon fas fa-trophy text-lg mr-2"></i>
+                            Achievements
                         </a>
                     </div>
                 </div>

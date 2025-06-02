@@ -16,6 +16,7 @@ class CompanyEnergyConsumption extends Model
      */
     protected $fillable = [
         'user_id',
+        'company_id',
         'source_type',
         'consumption_amount',
         'unit_measurement',
@@ -41,5 +42,5 @@ class CompanyEnergyConsumption extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
+    }   
 } 

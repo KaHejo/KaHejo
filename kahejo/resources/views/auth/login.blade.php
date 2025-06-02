@@ -81,7 +81,7 @@
         </div>
     @endif
 
-    <div class="w-full max-w-6xl bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative z-10 border border-white/20 transform hover:scale-[1.01] transition-transform duration-300">
+    <div class="w-full max-w-6xl bg-white/80 backdrop-blur-md rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row relative z-10 border border-white/20 transition-transform duration-300">
         <!-- Left Side - Branding -->
         <div class="md:w-1/2 bg-gradient-to-br from-primary to-secondary p-8 md:p-12 flex flex-col justify-center items-center text-white relative overflow-hidden">
             <div class="absolute inset-0 opacity-10">
@@ -125,7 +125,7 @@
 
                     <div class="relative group">
                         <input type="text" 
-                               class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 bg-white/50 backdrop-blur-sm group-hover:border-primary/50 transform hover:scale-[1.02]"
+                               class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 bg-white/50 backdrop-blur-sm group-hover:border-primary/50"
                                id="name" 
                                name="name" 
                                value="{{ old('name') }}"
@@ -143,7 +143,7 @@
 
                     <div class="relative group">
                         <input type="password" 
-                               class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 bg-white/50 backdrop-blur-sm group-hover:border-primary/50 transform hover:scale-[1.02]"
+                               class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 bg-white/50 backdrop-blur-sm group-hover:border-primary/50"
                                id="password" 
                                name="password" 
                                placeholder="Password" 
@@ -234,7 +234,7 @@
         particlesJS('particles-js', {
             particles: {
                 number: {
-                    value: 80,
+                    value: 50,
                     density: {
                         enable: true,
                         value_area: 800
@@ -247,7 +247,7 @@
                     type: 'circle'
                 },
                 opacity: {
-                    value: 0.5,
+                    value: 0.4,
                     random: true,
                     anim: {
                         enable: true,

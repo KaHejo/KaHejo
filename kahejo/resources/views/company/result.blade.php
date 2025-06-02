@@ -493,6 +493,7 @@
         </div>
 
         <!-- Main Content -->
+<<<<<<< HEAD
         <div class="max-w-6xl mx-auto py-4 sm:px-4 lg:px-6">
             <!-- Result Header -->
             <div class="result-header" data-aos="fade-up">
@@ -501,6 +502,23 @@
                     <p>Detail informasi konsumsi energi perusahaan Anda</p>
                 </div>
             </div>
+=======
+        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <!-- Success Alert -->
+            <div class="mb-6" data-aos="fade-down">
+                <div class="success-badge">
+                    <i class="fas fa-check-circle"></i>
+
+                    <span class="text-sm font-medium">Data konsumsi energi berhasil disimpan</span>
+                </div>
+            </div>
+            <!-- Achievement Alert -->
+            @if(session('achievement'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                    {{ session('achievement') }}
+                </div>
+            @endif
+>>>>>>> 7754919d833bb828e692a3abd87809c77c747809
 
             <!-- Main Card -->
             <div class="card-hover bg-white/90 backdrop-blur-md shadow-lg rounded-md border border-gray-100 overflow-hidden" data-aos="fade-up">
@@ -592,10 +610,25 @@
                         <div class="section-title">
                             <h4 class="text-base font-semibold text-gray-900">Informasi Data</h4>
                         </div>
+<<<<<<< HEAD
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div class="info-card">
                                 <div class="info-card-icon">
                                     <i class="fas fa-hashtag"></i>
+=======
+                        <div class="info-grid">
+                            <div class="info-card floating-card">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 icon-wrapper">
+                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
+                                            <i class="fas fa-hashtag text-base text-green-600"></i>
+                                        </div>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-xs font-medium text-gray-500">Dibuat Oleh</p>
+                                        <p class="text-sm font-semibold text-gray-900">{{ $result['user_name'] }}</p>
+                                    </div>
+>>>>>>> 7754919d833bb828e692a3abd87809c77c747809
                                 </div>
                                 <div class="info-card-title">ID Record</div>
                                 <div class="info-card-value">#{{ $consumption->id }}</div>
@@ -791,4 +824,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
