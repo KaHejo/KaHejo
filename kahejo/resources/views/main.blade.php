@@ -249,16 +249,16 @@
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
                             <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                                <i class="fas fa-arrow-trend-down text-green-600 dark:text-green-400 text-2xl"></i>
+                                <i class="fas fa-arrow-trend-up text-green-600 dark:text-green-400 text-2xl"></i>
                             </div>
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Best Month</dt>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Improvement</dt>
                                 <dd class="flex items-baseline">
-                                    <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lowestFootprint']['value'] ?? 0, 2) }} kg</div>
+                                    <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['improvement'] ?? 0, 2) }}%</div>
                                 </dd>
-                                <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">{{ $stats['lowestFootprint']['date'] ?? 'No data' }}</dd>
+                                <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">Compared to last month</dd>
                             </dl>
                         </div>
                     </div>
