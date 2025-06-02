@@ -212,10 +212,17 @@
             <!-- Success Alert -->
             <div class="mb-6" data-aos="fade-down">
                 <div class="success-badge">
-                    <i class="fas fa-check-circle text-xl"></i>
+                    <i class="fas fa-check-circle"></i>
+
                     <span class="text-sm font-medium">Data konsumsi energi berhasil disimpan</span>
                 </div>
             </div>
+            <!-- Achievement Alert -->
+            @if(session('achievement'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                    {{ session('achievement') }}
+                </div>
+            @endif
 
             <!-- Main Card -->
             <div class="card-hover bg-white/90 backdrop-blur-md shadow-xl rounded-xl border border-gray-100 overflow-hidden" data-aos="fade-up">
@@ -369,8 +376,8 @@
                                         </div>
                                     </div>
                                     <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-500">ID Record</p>
-                                        <p class="text-base font-semibold stat-value">#{{ $consumption->id }}</p>
+                                        <p class="text-xs font-medium text-gray-500">Dibuat Oleh</p>
+                                        <p class="text-sm font-semibold text-gray-900">{{ $result['user_name'] }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -556,4 +563,4 @@
         document.head.appendChild(style);
     </script>
 </body>
-</html> 
+</html>

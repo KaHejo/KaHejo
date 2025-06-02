@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\CompanyEnergyService;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Achievement;
+use App\Models\UserAchievement;
 
 class CompanyEnergyController extends Controller
 {
@@ -22,6 +24,7 @@ class CompanyEnergyController extends Controller
 
     public function store(Request $request)
     {
+
         $validated = $request->validate([
             'source_type' => 'required|string',
             'consumption_amount' => 'required|numeric|min:0',
@@ -32,8 +35,30 @@ class CompanyEnergyController extends Controller
             'reporting_period' => 'required|string|in:monthly,yearly',
         ]);
 
+        $achievements = Achievement::where('points_needed', '<=', $validated['consumption_amount'])
+            ->where('category', $validated['source_type'])
+            ->get();
+
+        foreach ($achievements as $achievement) {
+            $alreadyHas = UserAchievement::where('user_id', Auth::id())
+            ->where('achievement_id', $achievement->id)
+            ->exists();
+
+            if (!$alreadyHas) {
+            UserAchievement::create([
+                'user_id' => Auth::id(),
+                'achievement_id' => $achievement->id,
+            ]);
+            session()->flash('achievement', 'Congratulations! You have earned the achievement: ' . $achievement->name);
+            $user = Auth::user();
+            $user->points += $achievement->points_awarded;
+            $user->save();
+            }
+        }
+
         // Save to database using service
         $consumption = $this->companyEnergyService->store([
+            'user_id' => Auth::id(),
             'source_type' => $validated['source_type'],
             'consumption_amount' => $validated['consumption_amount'],
             'unit_measurement' => $validated['unit_measurement'],
@@ -45,6 +70,7 @@ class CompanyEnergyController extends Controller
 
         // Prepare result data for the view
         $result = [
+            'user_name' => Auth::user()->name,
             'source_type' => $validated['source_type'],
             'consumption_amount' => $validated['consumption_amount'],
             'unit_measurement' => $validated['unit_measurement'],

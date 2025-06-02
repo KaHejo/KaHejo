@@ -6,6 +6,23 @@
     <title>KaHejo - @yield('title', 'Dashboard')</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kahejo': {
+                            'darkest': '#3E362E',
+                            'dark': '#865D36',
+                            'medium': '#93785B',
+                            'light': '#AC8968',
+                            'lightest': '#A69080',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -61,22 +78,26 @@
                     <div class="flex-shrink-0 flex items-center">
                         <span class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-600">KaHejo</span>
                     </div>
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="{{ route('dashboard') }}" class="nav-link inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500">
-                            <i class="fas fa-home w-6 text-green-600"></i>
-                            <span class="ml-2">Dashboard</span>
+                      <div class="hidden md:flex md:ml-10">
+                        <a href="{{ route('main') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('main') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-home text-lg mr-2"></i>
+                            Dashboard
                         </a>
-                        <a href="{{ route('profile') }}" class="nav-link inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500">
-                            <i class="fas fa-user w-6 text-green-600"></i>
-                            <span class="ml-2">Profile</span>
+                        <a href="{{ route('profile') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('profile') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user text-lg mr-2"></i>
+                            Profile
                         </a>
-                        <a href="{{ route('carbon') }}" class="nav-link inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500">
-                            <i class="fas fa-calculator w-6 text-green-600"></i>
-                            <span class="ml-2">Carbon Calculator</span>
+                        <a href="{{ route('carbon') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('carbon') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-calculator text-lg mr-2"></i>
+                            Carbon Calculator
                         </a>
-                        <a href="{{ route('company') }}" class="nav-link active inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900">
-                            <i class="fas fa-chart-line w-6 text-green-600"></i>
-                            <span class="ml-2">Energy Consumption</span>
+                        <a href="{{ route('company') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('company') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-chart-line text-lg mr-2"></i>
+                            Energy Consumption
+                        </a>
+                        <a href="{{ route('achievements') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('achievements.*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-trophy text-lg mr-2"></i>
+                            Achievements
                         </a>
                     </div>
                 </div>
@@ -136,4 +157,5 @@
         }, 3000);
     </script>
 </body>
-</html>
+</html> 
+
