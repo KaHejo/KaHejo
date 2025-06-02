@@ -31,34 +31,6 @@
             </div>
         </div>
 
-<<<<<<< HEAD
-        <!-- Form Section -->
-        <div class="px-6 py-6 sm:p-8">
-            <form action="{{ url('/carbon/calculate') }}" method="POST" class="space-y-8" id="carbonForm">
-                @csrf
-                <!-- Electricity Usage -->
-                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2">
-                    <div class="form-group transform transition-all duration-300 hover:scale-[1.02]" data-aos="fade-up" data-aos-delay="100">
-                        <label for="electricity" class="block text-sm font-medium text-gray-700 dark:text-dark-text-primary mb-2">
-                            Monthly Electricity Usage (kWh)
-                            <span class="text-red-500">*</span>
-                            <span class="ml-1 text-gray-400 dark:text-dark-text-secondary cursor-help" data-tooltip="Average monthly electricity consumption for a household">
-                                <i class="fas fa-question-circle"></i>
-                            </span>
-                        </label>
-                        <div class="mt-1 relative rounded-lg shadow-sm group">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-bolt text-gray-400 dark:text-dark-text-secondary group-hover:text-green-500 transition-colors"></i>
-                            </div>
-                            <input type="number" name="electricity" id="electricity" 
-                                class="focus:ring-green-500 focus:border-green-500 focus:border-2 block w-full pl-10 sm:text-sm border-gray-300 dark:border-dark-border dark:bg-dark-bg-primary dark:text-dark-text-primary rounded-lg hover:border-green-400 transition-colors" 
-                                placeholder="0"
-                                min="0"
-                                step="0.1"
-                                required>
-                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                <span class="text-gray-500 dark:text-dark-text-secondary sm:text-sm">kWh</span>
-=======
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <!-- Carbon Calculator Form -->
@@ -125,7 +97,6 @@
                                     <i class="fas fa-water text-kahejo-dark"></i>
                                 </div>
                                 <input type="number" name="water" id="water" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
->>>>>>> 052108013de51d485f13733c4b21da8f70e4df53
                             </div>
                         </div>
                         <p class="mt-2 text-sm text-gray-500 dark:text-dark-text-secondary hidden" id="electricityHelp">

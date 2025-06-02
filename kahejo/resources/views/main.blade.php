@@ -54,15 +54,6 @@
             </div>
         </div>
 
-<<<<<<< HEAD
-        <!-- Card 3 -->
-        <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
-            <div class="p-5">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                            <i class="fas fa-calendar-alt text-green-600 dark:text-green-400 text-2xl"></i>
-=======
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <!-- Card 1 -->
@@ -82,7 +73,6 @@
                                 </dd>
                                 <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">Last 12 months</dd>
                             </dl>
->>>>>>> 052108013de51d485f13733c4b21da8f70e4df53
                         </div>
                     </div>
                     <div class="ml-5 w-0 flex-1">
@@ -97,26 +87,6 @@
             </div>
         </div>
 
-<<<<<<< HEAD
-        <!-- Card 4 -->
-        <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
-            <div class="p-5">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                            <i class="fas fa-arrow-trend-down text-green-600 dark:text-green-400 text-2xl"></i>
-                        </div>
-                    </div>
-                    <div class="ml-5 w-0 flex-1">
-                        <dl>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Improvement</dt>
-                            <dd class="flex items-baseline">
-                                <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ $stats['improvement'] }}%</div>
-                                <div class="ml-2 flex items-baseline text-sm font-semibold {{ $stats['improvement'] >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
-                                    <i class="fas {{ $stats['improvement'] >= 0 ? 'fa-arrow-down' : 'fa-arrow-up' }}"></i>
-                                    <span class="sr-only">{{ $stats['improvement'] >= 0 ? 'Decreased by' : 'Increased by' }}</span>
-                                    {{ abs($stats['improvement']) }}%
-=======
             <!-- Card 2 -->
             <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
                 <div class="p-5">
@@ -192,7 +162,6 @@
                             <div class="flex-shrink-0">
                                 <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
                                     <i class="fas fa-trophy text-green-600 dark:text-green-400 text-2xl"></i>
->>>>>>> 052108013de51d485f13733c4b21da8f70e4df53
                                 </div>
                             </dd>
                         </dl>
@@ -397,26 +366,6 @@
                         text: 'kg CO₂',
                         color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
                     },
-<<<<<<< HEAD
-                    ticks: {
-                        color: document.documentElement.classList.contains('dark') ? '#a0aec0' : '#6B7280'
-                    },
-                    grid: {
-                        color: document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Month',
-                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
-                    },
-                    ticks: {
-                        color: document.documentElement.classList.contains('dark') ? '#a0aec0' : '#6B7280'
-                    },
-                    grid: {
-                        color: document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
-=======
                     x: {
                         title: {
                             display: true,
@@ -431,7 +380,6 @@
                         grid: {
                             color: html.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
                         }
->>>>>>> 052108013de51d485f13733c4b21da8f70e4df53
                     }
                 }
             }
