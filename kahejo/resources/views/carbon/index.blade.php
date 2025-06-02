@@ -19,6 +19,20 @@
                             'lightest': '#6ee7b7', // Lightest green
                         },
                     },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                    },
                 },
             },
         }
@@ -88,6 +102,56 @@
             opacity: 0.9;
             transform: translateY(-1px);
         }
+        .input-group {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .input-group:focus-within {
+            transform: translateY(-2px);
+        }
+        .input-group input {
+            transition: all 0.3s ease;
+        }
+        .input-group input:focus {
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #064e3b;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .form-card {
+            transition: all 0.3s ease;
+        }
+        .form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -145,7 +209,11 @@
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <!-- Carbon Calculator Form -->
+<<<<<<< HEAD
+        <div class="form-card bg-white shadow rounded-lg border border-kahejo-light/20 animate-fade-in">
+=======
         <div class="bg-white shadow rounded-lg border border-kahejo-light/20">
+>>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
             <div class="px-4 py-5 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-kahejo-darkest">Carbon Footprint Calculator</h3>
                 <p class="mt-1 text-sm text-kahejo-medium">Calculate your carbon footprint based on your daily activities.</p>
@@ -153,6 +221,18 @@
             <div class="border-t border-kahejo-light/20">
                 <form action="{{ url('/carbon/calculate') }}" method="POST" class="p-6 space-y-6">
                     @csrf
+<<<<<<< HEAD
+                    <!-- Electricity Usage -->
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <div class="input-group animate-slide-up" style="animation-delay: 0.1s">
+                            <label for="electricity" class="block text-sm font-medium text-kahejo-darkest">
+                                Monthly Electricity Usage (kWh)
+                                <span class="tooltip">
+                                    <i class="fas fa-info-circle text-kahejo-medium ml-1"></i>
+                                    <span class="tooltip-text">Enter your monthly electricity consumption in kilowatt-hours</span>
+                                </span>
+                            </label>
+=======
                     <!-- Month Selection -->
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div>
@@ -170,10 +250,18 @@
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div>
                             <label for="electricity" class="block text-sm font-medium text-kahejo-darkest">Monthly Electricity Usage (kWh)</label>
+>>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <i class="fas fa-bolt text-kahejo-dark"></i>
                                 </div>
+<<<<<<< HEAD
+                                <input type="number" name="electricity" id="electricity" 
+                                    class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" 
+                                    placeholder="0"
+                                    min="0"
+                                    step="0.1">
+=======
                                 <input type="number" name="electricity" id="electricity" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
                             </div>
                         </div>
@@ -208,19 +296,110 @@
                                     <i class="fas fa-water text-kahejo-dark"></i>
                                 </div>
                                 <input type="number" name="water" id="water" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
+>>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
+                            </div>
+                        </div>
+
+<<<<<<< HEAD
+                        <!-- Transportation -->
+                        <div class="input-group animate-slide-up" style="animation-delay: 0.2s">
+                            <label for="transportation" class="block text-sm font-medium text-kahejo-darkest">
+                                Daily Transportation (km)
+                                <span class="tooltip">
+                                    <i class="fas fa-info-circle text-kahejo-medium ml-1"></i>
+                                    <span class="tooltip-text">Enter your daily travel distance in kilometers</span>
+                                </span>
+                            </label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-car text-kahejo-dark"></i>
+                                </div>
+                                <input type="number" name="transportation" id="transportation" 
+                                    class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" 
+                                    placeholder="0"
+                                    min="0"
+                                    step="0.1">
+                            </div>
+                        </div>
+
+                        <!-- Waste -->
+                        <div class="input-group animate-slide-up" style="animation-delay: 0.3s">
+                            <label for="waste" class="block text-sm font-medium text-kahejo-darkest">
+                                Monthly Waste (kg)
+                                <span class="tooltip">
+                                    <i class="fas fa-info-circle text-kahejo-medium ml-1"></i>
+                                    <span class="tooltip-text">Enter your monthly waste production in kilograms</span>
+                                </span>
+                            </label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-trash text-kahejo-dark"></i>
+                                </div>
+                                <input type="number" name="waste" id="waste" 
+                                    class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" 
+                                    placeholder="0"
+                                    min="0"
+                                    step="0.1">
+                            </div>
+                        </div>
+
+                        <!-- Water Usage -->
+                        <div class="input-group animate-slide-up" style="animation-delay: 0.4s">
+                            <label for="water" class="block text-sm font-medium text-kahejo-darkest">
+                                Monthly Water Usage (m³)
+                                <span class="tooltip">
+                                    <i class="fas fa-info-circle text-kahejo-medium ml-1"></i>
+                                    <span class="tooltip-text">Enter your monthly water consumption in cubic meters</span>
+                                </span>
+                            </label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-water text-kahejo-dark"></i>
+                                </div>
+                                <input type="number" name="water" id="water" 
+                                    class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" 
+                                    placeholder="0"
+                                    min="0"
+                                    step="0.1">
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex justify-end space-x-4">
-                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-kahejo-dark hover:bg-kahejo-darkest focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kahejo-medium">
+                    <div class="flex justify-end space-x-4 animate-slide-up" style="animation-delay: 0.5s">
+                        <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-kahejo-dark hover:bg-kahejo-darkest focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kahejo-medium transition-all duration-300 transform hover:scale-105">
                             <i class="fas fa-calculator mr-2"></i>
                             Calculate Footprint
                         </button>
-                        <a href="{{ route('carbon.history') }}" class="inline-flex items-center px-4 py-2 border border-kahejo-dark text-sm font-medium rounded-md text-kahejo-dark bg-white hover:bg-kahejo-lightest focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kahejo-medium">
+                        <a href="{{ route('carbon.history') }}" class="inline-flex items-center px-6 py-3 border border-kahejo-dark text-base font-medium rounded-md text-kahejo-dark bg-white hover:bg-kahejo-lightest focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kahejo-medium transition-all duration-300 transform hover:scale-105">
                             <i class="fas fa-history mr-2"></i>
                             View History
                         </a>
+=======
+                <!-- Action Buttons -->
+                <div class="mt-8 flex justify-end space-x-4" data-aos="fade-up" data-aos-delay="500">
+                    <button type="submit" id="calculateButton" class="inline-flex items-center px-8 py-3 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 transform hover:-translate-y-1">
+                        <i class="fas fa-calculator mr-2"></i>
+                        Calculate Footprint
+                    </button>
+                    <a href="{{ route('carbon.history') }}" class="inline-flex items-center px-6 py-3 border-2 border-green-500 text-green-600 dark:text-green-400 rounded-lg text-sm font-medium hover:bg-green-50 dark:hover:bg-green-900/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform hover:-translate-y-1">
+                        <i class="fas fa-history mr-2"></i>
+                        View History
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Results Section (if available) -->
+    @if(isset($results))
+    <div class="mt-8 bg-white/90 dark:bg-dark-bg-secondary backdrop-blur-md shadow-xl rounded-xl border-l-4 border-green-500 dark:border-dark-border transform transition-all duration-300 hover:shadow-2xl" data-aos="fade-up" data-aos-duration="1000">
+        <!-- Header Section -->
+        <div class="px-6 py-6 sm:px-8 border-b border-gray-100 dark:border-dark-border">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
+                        <i class="fas fa-chart-pie text-2xl text-green-600 dark:text-green-400"></i>
+>>>>>>> 9a276c2e5d818701b9e50c9d6c4c5225e09ed9d5
                     </div>
                 </form>
             </div>
@@ -228,7 +407,7 @@
 
         <!-- Results Section (if available) -->
         @if(isset($results))
-        <div class="mt-8 bg-white shadow rounded-lg border border-kahejo-light/20">
+        <div class="mt-8 bg-white shadow rounded-lg border border-kahejo-light/20 animate-fade-in">
             <div class="px-4 py-5 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-kahejo-darkest">Your Carbon Footprint Results</h3>
                 <p class="mt-1 text-sm text-kahejo-medium">Based on your provided information.</p>
@@ -427,5 +606,28 @@
         </div>
         @endif
     </div>
+
+    <!-- Add JavaScript for form validation and animations -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add input validation
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.value < 0) {
+                        this.value = 0;
+                    }
+                });
+            });
+
+            // Add form submission animation
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                const submitButton = this.querySelector('button[type="submit"]');
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Calculating...';
+                submitButton.disabled = true;
+            });
+        });
+    </script>
 </body>
 </html>
