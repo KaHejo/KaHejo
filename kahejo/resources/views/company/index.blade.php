@@ -176,6 +176,9 @@
                         <a href="{{ route('achievements') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
                             <i class="nav-icon fas fa-trophy text-lg mr-2"></i>
                             Achievements
+                        <a href="{{ route('education') }}" class="nav-link flex items-center text-sm font-medium text-gray-500">
+                            <i class="nav-icon fas fa-graduation-cap text-lg mr-2"></i>
+                            Education
                         </a>
                     </div>
                 </div>

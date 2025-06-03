@@ -16,7 +16,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HistoryClaimController;
 use App\Http\Controllers\EmissionsController;
 use App\Http\Controllers\Admin\Auth\LoginController;
-
+use App\Http\Controllers\EducationController;
 
 // Welcome Route
 Route::get('/', function () {
@@ -58,14 +58,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/carbon/{id}', [CarbonFootprintController::class, 'view'])->name('carbon.view');
 
     // Emissions Routes
-    Route::get('/emissions', [EmissionsController::class, 'index'])->name('emissions');
-    Route::post('/emissions', [EmissionsController::class, 'store'])->name('emissions.store');
+    // Route::get('/emissions', [EmissionsController::class, 'index'])->name('emissions');
+    // Route::post('/emissions', [EmissionsController::class, 'store'])->name('emissions.store');
 
     // Company Energy Consumption Routes
     Route::get('/company', [CompanyEnergyController::class, 'index'])->name('company');
     Route::post('/company', [CompanyEnergyController::class, 'store'])->name('company.result');
     Route::get('/company/history', [CompanyEnergyController::class, 'history'])->name('company.history');
     Route::get('/company/view/{id}', [CompanyEnergyController::class, 'view'])->name('company.view');
+
+        // Education Routes
+    Route::get('/education', [EducationController::class, 'education'])->name('education');
+    Route::get('/education/article/{slug}', [EducationController::class, 'article'])->name('education.article');
+
+    // Routes for creating and storing articles
+    Route::get('/education/articles/create', [EducationController::class, 'createArticle'])->name('education.articles.create');
+    Route::post('/education/articles', [EducationController::class, 'storeArticle'])->name('education.articles.store');
 
     // Achievements
     Route::get('/achievements', [AchievementController::class, 'main'])->name('achievements');
