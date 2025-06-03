@@ -135,7 +135,11 @@
                                 <div>
                                     <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Improvement from Average</p>
                                     <p class="text-xl font-semibold text-green-600 dark:text-green-400">
-                                        {{ number_format((($stats['averageMonthlyFootprint'] - ($stats['lowestFootprint']['value'] ?? 0)) / $stats['averageMonthlyFootprint']) * 100, 1) }}%
+                                        @if($stats['averageMonthlyFootprint'] > 0)
+                                            {{ number_format((($stats['averageMonthlyFootprint'] - ($stats['lowestFootprint']['value'] ?? 0)) / $stats['averageMonthlyFootprint']) * 100, 1) }}%
+                                        @else
+                                            0%
+                                        @endif
                                     </p>
                                 </div>
                                 <div class="p-2 rounded-full bg-green-50 dark:bg-green-900/30">
@@ -148,7 +152,11 @@
                                 <div>
                                     <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Carbon Saved</p>
                                     <p class="text-xl font-semibold text-gray-900 dark:text-dark-text-primary">
-                                        {{ number_format($stats['averageMonthlyFootprint'] - ($stats['lowestFootprint']['value'] ?? 0), 2) }} kg
+                                        @if($stats['averageMonthlyFootprint'] > 0)
+                                            {{ number_format((($stats['averageMonthlyFootprint'] - ($stats['lowestFootprint']['value'] ?? 0)) / $stats['averageMonthlyFootprint']) * 100, 1) }}%
+                                        @else
+                                            0%
+                                        @endif
                                     </p>
                                 </div>
                                 <div class="p-2 rounded-full bg-blue-50 dark:bg-blue-900/30">
