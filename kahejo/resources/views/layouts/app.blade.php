@@ -139,9 +139,9 @@
                             <i class="nav-icon fas fa-trophy text-lg mr-2"></i>
                             Achievements
                         </a>
-                        <a href="{{ route('education') }}" class="nav-link active inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900">
-                            <i class="fas fa-graduation-cap w-6 text-green-600"></i>
-                            <span class="ml-2">Education</span>
+                        <a href="{{ route('education') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('education') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-trophy text-lg mr-2"></i>
+                            Education
                         </a>
                     </div>
                 </div>
