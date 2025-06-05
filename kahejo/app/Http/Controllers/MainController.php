@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\CarbonFootprint;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use App\Models\CompanyEnergyConsumption;
 
 class MainController extends Controller
 {
@@ -21,12 +22,12 @@ class MainController extends Controller
 
         // Get user's carbon footprint history
         $carbonHistory = CarbonFootprint::where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('month', 'asc')
             ->take(12) // Last 12 months
             ->get()
             ->map(function ($record) {
                 return [
-                    'date' => Carbon::parse($record->created_at)->format('M Y'),
+                    'date' => Carbon::parse($record->month)->format('M Y'),
                     'total' => $record->total,
                     'electricity' => $record->electricity,
                     'transportation' => $record->transportation,
@@ -35,9 +36,37 @@ class MainController extends Controller
                 ];
             });
 
-        // Get lowest carbon footprint
+        // Get energy consumption data
+        $energyConsumption = CompanyEnergyConsumption::where('user_id', $user->id)
+            ->orderBy('consumption_date', 'desc')
+            ->take(12) // Last 12 months
+            ->get()
+            ->map(function ($record) {
+                return [
+                    'date' => Carbon::parse($record->consumption_date)->format('M Y'),
+                    'electricity' => $record->source_type === 'electricity' ? $record->consumption_amount : 0,
+                    'gas' => $record->source_type === 'gas' ? $record->consumption_amount : 0,
+                    'water' => $record->source_type === 'water' ? $record->consumption_amount : 0
+                ];
+            });
+
+        // Calculate energy stats
+        $energyStats = [
+            'totalUsage' => $energyConsumption->sum(function ($record) {
+                return $record['electricity'] + $record['gas'] + $record['water'];
+            }),
+            'averageDaily' => $energyConsumption->avg(function ($record) {
+                return $record['electricity'] + $record['gas'] + $record['water'];
+            })
+        ];
+
+        // Get lowest and highest carbon footprint
         $lowestFootprint = CarbonFootprint::where('user_id', $user->id)
             ->orderBy('total', 'asc')
+            ->first();
+
+        $highestFootprint = CarbonFootprint::where('user_id', $user->id)
+            ->orderBy('total', 'desc')
             ->first();
 
         // Calculate user-specific stats
@@ -45,15 +74,15 @@ class MainController extends Controller
             'totalCarbonFootprint' => $carbonHistory->sum('total'),
             'averageMonthlyFootprint' => $carbonHistory->avg('total'),
             'lastMonthFootprint' => $carbonHistory->first()['total'] ?? 0,
-            'improvement' => $this->calculateImprovement($carbonHistory),
             'lowestFootprint' => $lowestFootprint ? [
                 'value' => $lowestFootprint->total,
-                'date' => Carbon::parse($lowestFootprint->created_at)->format('M Y'),
-                'electricity' => $lowestFootprint->electricity,
-                'transportation' => $lowestFootprint->transportation,
-                'waste' => $lowestFootprint->waste,
-                'water' => $lowestFootprint->water
-            ] : null
+                'date' => Carbon::parse($lowestFootprint->month)->format('M Y')
+            ] : null,
+            'highestFootprint' => $highestFootprint ? [
+                'value' => $highestFootprint->total,
+                'date' => Carbon::parse($highestFootprint->month)->format('M Y')
+            ] : null,
+            'improvement' => $this->calculateImprovement($carbonHistory)
         ];
 
         // Get user's recent activities
@@ -63,39 +92,25 @@ class MainController extends Controller
             'user' => $user,
             'stats' => $stats,
             'activities' => $activities,
-            'carbonHistory' => $carbonHistory
+            'carbonHistory' => $carbonHistory,
+            'energyConsumption' => $energyConsumption,
+            'energyStats' => $energyStats
         ]);
-    }
-
-    private function calculateImprovement($carbonHistory)
-    {
-        if ($carbonHistory->count() < 2) {
-            return 0;
-        }
-
-        $lastMonth = $carbonHistory->first()['total'];
-        $previousMonth = $carbonHistory->get(1)['total'];
-
-        if ($previousMonth == 0) {
-            return 0;
-        }
-
-        return round((($previousMonth - $lastMonth) / $previousMonth) * 100, 1);
     }
 
     private function getUserActivities($userId)
     {
         // Get user's recent carbon footprint calculations
         $recentCalculations = CarbonFootprint::where('user_id', $userId)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('month', 'desc')
             ->take(3)
             ->get()
             ->map(function ($record) {
                 return [
                     'icon' => 'calculator',
                     'color' => 'green',
-                    'title' => 'New carbon footprint calculation',
-                    'time' => Carbon::parse($record->created_at)->diffForHumans(),
+                    'title' => 'Carbon footprint for ' . Carbon::parse($record->month)->format('F Y'),
+                    'time' => Carbon::parse($record->month)->diffForHumans(),
                     'value' => $record->total
                 ];
             });
@@ -117,7 +132,9 @@ class MainController extends Controller
             'phone' => 'nullable|string|max:20',
             'birth_date' => 'nullable|date',
             'gender' => 'nullable|in:male,female,other',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'company' => 'nullable|string|max:255',
+            'profile_photo_path' => 'nullable|string|max:255',
         ]);
 
         $user = Auth::user();
@@ -126,6 +143,7 @@ class MainController extends Controller
         $user->phone = $request->phone;
         $user->birth_date = $request->birth_date;
         $user->gender = $request->gender;
+        $user->company = $request->company;
 
         if ($request->hasFile('photo')) {
             $path = $request->file('photo')->store('profile-photos', 'public');
@@ -153,7 +171,23 @@ class MainController extends Controller
 
     public function settings()
     {
-        $user = null; // Will be Auth::user() when auth is implemented
+        $user = Auth::user();
         return view('settings', compact('user'));
+    }
+
+    private function calculateImprovement($carbonHistory)
+    {
+        if ($carbonHistory->count() < 2) {
+            return 0;
+        }
+
+        $currentMonth = $carbonHistory->first()['total'];
+        $previousMonth = $carbonHistory->get(1)['total'];
+
+        if ($previousMonth == 0) {
+            return 0;
+        }
+
+        return (($previousMonth - $currentMonth) / $previousMonth) * 100;
     }
 } 

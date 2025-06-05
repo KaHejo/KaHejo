@@ -37,18 +37,10 @@ class CompanyEnergyConsumption extends Model
     ];
 
     /**
-     * Get the company that owns the energy consumption record.
-     */
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
-    }
-    /**
      * Get the user that owns the energy consumption record.
      */
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-    
+    }   
 } 

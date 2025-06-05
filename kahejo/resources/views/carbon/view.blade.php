@@ -101,7 +101,7 @@
                         <span class="logo-text text-2xl font-extrabold">KaHejo</span>
                     </div>
                     <div class="hidden md:flex md:ml-10">
-                        <a href="{{ route('dashboard') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('main') ? 'active' : '' }}">
+                        <a href="{{ route('main') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('main') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-home text-lg mr-2"></i>
                             Dashboard
                         </a>
