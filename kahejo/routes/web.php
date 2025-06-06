@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarbonFootprintController; 
 use App\Http\Controllers\MainController;
-use App\Http\Controllers\EmissionsFactorController;
+use App\Http\Controllers\EmissionFactorController;
 use App\Http\Controllers\CompanyEnergyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
@@ -125,4 +125,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     // History Claims Management
     Route::get('/history-claims', [HistoryClaimController::class, 'index'])->name('history-claims.index');
+
+    // Emission Factors
+    Route::resource('emission-factors', EmissionFactorController::class);
+
 });
+
+
