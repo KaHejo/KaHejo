@@ -16,9 +16,15 @@
 
             <div>
                 <label for="category" class="block text-sm font-medium text-gray-700">Kategori <span class="text-red-500">*</span></label>
-                <input type="text" name="category" id="category" value="{{ old('category') }}" required
+                <select name="category" id="category" required
                     class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
-                <p class="text-sm text-gray-500 mt-1">Contoh: Energi, Transportasi, Limbah</p>
+                    <option value="">-- Pilih Kategori --</option>
+                    <option value="Listrik" {{ old('category') == 'Energi' ? 'selected' : '' }}>Listrik</option>
+                    <option value="Bensin" {{ old('category') == 'Transportasi' ? 'selected' : '' }}>Bensin</option>
+                    <option value="Limbah" {{ old('category') == 'Limbah' ? 'selected' : '' }}>Limbah</option>
+                    <option value="Air" {{ old('category') == 'Pertanian' ? 'selected' : '' }}>Air</option>
+                </select>
+                <p class="text-sm text-gray-500 mt-1">Pilih kategori emisi</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

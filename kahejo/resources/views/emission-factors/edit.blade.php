@@ -21,11 +21,17 @@
         {{-- Kategori --}}
         <div class="mb-4">
             <label for="category" class="block font-medium text-gray-700">Kategori <span class="text-red-500">*</span></label>
-            <input type="text" id="category" name="category" value="{{ old('category', $emissionFactor->category) }}"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('category') border-red-500 @enderror" required>
-            @error('category')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
+            <select id="category" name="category" required
+            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('category') border-red-500 @enderror">
+            <option value="">-- Pilih Kategori --</option>
+            <option value="Energi" {{ old('category', $emissionFactor->category) == 'Energi' ? 'selected' : '' }}>Energi</option>
+            <option value="Transportasi" {{ old('category', $emissionFactor->category) == 'Transportasi' ? 'selected' : '' }}>Transportasi</option>
+            <option value="Limbah" {{ old('category', $emissionFactor->category) == 'Limbah' ? 'selected' : '' }}>Limbah</option>
+            <option value="Pertanian" {{ old('category', $emissionFactor->category) == 'Pertanian' ? 'selected' : '' }}>Pertanian</option>
+        </select>
+        @error('category')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+        @enderror
         </div>
 
         {{-- Nilai dan Unit --}}
