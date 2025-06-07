@@ -17,6 +17,7 @@ use App\Http\Controllers\HistoryClaimController;
 use App\Http\Controllers\EmissionsController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\EducationController;
+use App\Http\Controllers\FaqController;
 
 // Welcome Route
 Route::get('/', function () {
