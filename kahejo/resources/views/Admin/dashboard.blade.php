@@ -1,37 +1,79 @@
 @extends('layouts.admin')
 
-@section('content')
+@section('main-content')
 <div class="container mx-auto px-4 py-8">
-    <!-- Recent Activity Section -->
+    <!-- Dashboard Summary Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-8">
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+            <div class="text-kahejo-darkest text-3xl font-bold mb-2">{{ $usersCount }}</div>
+            <div class="text-kahejo-medium font-semibold">Users</div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+            <div class="text-kahejo-darkest text-3xl font-bold mb-2">{{ $achievementsCount }}</div>
+            <div class="text-kahejo-medium font-semibold">Achievements</div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+            <div class="text-kahejo-darkest text-3xl font-bold mb-2">{{ $emisiCount }}</div>
+            <div class="text-kahejo-medium font-semibold">Emission Factors</div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+            <div class="text-kahejo-darkest text-3xl font-bold mb-2">{{ $historyClaimsCount }}</div>
+            <div class="text-kahejo-medium font-semibold">History Claims</div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+            <div class="text-kahejo-darkest text-3xl font-bold mb-2">{{ $rewardsCount }}</div>
+            <div class="text-kahejo-medium font-semibold">Rewards</div>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+            <div class="text-kahejo-darkest text-3xl font-bold mb-2">{{ $totalPoints }}</div>
+            <div class="text-kahejo-medium font-semibold">Total User Points</div>
+        </div>
+    </div>
+
+    <!-- Grafik History Claim per Bulan -->
     <div class="mt-8">
-        <h2 class="text-2xl font-bold mb-4">Recent Activity</h2>
+        <h2 class="text-2xl font-bold mb-4">Total History Claim per Month</h2>
         <div class="bg-white rounded-lg shadow-md p-6">
-            <div class="space-y-4">
-                <div class="flex items-center justify-between border-b pb-4">
-                    <div>
-                        <p class="font-medium text-gray-800">New Point Rule Created</p>
-                        <p class="text-sm text-gray-600">Carbon Reduction Achievement: 100kg CO₂</p>
-                    </div>
-                    <span class="text-sm text-gray-500">2 hours ago</span>
-                </div>
-                <div class="flex items-center justify-between border-b pb-4">
-                    <div>
-                        <p class="font-medium text-gray-800">User Achievement Unlocked</p>
-                        <p class="text-sm text-gray-600">John Doe earned "Carbon Warrior" badge</p>
-                    </div>
-                    <span class="text-sm text-gray-500">5 hours ago</span>
-                </div>
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="font-medium text-gray-800">System Update</p>
-                        <p class="text-sm text-gray-600">Point calculation algorithm updated</p>
-                    </div>
-                    <span class="text-sm text-gray-500">1 day ago</span>
-                </div>
-            </div>
+            <canvas id="historyClaimChart" height="100"></canvas>
         </div>
     </div>
 </div>
-@endsection
 
-<!-- //dashboard, recent activity, total user point dll  -->
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('historyClaimChart').getContext('2d');
+    const historyClaimChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {!! json_encode($historyClaimMonths) !!},
+            datasets: [{
+                label: 'Total History Claim',
+                data: {!! json_encode($historyClaimCounts) !!},
+                backgroundColor: '#10B981',
+                borderColor: '#059669',
+                borderWidth: 2,
+                borderRadius: 8,
+                maxBarThickness: 40,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+                title: { display: false }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    title: { display: true, text: 'Month' }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Total Claims' }
+                }
+            }
+        }
+    });
+</script>
+@endsection
