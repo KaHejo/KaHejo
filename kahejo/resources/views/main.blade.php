@@ -11,7 +11,7 @@
     </div>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5">
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <!-- Card 1 -->
         <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
             <div class="p-5">
@@ -103,61 +103,26 @@
         <!-- Card 5 - Lowest Carbon Footprint -->
         <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
             <div class="p-5">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                            <i class="fas fa-trophy text-green-600 dark:text-green-400 text-2xl"></i>
-                        </div>
-                    </div>
-<<<<<<< HEAD
-                    <div class="ml-5 w-0 flex-1">
-                        <dl>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Lowest Carbon Footprint</dt>
-                            <dd class="flex items-baseline">
-                                <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lowestFootprint']['value'] ?? 0, 2) }} kg</div>
-                            </dd>
-                            <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">{{ $stats['lowestFootprint']['date'] ?? 'No data' }}</dd>
-                        </dl>
-=======
-
-                    <!-- Additional Details -->
-                    <div class="space-y-4">
-                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Improvement from Average</p>
-                                    <p class="text-xl font-semibold text-green-600 dark:text-green-400">
-                                        @if($stats['averageMonthlyFootprint'] > 0)
-                                            {{ number_format((($stats['averageMonthlyFootprint'] - ($stats['lowestFootprint']['value'] ?? 0)) / $stats['averageMonthlyFootprint']) * 100, 1) }}%
-                                        @else
-                                            0%
-                                        @endif
-                                    </p>
-                                </div>
-                                <div class="p-2 rounded-full bg-green-50 dark:bg-green-900/30">
-                                    <i class="fas fa-arrow-trend-down text-green-600 dark:text-green-400 text-xl"></i>
-                                </div>
+                <div class="flex flex-col">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
+                                <i class="fas fa-trophy text-green-600 dark:text-green-400 text-2xl"></i>
                             </div>
                         </div>
-                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Carbon Saved</p>
-                                    <p class="text-xl font-semibold text-gray-900 dark:text-dark-text-primary">
-                                        @if($stats['averageMonthlyFootprint'] > 0)
-                                            {{ number_format((($stats['averageMonthlyFootprint'] - ($stats['lowestFootprint']['value'] ?? 0)) / $stats['averageMonthlyFootprint']) * 100, 1) }}%
-                                        @else
-                                            0%
-                                        @endif
-                                    </p>
-                                </div>
-                                <div class="p-2 rounded-full bg-blue-50 dark:bg-blue-900/30">
-                                    <i class="fas fa-leaf text-blue-600 dark:text-blue-400 text-xl"></i>
-                                </div>
-                            </div>
+                        <div class="ml-5">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Lowest Carbon Footprint</dt>
+                                <dd class="flex items-baseline">
+                                    <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lowestFootprint']['value'] ?? 0, 2) }} kg</div>
+                                </dd>
+                                <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">{{ $stats['lowestFootprint']['date'] ?? 'No data' }}</dd>
+                            </dl>
                         </div>
->>>>>>> 4e933afd9291e4ba0c63a77937b4782c08c9df14
                     </div>
+                    <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">
+                        In order to get the lowest carbon footprint, make sure to always reduce your footprint!
+                    </dd>
                 </div>
             </div>
         </div>
