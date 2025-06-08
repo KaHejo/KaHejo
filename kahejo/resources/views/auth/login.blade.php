@@ -28,6 +28,10 @@
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'bounce-slow': 'bounce 3s infinite',
                         'spin-slow': 'spin 3s linear infinite',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'slide-down': 'slideDown 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'scale-in': 'scaleIn 0.5s ease-out',
                     },
                     keyframes: {
                         gradient: {
@@ -39,6 +43,22 @@
                                 'background-size': '200% 200%',
                                 'background-position': 'right center'
                             },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        slideDown: {
+                            '0%': { transform: 'translateY(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.95)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
                         },
                     },
                 }
@@ -81,30 +101,27 @@
         </div>
     @endif
 
-    <div class="w-full max-w-6xl bg-white/80 backdrop-blur-md rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row relative z-10 border border-white/20 transition-transform duration-300">
+    <div class="w-full max-w-6xl bg-white/80 backdrop-blur-md rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row relative z-10 border border-white/20 transition-transform duration-300 hover:shadow-2xl">
         <!-- Left Side - Branding -->
         <div class="md:w-1/2 bg-gradient-to-br from-primary to-secondary p-8 md:p-12 flex flex-col justify-center items-center text-white relative overflow-hidden">
             <div class="absolute inset-0 opacity-10">
                 <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23ffffff\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E')]"></div>
             </div>
-            <div class="relative z-10 text-center">
+            <div class="relative z-10 text-center animate-fade-in">
                 <div class="text-7xl mb-8 animate-float">
                     <i class="fas fa-leaf"></i>
                 </div>
                 <h2 class="text-5xl font-bold mb-6 text-shadow animate-pulse-slow">Welcome to KaHejo</h2>
-                <p class="text-xl opacity-90 max-w-md leading-relaxed">
-                    Your personal health companion. Track your health, get personalized recommendations, and achieve your wellness goals.
-                </p>
-                <div class="mt-12 flex space-x-4">
-                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center transform hover:scale-110 transition-transform duration-300">
+                <div class="mt-12 grid grid-cols-3 gap-4">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center transform hover:scale-110 transition-all duration-300 hover:bg-white/20">
                         <i class="fas fa-heartbeat text-3xl mb-2 animate-bounce-slow"></i>
                         <p class="text-sm">Health Tracking</p>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center transform hover:scale-110 transition-transform duration-300">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center transform hover:scale-110 transition-all duration-300 hover:bg-white/20">
                         <i class="fas fa-chart-line text-3xl mb-2 animate-spin-slow"></i>
                         <p class="text-sm">Analytics</p>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center transform hover:scale-110 transition-transform duration-300">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center transform hover:scale-110 transition-all duration-300 hover:bg-white/20">
                         <i class="fas fa-bullseye text-3xl mb-2 animate-pulse-slow"></i>
                         <p class="text-sm">Goals</p>
                     </div>
@@ -114,16 +131,16 @@
 
         <!-- Right Side - Login Form -->
         <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-            <div class="max-w-md mx-auto w-full">
+            <div class="max-w-md mx-auto w-full animate-scale-in">
                 <div class="text-center mb-8">
-                    <h2 class="text-4xl font-bold text-gray-800 mb-3 animate-fade-in">Welcome Back!</h2>
-                    <p class="text-gray-600">Please enter your credentials to access your account</p>
+                    <h2 class="text-4xl font-bold text-gray-800 mb-3 animate-slide-down">Welcome Back!</h2>
+                    <p class="text-gray-600 animate-slide-up">Please enter your credentials to access your account</p>
                 </div>
 
                 <form method="POST" action="{{ route('login') }}" class="space-y-6">
                     @csrf
 
-                    <div class="relative group">
+                    <div class="relative group animate-slide-up" style="animation-delay: 0.1s">
                         <input type="text" 
                                class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 bg-white/50 backdrop-blur-sm group-hover:border-primary/50"
                                id="name" 
@@ -141,7 +158,7 @@
                         @enderror
                     </div>
 
-                    <div class="relative group">
+                    <div class="relative group animate-slide-up" style="animation-delay: 0.2s">
                         <input type="password" 
                                class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 bg-white/50 backdrop-blur-sm group-hover:border-primary/50"
                                id="password" 
@@ -157,7 +174,7 @@
                         @enderror
                     </div>
 
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between animate-slide-up" style="animation-delay: 0.3s">
                         <div class="flex items-center">
                             <input type="checkbox" 
                                    id="remember" 
@@ -173,13 +190,14 @@
                     </div>
 
                     <button type="submit" 
-                            class="w-full py-4 px-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center group relative overflow-hidden">
+                            class="w-full py-4 px-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center group relative overflow-hidden animate-slide-up"
+                            style="animation-delay: 0.4s">
                         <span class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></span>
                         <i class="fas fa-sign-in-alt mr-2 group-hover:rotate-12 transition-transform duration-200"></i>
                         Login
                     </button>
 
-                    <div class="text-center space-y-4">
+                    <div class="text-center space-y-4 animate-slide-up" style="animation-delay: 0.5s">
                         <p class="text-gray-600">
                             Don't have an account? 
                             <a href="{{ route('register') }}" class="text-primary font-semibold hover:text-secondary transition-colors duration-200">

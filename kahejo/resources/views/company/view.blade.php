@@ -3,178 +3,178 @@
 @section('title', 'Hasil Konsumsi Energi Perusahaan')
 
 @push('styles')
-<style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #f6f7fb 0%, #f1f5f9 100%);
-    }
-    .card-hover {
-        transition: all 0.3s ease;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-    }
-    .card-hover:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    }
-    .info-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: 1rem;
-    }
-    .timeline-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-    }
-    .btn-back {
-        transition: all 0.3s ease;
-        background: linear-gradient(45deg, #10B981, #059669);
-        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
-    }
-    .btn-back:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 8px rgba(16, 185, 129, 0.3);
-    }
-    .section-title {
-        position: relative;
-        padding-left: 1.5rem;
-        margin-bottom: 1rem;
-    }
-    .section-title::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 1rem;
-        height: 1rem;
-        background: linear-gradient(45deg, #10B981, #059669);
-        border-radius: 0.25rem;
-        animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-        0% { transform: translateY(-50%) scale(1); }
-        50% { transform: translateY(-50%) scale(1.1); }
-        100% { transform: translateY(-50%) scale(1); }
-    }
-    .info-card {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 0.75rem;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        padding: 1rem;
-        transition: all 0.3s ease;
-        border: 1px solid rgba(16, 185, 129, 0.1);
-    }
-    .info-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-        border-color: rgba(16, 185, 129, 0.3);
-    }
-    .success-badge {
-        background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 1rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
-        animation: slideIn 0.5s ease-out;
-    }
-    @keyframes slideIn {
-        from { transform: translateY(-20px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-    .icon-wrapper {
-        transition: all 0.3s ease;
-    }
-    .info-card:hover .icon-wrapper {
-        transform: scale(1.1) rotate(5deg);
-    }
-    .stat-value {
-        background: linear-gradient(45deg, #10B981, #059669);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        font-weight: 600;
-    }
-    .chart-container {
-        position: relative;
-        margin: auto;
-        height: 300px;
-        width: 100%;
-    }
-    .floating-card {
-        animation: float 6s ease-in-out infinite;
-    }
-    @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-10px); }
-        100% { transform: translateY(0px); }
-    }
-    /* Add styles for PDF generation */
-    .pdf-preview {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        z-index: 1000;
-        justify-content: center;
-        align-items: center;
-    }
-    .pdf-preview-content {
-        background: white;
-        padding: 2rem;
-        border-radius: 1rem;
-        max-width: 90%;
-        max-height: 90%;
-        overflow: auto;
-    }
-    .pdf-preview-close {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        color: white;
-        font-size: 1.5rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    .pdf-preview-close:hover {
-        transform: scale(1.1);
-    }
-    .pdf-loading {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.9);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 1001;
-    }
-    .pdf-loading-content {
-        text-align: center;
-    }
-    .pdf-loading-spinner {
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #10B981;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-        margin: 0 auto 1rem;
-    }
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-</style>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f6f7fb 0%, #f1f5f9 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .btn-back {
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #10B981, #059669);
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+        }
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(16, 185, 129, 0.3);
+        }
+        .section-title {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1rem;
+            height: 1rem;
+            background: linear-gradient(45deg, #10B981, #059669);
+            border-radius: 0.25rem;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.1); }
+            100% { transform: translateY(-50%) scale(1); }
+        }
+        .info-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(16, 185, 129, 0.1);
+        }
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+        .success-badge {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .icon-wrapper {
+            transition: all 0.3s ease;
+        }
+        .info-card:hover .icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .stat-value {
+            background: linear-gradient(45deg, #10B981, #059669);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 600;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 300px;
+            width: 100%;
+        }
+        .floating-card {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        /* Add styles for PDF generation */
+        .pdf-preview {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .pdf-preview-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow: auto;
+        }
+        .pdf-preview-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .pdf-preview-close:hover {
+            transform: scale(1.1);
+        }
+        .pdf-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+        .pdf-loading-content {
+            text-align: center;
+        }
+        .pdf-loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #10B981;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -420,168 +420,168 @@
 @endsection
 
 @push('scripts')
-<script>
-    // Initialize AOS
-    AOS.init({
-        duration: 800,
-        once: true
-    });
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
 
-    // Initialize Chart
-    const ctx = document.getElementById('consumptionChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Konsumsi Energi'],
-            datasets: [{
-                label: '{{ $result["source_type"] }} ({{ $result["unit_measurement"] }})',
-                data: [{{ $result['consumption_amount'] }}],
-                backgroundColor: [
-                    'rgba(16, 185, 129, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(16, 185, 129, 1)'
-                ],
-                borderWidth: 2,
-                borderRadius: 5,
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Grafik Konsumsi Energi'
-                }
+        // Initialize Chart
+        const ctx = document.getElementById('consumptionChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Konsumsi Energi'],
+                datasets: [{
+                    label: '{{ $result["source_type"] }} ({{ $result["unit_measurement"] }})',
+                    data: [{{ $result['consumption_amount'] }}],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(16, 185, 129, 1)'
+                    ],
+                    borderWidth: 2,
+                    borderRadius: 5,
+                }]
             },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        color: 'rgba(0, 0, 0, 0.1)'
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Grafik Konsumsi Energi'
                     }
                 },
-                x: {
-                    grid: {
-                        display: false
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
                     }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
                 }
-            },
-            animation: {
-                duration: 2000,
-                easing: 'easeInOutQuart'
+            }
+        });
+
+        // PDF Generation Function
+        async function generatePDF() {
+            const loading = document.getElementById('pdfLoading');
+            loading.style.display = 'flex';
+            
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                const element = document.querySelector('.card-hover');
+                
+                // Create a clone of the element for PDF generation
+                const clone = element.cloneNode(true);
+                clone.style.width = '210mm'; // A4 width
+                clone.style.padding = '20mm';
+                document.body.appendChild(clone);
+                
+                // Convert the element to canvas
+                const canvas = await html2canvas(clone, {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#ffffff'
+                });
+                
+                // Remove the clone
+                document.body.removeChild(clone);
+                
+                // Add the image to PDF
+                const imgData = canvas.toDataURL('image/png');
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+                
+                doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                
+                // Add header
+                doc.setFontSize(20);
+                doc.setTextColor(16, 185, 129);
+                doc.text('Laporan Konsumsi Energi', pdfWidth/2, 15, { align: 'center' });
+                
+                // Add footer
+                const pageCount = doc.internal.getNumberOfPages();
+                for(let i = 1; i <= pageCount; i++) {
+                    doc.setPage(i);
+                    doc.setFontSize(10);
+                    doc.setTextColor(100);
+                    doc.text(
+                        `Halaman ${i} dari ${pageCount}`,
+                        pdfWidth/2,
+                        doc.internal.pageSize.getHeight() - 10,
+                        { align: 'center' }
+                    );
+                }
+                
+                // Save the PDF
+                const fileName = `Laporan_Konsumsi_Energi_${new Date().toISOString().split('T')[0]}.pdf`;
+                doc.save(fileName);
+                
+                // Show success message
+                const successBadge = document.createElement('div');
+                successBadge.className = 'success-badge fixed bottom-4 right-4';
+                successBadge.innerHTML = `
+                    <i class="fas fa-check-circle text-xl"></i>
+                    <span class="text-sm font-medium">PDF berhasil diunduh</span>
+                `;
+                document.body.appendChild(successBadge);
+                setTimeout(() => successBadge.remove(), 3000);
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Terjadi kesalahan saat membuat PDF. Silakan coba lagi.');
+            } finally {
+                loading.style.display = 'none';
             }
         }
-    });
 
-    // PDF Generation Function
-    async function generatePDF() {
-        const loading = document.getElementById('pdfLoading');
-        loading.style.display = 'flex';
-        
-        try {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF('p', 'mm', 'a4');
-            const element = document.querySelector('.card-hover');
-            
-            // Create a clone of the element for PDF generation
-            const clone = element.cloneNode(true);
-            clone.style.width = '210mm'; // A4 width
-            clone.style.padding = '20mm';
-            document.body.appendChild(clone);
-            
-            // Convert the element to canvas
-            const canvas = await html2canvas(clone, {
-                scale: 2,
-                useCORS: true,
-                logging: false,
-                backgroundColor: '#ffffff'
-            });
-            
-            // Remove the clone
-            document.body.removeChild(clone);
-            
-            // Add the image to PDF
-            const imgData = canvas.toDataURL('image/png');
-            const pdfWidth = doc.internal.pageSize.getWidth();
-            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-            
-            doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-            
-            // Add header
-            doc.setFontSize(20);
-            doc.setTextColor(16, 185, 129);
-            doc.text('Laporan Konsumsi Energi', pdfWidth/2, 15, { align: 'center' });
-            
-            // Add footer
-            const pageCount = doc.internal.getNumberOfPages();
-            for(let i = 1; i <= pageCount; i++) {
-                doc.setPage(i);
-                doc.setFontSize(10);
-                doc.setTextColor(100);
-                doc.text(
-                    `Halaman ${i} dari ${pageCount}`,
-                    pdfWidth/2,
-                    doc.internal.pageSize.getHeight() - 10,
-                    { align: 'center' }
-                );
-            }
-            
-            // Save the PDF
-            const fileName = `Laporan_Konsumsi_Energi_${new Date().toISOString().split('T')[0]}.pdf`;
-            doc.save(fileName);
-            
-            // Show success message
-            const successBadge = document.createElement('div');
-            successBadge.className = 'success-badge fixed bottom-4 right-4';
-            successBadge.innerHTML = `
-                <i class="fas fa-check-circle text-xl"></i>
-                <span class="text-sm font-medium">PDF berhasil diunduh</span>
-            `;
-            document.body.appendChild(successBadge);
-            setTimeout(() => successBadge.remove(), 3000);
-            
-        } catch (error) {
-            console.error('Error generating PDF:', error);
-            alert('Terjadi kesalahan saat membuat PDF. Silakan coba lagi.');
-        } finally {
-            loading.style.display = 'none';
+        function closePDFPreview() {
+            document.getElementById('pdfPreview').style.display = 'none';
         }
-    }
 
-    function closePDFPreview() {
-        document.getElementById('pdfPreview').style.display = 'none';
-    }
-
-    // Enhanced print styles
-    const style = document.createElement('style');
-    style.textContent = `
-        @media print {
-            body * {
-                visibility: hidden;
+        // Enhanced print styles
+        const style = document.createElement('style');
+        style.textContent = `
+            @media print {
+                body * {
+                    visibility: hidden;
+                }
+                .card-hover, .card-hover * {
+                    visibility: visible;
+                }
+                .card-hover {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                }
+                .btn-back, button {
+                    display: none;
+                }
+                @page {
+                    size: A4;
+                    margin: 20mm;
+                }
             }
-            .card-hover, .card-hover * {
-                visibility: visible;
-            }
-            .card-hover {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-            }
-            .btn-back, button {
-                display: none;
-            }
-            @page {
-                size: A4;
-                margin: 20mm;
-            }
-        }
-    `;
-    document.head.appendChild(style);
-</script>
+        `;
+        document.head.appendChild(style);
+    </script>
 @endpush 

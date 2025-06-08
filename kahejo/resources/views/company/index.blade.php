@@ -3,102 +3,102 @@
 @section('title', 'Company Energy')
 
 @section('styles')
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<style>
-    body {
-        background: linear-gradient(135deg, #f6f8fa 0%, #e9ecef 100%);
-    }
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f6f8fa 0%, #e9ecef 100%);
+        }
     .dark body {
         background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    }
+        }
     /* The following styles are specifically for the company page forms/buttons */
-    .user-profile {
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(10px);
-    }
+        .user-profile {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
     .dark .user-profile {
         background: rgba(45, 45, 45, 0.9);
     }
-    .user-profile:hover {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+        .user-profile:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     .dark .user-profile:hover {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
-    .logout-btn {
-        box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
-    }
-    .logout-btn:hover {
-        box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
-    }
-    .card-hover {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-    }
+        .logout-btn {
+            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+        }
+        .logout-btn:hover {
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+        }
+        .card-hover {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
     .dark .card-hover {
         background: rgba(45, 45, 45, 0.95);
     }
-    .card-hover:hover {
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    }
+        .card-hover:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
     .dark .card-hover:hover {
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
     }
-    .form-input:focus + .form-icon,
-    .form-select:focus + .form-icon {
-        color: #10B981;
-        transform: scale(1.1);
-    }
-    .form-group:hover .form-icon {
-        color: #10B981;
-        transform: scale(1.1);
-    }
-    input:focus, select:focus {
-        border-color: #10B981;
-        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-        border-width: 2px;
-    }
+        .form-input:focus + .form-icon,
+        .form-select:focus + .form-icon {
+            color: #10B981;
+            transform: scale(1.1);
+        }
+        .form-group:hover .form-icon {
+            color: #10B981;
+            transform: scale(1.1);
+        }
+        input:focus, select:focus {
+            border-color: #10B981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+            border-width: 2px;
+        }
     .dark input:focus, .dark select:focus {
         box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
     }
-    .form-control {
-        transition: all 0.3s ease;
-    }
-    .form-control:hover {
-        border-color: #10B981;
-    }
-    .btn-primary {
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
-    }
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 8px rgba(16, 185, 129, 0.3);
-    }
-    .btn-secondary {
-        transition: all 0.3s ease;
-    }
-    .btn-secondary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+        .form-control {
+            transition: all 0.3s ease;
+        }
+        .form-control:hover {
+            border-color: #10B981;
+        }
+        .btn-primary {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(16, 185, 129, 0.3);
+        }
+        .btn-secondary {
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     .dark .btn-secondary:hover {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
-    .floating-label {
-        position: relative;
-        margin-bottom: 1.5rem;
-    }
-    .floating-label input:focus ~ label,
-    .floating-label input:not(:placeholder-shown) ~ label {
-        transform: translateY(-1.5rem) scale(0.85);
-        color: #10B981;
-    }
-    .floating-label label {
-        transition: all 0.2s ease;
-        transform-origin: left top;
-    }
-</style>
+        .floating-label {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .floating-label input:focus ~ label,
+        .floating-label input:not(:placeholder-shown) ~ label {
+            transform: translateY(-1.5rem) scale(0.85);
+            color: #10B981;
+        }
+        .floating-label label {
+            transition: all 0.2s ease;
+            transform-origin: left top;
+        }
+    </style>
 @endsection
 
 @section('content')

@@ -12,6 +12,13 @@
             theme: {
                 extend: {
                     colors: {
+                        'kahejo': {
+                            'darkest': '#064e3b',  // Darkest green
+                            'dark': '#059669',     // Dark green
+                            'medium': '#10b981',   // Medium green
+                            'light': '#34d399',    // Light green
+                            'lightest': '#6ee7b7', // Lightest green
+                        },
                         dark: {
                             'bg-primary': '#000000',
                             'bg-secondary': '#0a0a0a',
@@ -141,7 +148,7 @@
                             <i class="nav-icon fas fa-chart-line text-lg mr-2"></i>
                             Energy Consumption
                         </a>
-                        <a href="{{ route('achievements') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('achievements.*') ? 'active' : '' }}">
+                        <a href="{{ route('achievements') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('achievements', 'achievements.*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-trophy text-lg mr-2"></i>
                             Achievements
                         </a>

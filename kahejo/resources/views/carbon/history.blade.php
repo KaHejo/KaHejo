@@ -10,12 +10,12 @@
             <div>
                 <h1 class="text-3xl font-bold text-gray-900 dark:text-dark-text-primary">Carbon Footprint History</h1>
                 <p class="mt-2 text-sm text-gray-600 dark:text-dark-text-secondary">View your past carbon footprint calculations</p>
-            </div>
+                    </div>
             <a href="{{ route('carbon') }}" class="inline-flex items-center px-4 py-2 border border-green-500 text-green-500 rounded-md text-sm font-medium hover:bg-green-50 dark:hover:bg-green-900/30 transition-colors duration-200">
                 <i class="fas fa-arrow-left mr-2"></i>
                 Back to Calculator
-            </a>
-        </div>
+                        </a>
+                    </div>
     </div>
 
     <!-- Summary Cards -->
@@ -30,8 +30,8 @@
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-dark-text-primary">Total Calculations</h3>
                     <p class="text-2xl font-bold text-green-600 dark:text-green-400">{{ $carbonFootprints->total() }}</p>
                 </div>
-            </div>
-        </div>
+                        </div>
+                    </div>
 
         <!-- Average Footprint Card -->
         <div class="bg-white dark:bg-dark-bg-secondary rounded-lg shadow-md p-6 border border-gray-100 dark:border-dark-border">
@@ -61,19 +61,19 @@
                     </p>
                 </div>
             </div>
+            </div>
         </div>
-    </div>
 
-    <!-- History Table -->
+        <!-- History Table -->
     <div class="bg-white dark:bg-dark-bg-secondary shadow rounded-lg border border-gray-100 dark:border-dark-border overflow-hidden">
         <div class="px-4 py-5 sm:px-6 border-b border-gray-100 dark:border-dark-border">
             <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-dark-text-primary">Calculation History</h3>
             <p class="mt-1 text-sm text-gray-500 dark:text-dark-text-secondary">Your past carbon footprint calculations and their results.</p>
-        </div>
-        <div class="overflow-x-auto">
+            </div>
+                <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200 dark:divide-dark-border">
                 <thead class="bg-gray-50 dark:bg-dark-bg-primary">
-                    <tr>
+                            <tr>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-dark-text-secondary uppercase tracking-wider">Date</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-dark-text-secondary uppercase tracking-wider">Electricity</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-dark-text-secondary uppercase tracking-wider">Transportation</th>
@@ -81,56 +81,56 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-dark-text-secondary uppercase tracking-wider">Water</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-dark-text-secondary uppercase tracking-wider">Total</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-dark-text-secondary uppercase tracking-wider">Actions</th>
-                    </tr>
-                </thead>
+                            </tr>
+                        </thead>
                 <tbody class="bg-white dark:bg-dark-bg-secondary divide-y divide-gray-200 dark:divide-dark-border">
-                    @forelse($carbonFootprints as $carbon)
+                            @forelse($carbonFootprints as $carbon)
                     <tr class="hover:bg-gray-50 dark:hover:bg-dark-bg-primary transition-colors duration-200">
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-dark-text-secondary">
                             <div class="flex items-center">
                                 <i class="far fa-calendar-alt mr-2 text-gray-400"></i>
-                                {{ $carbon->created_at->format('d M Y H:i') }}
+                                    {{ $carbon->created_at->format('d M Y H:i') }}
                             </div>
-                        </td>
+                                </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-dark-text-secondary">
                             <div class="flex items-center">
                                 <i class="fas fa-bolt mr-2 text-yellow-500"></i>
-                                {{ number_format($carbon->electricity, 2) }} kg CO₂
+                                    {{ number_format($carbon->electricity, 2) }} kg CO₂
                             </div>
-                        </td>
+                                </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-dark-text-secondary">
                             <div class="flex items-center">
                                 <i class="fas fa-car mr-2 text-blue-500"></i>
-                                {{ number_format($carbon->transportation, 2) }} kg CO₂
+                                    {{ number_format($carbon->transportation, 2) }} kg CO₂
                             </div>
-                        </td>
+                                </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-dark-text-secondary">
                             <div class="flex items-center">
                                 <i class="fas fa-trash mr-2 text-red-500"></i>
-                                {{ number_format($carbon->waste, 2) }} kg CO₂
+                                    {{ number_format($carbon->waste, 2) }} kg CO₂
                             </div>
-                        </td>
+                                </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-dark-text-secondary">
                             <div class="flex items-center">
                                 <i class="fas fa-tint mr-2 text-blue-400"></i>
-                                {{ number_format($carbon->water, 2) }} kg CO₂
+                                    {{ number_format($carbon->water, 2) }} kg CO₂
                             </div>
-                        </td>
+                                </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600 dark:text-green-400">
                             <div class="flex items-center">
                                 <i class="fas fa-leaf mr-2"></i>
-                                {{ number_format($carbon->total, 2) }} kg CO₂
+                                    {{ number_format($carbon->total, 2) }} kg CO₂
                             </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <a href="{{ route('carbon.view', $carbon->id) }}" class="inline-flex items-center px-3 py-1 border border-green-500 text-green-500 rounded-md hover:bg-green-50 dark:hover:bg-green-900/30 transition-colors duration-200">
-                                <i class="fas fa-eye mr-1"></i>
-                                View Details
-                            </a>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
+                                        <i class="fas fa-eye mr-1"></i>
+                                        View Details
+                                    </a>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
                         <td colspan="7" class="px-6 py-8 text-center">
                             <div class="flex flex-col items-center justify-center text-gray-500 dark:text-dark-text-secondary">
                                 <i class="fas fa-inbox text-4xl mb-3"></i>
@@ -141,16 +141,16 @@
                                     Calculate Now
                                 </a>
                             </div>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        <!-- Pagination -->
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
         <div class="px-4 py-3 bg-gray-50 dark:bg-dark-bg-primary border-t border-gray-200 dark:border-dark-border sm:px-6">
-            {{ $carbonFootprints->links() }}
+                    {{ $carbonFootprints->links() }}
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 @endsection 

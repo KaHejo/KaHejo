@@ -250,22 +250,22 @@
                     <!-- User Profile Dropdown -->
                     <div class="relative">
                         <button id="userMenuButton" class="user-profile flex items-center bg-gray-50 dark:bg-dark-bg-primary rounded-full px-3 py-1 cursor-pointer">
-                            <img class="h-8 w-8 rounded-full ring-2 ring-green-500" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User">
-                            <div class="ml-3">
+                        <img class="h-8 w-8 rounded-full ring-2 ring-green-500" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User">
+                        <div class="ml-3">
                                 <p class="text-sm font-medium text-gray-900 dark:text-dark-text-primary">{{ Auth::user()->name }}</p>
                                 <p class="text-xs text-gray-500 dark:text-dark-text-secondary">User</p>
-                            </div>
+                        </div>
                         </button>
 
                         <!-- Dropdown menu -->
                         <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-dark-bg-secondary rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <form action="{{ route('logout') }}" method="POST" class="w-full text-left">
-                                @csrf
+                        @csrf
                                 <button type="submit" class="block w-full px-4 py-2 text-sm text-gray-700 dark:text-dark-text-primary hover:bg-gray-100 dark:hover:bg-dark-bg-primary" role="menuitem" tabindex="-1" id="menu-item-0">
-                                    <i class="fas fa-sign-out-alt mr-2"></i>
-                                    Logout
-                                </button>
-                            </form>
+                            <i class="fas fa-sign-out-alt mr-2"></i>
+                            Logout
+                        </button>
+                    </form>
                         </div>
                     </div>
                 </div>
