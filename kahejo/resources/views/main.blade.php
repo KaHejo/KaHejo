@@ -109,6 +109,7 @@
                             <i class="fas fa-trophy text-green-600 dark:text-green-400 text-2xl"></i>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <div class="ml-5 w-0 flex-1">
                         <dl>
                             <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Lowest Carbon Footprint</dt>
@@ -117,6 +118,45 @@
                             </dd>
                             <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">{{ $stats['lowestFootprint']['date'] ?? 'No data' }}</dd>
                         </dl>
+=======
+
+                    <!-- Additional Details -->
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Improvement from Average</p>
+                                    <p class="text-xl font-semibold text-green-600 dark:text-green-400">
+                                        @if($stats['averageMonthlyFootprint'] > 0)
+                                            {{ number_format((($stats['averageMonthlyFootprint'] - ($stats['lowestFootprint']['value'] ?? 0)) / $stats['averageMonthlyFootprint']) * 100, 1) }}%
+                                        @else
+                                            0%
+                                        @endif
+                                    </p>
+                                </div>
+                                <div class="p-2 rounded-full bg-green-50 dark:bg-green-900/30">
+                                    <i class="fas fa-arrow-trend-down text-green-600 dark:text-green-400 text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Carbon Saved</p>
+                                    <p class="text-xl font-semibold text-gray-900 dark:text-dark-text-primary">
+                                        @if($stats['averageMonthlyFootprint'] > 0)
+                                            {{ number_format((($stats['averageMonthlyFootprint'] - ($stats['lowestFootprint']['value'] ?? 0)) / $stats['averageMonthlyFootprint']) * 100, 1) }}%
+                                        @else
+                                            0%
+                                        @endif
+                                    </p>
+                                </div>
+                                <div class="p-2 rounded-full bg-blue-50 dark:bg-blue-900/30">
+                                    <i class="fas fa-leaf text-blue-600 dark:text-blue-400 text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+>>>>>>> 4e933afd9291e4ba0c63a77937b4782c08c9df14
                     </div>
                 </div>
             </div>

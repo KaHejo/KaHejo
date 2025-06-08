@@ -139,6 +139,14 @@
                             <i class="nav-icon fas fa-trophy text-lg mr-2"></i>
                             Achievements
                         </a>
+                        <a href="{{ route('education') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('education') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-trophy text-lg mr-2"></i>
+                            Education
+                        </a>
+                        <a href="{{ route('faqs.index') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('faqs.index') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-question-circle text-lg mr-2"></i>
+                            FAQ
+                        </a>
                     </div>
                 </div>
 

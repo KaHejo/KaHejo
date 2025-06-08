@@ -10,10 +10,16 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             EmissionFactorSeeder::class,
+            ArticleSeeder::class,
         ]);
 
         $this->call([
             AdminSeeder::class,
         ]);
+
+        $this->call([
+        FaqSeeder::class,
+        ]);
+
     }
 }

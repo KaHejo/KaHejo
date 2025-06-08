@@ -1,79 +1,67 @@
-@extends('layouts.app')
+<!-- C:\Users\Daniel Lincoln\Documents\GitHub\KaHejo\kahejo\resources\views\emission-factors\create.blade.php -->
 
-@section('content')
-    <h2 class="page-title">Tambah Faktor Konversi Emisi</h2>
+@extends('layouts.admin')
 
-    <div class="card">
-        <div class="card-header">
-            Form Tambah Faktor Emisi
-        </div>
-        <div class="card-body">
-            <form action="{{ route('emission-factors.store') }}" method="POST">
-                @csrf
-                
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nama Faktor <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
-                    @error('name')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                    <div class="form-text">Contoh: Listrik PLN, Bensin, Solar, dll.</div>
+@section('main-content')
+    <div class="max-w-2xl mx-auto px-4 py-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Tambah Faktor Konversi Emisi</h2>
+
+        <form action="{{ route('admin.emission-factors.store') }}" method="POST" class="bg-white p-6 rounded-lg shadow space-y-5">
+            @csrf
+
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Nama Faktor <span class="text-red-500">*</span></label>
+                <input type="text" name="name" id="name" value="{{ old('name') }}" required
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                <p class="text-sm text-gray-500 mt-1">Contoh: Listrik PLN, Bensin, Solar</p>
+            </div>
+
+            <div>
+                <label for="category" class="block text-sm font-medium text-gray-700">Kategori <span class="text-red-500">*</span></label>
+                <select name="category" id="category" required
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                    <option value="">-- Pilih Kategori --</option>
+                    <option value="Listrik" {{ old('category') == 'Energi' ? 'selected' : '' }}>Listrik</option>
+                    <option value="Bensin" {{ old('category') == 'Transportasi' ? 'selected' : '' }}>Bensin</option>
+                    <option value="Limbah" {{ old('category') == 'Limbah' ? 'selected' : '' }}>Limbah</option>
+                    <option value="Air" {{ old('category') == 'Pertanian' ? 'selected' : '' }}>Air</option>
+                </select>
+                <p class="text-sm text-gray-500 mt-1">Pilih kategori emisi</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="value" class="block text-sm font-medium text-gray-700">Nilai <span class="text-red-500">*</span></label>
+                    <input type="number" step="0.0001" name="value" id="value" value="{{ old('value') }}" required
+                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
                 </div>
-                
-                <div class="mb-3">
-                    <label for="category" class="form-label">Kategori <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control @error('category') is-invalid @enderror" id="category" name="category" value="{{ old('category') }}" required>
-                    @error('category')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                    <div class="form-text">Contoh: Energi, Transportasi, Limbah, dll.</div>
+                <div>
+                    <label for="unit" class="block text-sm font-medium text-gray-700">Unit <span class="text-red-500">*</span></label>
+                    <input type="text" name="unit" id="unit" value="{{ old('unit') }}" required
+                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                    <p class="text-sm text-gray-500 mt-1">Contoh: kgCO2e/kWh, kgCO2e/liter</p>
                 </div>
-                
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="value" class="form-label">Nilai <span class="text-danger">*</span></label>
-                            <input type="number" step="0.0001" class="form-control @error('value') is-invalid @enderror" id="value" name="value" value="{{ old('value') }}" required>
-                            @error('value')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="unit" class="form-label">Unit <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('unit') is-invalid @enderror" id="unit" name="unit" value="{{ old('unit') }}" required>
-                            @error('unit')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <div class="form-text">Contoh: kgCO2e/kWh, kgCO2e/liter, dll.</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="source" class="form-label">Sumber Referensi</label>
-                    <input type="text" class="form-control @error('source') is-invalid @enderror" id="source" name="source" value="{{ old('source') }}">
-                    @error('source')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                    <div class="form-text">Contoh: IPCC Guidelines 2023, Kementerian ESDM 2024, dll.</div>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="description" class="form-label">Deskripsi</label>
-                    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="3">{{ old('description') }}</textarea>
-                    @error('description')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                
-                <div class="d-flex justify-content-between mt-4">
-                    <a href="{{ route('emission-factors.index') }}" class="btn btn-secondary">Kembali</a>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
+            </div>
+
+            <div>
+                <label for="source" class="block text-sm font-medium text-gray-700">Sumber Referensi</label>
+                <input type="text" name="source" id="source" value="{{ old('source') }}"
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">
+                <p class="text-sm text-gray-500 mt-1">Contoh: IPCC Guidelines 2023, Kementerian ESDM 2024</p>
+            </div>
+
+            <div>
+                <label for="description" class="block text-sm font-medium text-gray-700">Deskripsi</label>
+                <textarea name="description" id="description" rows="3"
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500">{{ old('description') }}</textarea>
+            </div>
+
+            <div class="flex justify-between items-center mt-6">
+                <a href="{{ route('admin.emission-factors.index') }}" class="text-gray-600 hover:text-gray-800">← Kembali</a>
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                    Simpan
+                </button>
+            </div>
+        </form>
     </div>
 @endsection
