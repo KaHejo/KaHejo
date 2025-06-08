@@ -388,7 +388,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
             opacity: 0.5;
         }
         .result-header-content {
@@ -493,22 +493,11 @@
         </div>
 
         <!-- Main Content -->
-<<<<<<< HEAD
-        <div class="max-w-6xl mx-auto py-4 sm:px-4 lg:px-6">
-            <!-- Result Header -->
-            <div class="result-header" data-aos="fade-up">
-                <div class="result-header-content">
-                    <h1>Hasil Konsumsi Energi</h1>
-                    <p>Detail informasi konsumsi energi perusahaan Anda</p>
-                </div>
-            </div>
-=======
         <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             <!-- Success Alert -->
             <div class="mb-6" data-aos="fade-down">
                 <div class="success-badge">
                     <i class="fas fa-check-circle"></i>
-
                     <span class="text-sm font-medium">Data konsumsi energi berhasil disimpan</span>
                 </div>
             </div>
@@ -518,7 +507,6 @@
                     {{ session('achievement') }}
                 </div>
             @endif
->>>>>>> 7754919d833bb828e692a3abd87809c77c747809
 
             <!-- Main Card -->
             <div class="card-hover bg-white/90 backdrop-blur-md shadow-lg rounded-md border border-gray-100 overflow-hidden" data-aos="fade-up">
@@ -610,28 +598,20 @@
                         <div class="section-title">
                             <h4 class="text-base font-semibold text-gray-900">Informasi Data</h4>
                         </div>
-<<<<<<< HEAD
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <div class="info-card">
                                 <div class="info-card-icon">
                                     <i class="fas fa-hashtag"></i>
-=======
-                        <div class="info-grid">
-                            <div class="info-card floating-card">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 icon-wrapper">
-                                        <div class="p-1.5 rounded-lg bg-gradient-to-r from-green-50 to-emerald-50">
-                                            <i class="fas fa-hashtag text-base text-green-600"></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-3">
-                                        <p class="text-xs font-medium text-gray-500">Dibuat Oleh</p>
-                                        <p class="text-sm font-semibold text-gray-900">{{ $result['user_name'] }}</p>
-                                    </div>
->>>>>>> 7754919d833bb828e692a3abd87809c77c747809
                                 </div>
                                 <div class="info-card-title">ID Record</div>
                                 <div class="info-card-value">#{{ $consumption->id }}</div>
+                            </div>
+                            <div class="info-card">
+                                <div class="info-card-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="info-card-title">Dibuat Oleh</div>
+                                <div class="info-card-value">{{ $result['user_name'] ?? 'N/A' }}</div>
                             </div>
                             <div class="info-card">
                                 <div class="info-card-icon">

@@ -1,235 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KaHejo - Carbon Calculator</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'kahejo': {
-                            'darkest': '#064e3b',  // Darkest green
-                            'dark': '#059669',     // Dark green
-                            'medium': '#10b981',   // Medium green
-                            'light': '#34d399',    // Light green
-                            'lightest': '#6ee7b7', // Lightest green
-                        },
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s ease-in-out',
-                        'slide-up': 'slideUp 0.5s ease-out',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideUp: {
-                            '0%': { transform: 'translateY(20px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        },
-                    },
-                },
-            },
-        }
-    </script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-        .nav-link {
-            position: relative;
-            transition: color 0.2s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            margin: 0 0.25rem;
-        }
-        .nav-link:hover {
-            color: #10B981;
-            background-color: #F3F4F6;
-        }
-        .nav-link.active {
-            color: #10B981;
-            background-color: #F3F4F6;
-        }
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(to right, #10B981, #059669);
-            border-radius: 2px;
-        }
-        .nav-icon {
-            transition: transform 0.2s ease;
-        }
-        .nav-link:hover .nav-icon {
-            transform: translateY(-1px);
-        }
-        .logo-text {
-            background: linear-gradient(to right, #10B981, #059669);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 700;
-        }
-        .user-profile {
-            transition: transform 0.2s ease;
-        }
-        .user-profile:hover {
-            transform: translateY(-1px);
-        }
-        .logout-btn {
-            transition: all 0.2s ease;
-            background: linear-gradient(to right, #10B981, #059669);
-            color: white;
-            padding: 0.5rem 1.25rem;
-            border-radius: 9999px;
-            font-weight: 500;
-            border: none;
-        }
-        .logout-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-        .input-group {
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        .input-group:focus-within {
-            transform: translateY(-2px);
-        }
-        .input-group input {
-            transition: all 0.3s ease;
-        }
-        .input-group input:focus {
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-        }
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-        .tooltip .tooltip-text {
-            visibility: hidden;
-            width: 200px;
-            background-color: #064e3b;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 8px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .tooltip:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-        .form-card {
-            transition: all 0.3s ease;
-        }
-        .form-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        .animate-slide-up {
-            animation: slideUp 0.5s ease-out;
-        }
-    </style>
-</head>
-<body class="bg-gray-50">
-    <!-- Navbar -->
-    <nav class="bg-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <!-- Logo and Navigation -->
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center">
-                        <span class="logo-text text-2xl font-extrabold">KaHejo</span>
-                    </div>
-                    <div class="hidden md:flex md:ml-10">
-                        <a href="{{ route('dashboard') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-home text-lg mr-2"></i>
-                            Dashboard
-                        </a>
-                        <a href="{{ route('profile') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('profile') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-user text-lg mr-2"></i>
-                            Profile
-                        </a>
-                        <a href="{{ route('carbon') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('carbon') || request()->routeIs('carbon.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-calculator text-lg mr-2"></i>
-                            Carbon Calculator
-                        </a>
-                        <a href="{{ route('company') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 active">
-                             <i class="nav-icon fas fa-chart-line text-lg mr-2"></i>
-                             Energy Consumption
-                         </a>
-                    </div>
-                </div>
-                <!-- Right side of navbar -->
-                <div class="flex items-center space-x-6">
-                    <!-- User Profile -->
-                    <div class="user-profile flex items-center bg-gray-50 rounded-full px-3 py-1">
-                        <img class="h-8 w-8 rounded-full ring-2 ring-green-500" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="User">
-                        <div class="ml-3">
-                            <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name ?? 'Kasino' }}</p>
-                            <p class="text-xs text-gray-500">User</p>
-                        </div>
-                    </div>
-                    <!-- Logout Button -->
-                    <form action="{{ route('logout') }}" method="POST" class="inline">
-                        @csrf
-                        <button type="submit" class="logout-btn inline-flex items-center">
-                            <i class="fas fa-sign-out-alt mr-2"></i>
-                            Logout
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </nav>
+@extends('layouts.app')
 
-    <!-- Main Content -->
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <!-- Flash Messages -->
-        @if(isset($success))
-            <div class="mb-8 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg p-4 animate-fade-in">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-check-circle text-green-400"></i>
+@section('title', 'Carbon Calculator')
+
+@section('content')
+<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <!-- Carbon Calculator Form -->
+    <div class="form-card bg-white/90 dark:bg-dark-bg-secondary backdrop-blur-md shadow-xl rounded-xl border-l-4 border-green-500 dark:border-dark-border transform transition-all duration-300 hover:shadow-2xl" data-aos="fade-up" data-aos-duration="1000">
+        <!-- Header Section -->
+        <div class="px-6 py-6 sm:px-8 border-b border-gray-100 dark:border-dark-border">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
+                        <i class="fas fa-leaf text-2xl text-green-600 dark:text-green-400"></i>
                     </div>
-                    <div class="ml-3">
-                        <p class="text-sm font-medium text-green-800 dark:text-green-200">
-                            {{ $success }}
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-dark-text-primary">
+                            Carbon Footprint Calculator
+                        </h3>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-dark-text-secondary">
+                            Calculate your environmental impact and take steps towards sustainability
                         </p>
                     </div>
                 </div>
+                <div class="flex items-center space-x-2">
+                    <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 animate-pulse">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Required fields
+                    </span>
+                </div>
             </div>
-        @endif
-
-        <!-- Welcome Section -->
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-dark-text-primary">Carbon Footprint Calculator</h1>
-            <p class="mt-2 text-gray-600 dark:text-dark-text-secondary">Calculate and track your carbon footprint to make more sustainable choices.</p>
         </div>
 
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <!-- Carbon Calculator Form -->
         <div class="bg-white shadow rounded-lg border border-kahejo-light/20">
             <div class="px-4 py-5 sm:px-6">
@@ -546,7 +349,9 @@
     </div>
 </template>
 
-<!-- Add JavaScript for form validation and animations -->
+@endsection
+
+@section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize AOS
@@ -653,5 +458,4 @@
         });
     });
 </script>
-</body>
-</html>
+@endsection

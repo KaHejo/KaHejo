@@ -122,8 +122,8 @@ class MainController extends Controller
             return $record['electricity'] + $record['gas'] + $record['water'];
         });
 
-        // If average consumption is 0, return 0 to avoid division by zero
-        if ($avgConsumption == 0) {
+        // If average consumption is 0 or very close to 0, return 0 to avoid division by zero
+        if ($avgConsumption <= 0.0001) {
             return 0;
         }
 
@@ -135,12 +135,12 @@ class MainController extends Controller
 
         $stdDev = sqrt($variance);
 
-        // Calculate efficiency score (100 - (stdDev/avgConsumption * 100))
-        // If standard deviation is 0, return 100 (perfect efficiency)
-        if ($stdDev == 0) {
+        // If standard deviation is 0 or very close to 0, return 100 (perfect efficiency)
+        if ($stdDev <= 0.0001) {
             return 100;
         }
 
+        // Calculate efficiency score (100 - (stdDev/avgConsumption * 100))
         $score = 100 - (($stdDev / $avgConsumption) * 100);
 
         // Ensure score is between 0 and 100
@@ -156,7 +156,8 @@ class MainController extends Controller
         $currentMonth = $carbonHistory->first()['total'];
         $previousMonth = $carbonHistory->get(1)['total'];
 
-        if ($previousMonth == 0) {
+        // If previous month's value is 0 or very close to 0, return 0 to avoid division by zero
+        if ($previousMonth <= 0.0001) {
             return 0;
         }
 
