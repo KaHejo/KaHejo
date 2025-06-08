@@ -175,7 +175,16 @@
                         </button>
 
                         <!-- Dropdown menu -->
-                        <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-dark-bg-secondary rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                        <div id="userDropdown" class="invisible pointer-events-none absolute right-0 mt-2 w-56 origin-top-right bg-white dark:bg-dark-bg-secondary rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 focus:outline-none transition ease-out duration-200 transform opacity-0 scale-95" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                            <div class="px-4 py-3">
+                                <p class="text-sm text-gray-900 dark:text-dark-text-primary">{{ Auth::user()->name }}</p>
+                                <p class="text-xs font-medium text-gray-500 dark:text-dark-text-secondary">{{ Auth::user()->role ?? 'User' }}</p>
+                            </div>
+                            <div class="border-t border-gray-100 dark:border-dark-border"></div>
+                            <a href="{{ route('profile') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-dark-text-primary hover:bg-gray-100 dark:hover:bg-dark-bg-primary" role="menuitem" tabindex="-1">
+                                <i class="fas fa-user-circle mr-2"></i>
+                                Profile
+                            </a>
                             <form action="{{ route('logout') }}" method="POST" class="w-full text-left">
                                 @csrf
                                 <button type="submit" class="block w-full px-4 py-2 text-sm text-gray-700 dark:text-dark-text-primary hover:bg-gray-100 dark:hover:bg-dark-bg-primary" role="menuitem" tabindex="-1" id="menu-item-0">
@@ -239,14 +248,29 @@
             const userDropdown = document.getElementById('userDropdown');
 
             if (userMenuButton && userDropdown) {
-                userMenuButton.addEventListener('click', function () {
-                    userDropdown.classList.toggle('hidden');
+                function showDropdown() {
+                    userDropdown.classList.remove('invisible', 'opacity-0', 'scale-95', 'pointer-events-none');
+                    userDropdown.classList.add('opacity-100', 'scale-100');
+                }
+
+                function hideDropdown() {
+                    userDropdown.classList.remove('opacity-100', 'scale-100');
+                    userDropdown.classList.add('invisible', 'opacity-0', 'scale-95', 'pointer-events-none');
+                }
+
+                userMenuButton.addEventListener('click', function (event) {
+                    event.stopPropagation(); // Prevent document click from immediately closing
+                    if (userDropdown.classList.contains('invisible')) {
+                        showDropdown();
+                    } else {
+                        hideDropdown();
+                    }
                 });
 
                 // Close the dropdown if the user clicks outside of it
                 document.addEventListener('click', function (event) {
                     if (!userMenuButton.contains(event.target) && !userDropdown.contains(event.target)) {
-                        userDropdown.classList.add('hidden');
+                        hideDropdown();
                     }
                 });
             }
