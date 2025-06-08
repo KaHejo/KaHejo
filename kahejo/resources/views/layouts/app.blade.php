@@ -13,8 +13,8 @@
                 extend: {
                     colors: {
                         dark: {
-                            'bg-primary': '#1a1a1a',
-                            'bg-secondary': '#2d2d2d',
+                            'bg-primary': '#000000',
+                            'bg-secondary': '#0a0a0a',
                             'text-primary': '#ffffff',
                             'text-secondary': '#a0aec0',
                             'border': '#404040'
@@ -41,17 +41,18 @@
         }
         .nav-link:hover {
             color: #10B981;
-            background-color: #F3F4F6;
+            background-color: rgba(16, 185, 129, 0.1);
+            transform: translateY(-2px);
         }
         .dark .nav-link:hover {
-            background-color: #2d2d2d;
+            background-color: rgba(16, 185, 129, 0.2);
         }
         .nav-link.active {
             color: #10B981;
-            background-color: #F3F4F6;
+            background-color: rgba(16, 185, 129, 0.1);
         }
         .dark .nav-link.active {
-            background-color: #2d2d2d;
+            background-color: rgba(16, 185, 129, 0.2);
         }
         .nav-link.active::after {
             content: '';
@@ -62,12 +63,17 @@
             height: 2px;
             background: linear-gradient(to right, #10B981, #059669);
             border-radius: 2px;
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
         }
         .nav-icon {
-            transition: transform 0.2s ease;
+            transition: transform 0.3s ease;
         }
         .nav-link:hover .nav-icon {
-            transform: translateY(-1px);
+            transform: translateY(-2px) scale(1.1);
         }
         .logo-text {
             background: linear-gradient(to right, #10B981, #059669);

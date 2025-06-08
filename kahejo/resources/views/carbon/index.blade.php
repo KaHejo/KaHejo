@@ -34,23 +34,23 @@
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <!-- Carbon Calculator Form -->
-        <div class="bg-white shadow rounded-lg border border-kahejo-light/20">
+        <div class="bg-white dark:bg-dark-bg-secondary shadow rounded-lg border border-kahejo-light/20 dark:border-dark-border">
             <div class="px-4 py-5 sm:px-6">
-                <h3 class="text-lg leading-6 font-medium text-kahejo-darkest">Carbon Footprint Calculator</h3>
-                <p class="mt-1 text-sm text-kahejo-medium">Calculate your carbon footprint based on your daily activities.</p>
+                <h3 class="text-lg leading-6 font-medium text-kahejo-darkest dark:text-dark-text-primary">Carbon Footprint Calculator</h3>
+                <p class="mt-1 text-sm text-kahejo-medium dark:text-dark-text-secondary">Calculate your carbon footprint based on your daily activities.</p>
             </div>
-            <div class="border-t border-kahejo-light/20">
+            <div class="border-t border-kahejo-light/20 dark:border-dark-border">
                 <form id="carbonForm" action="{{ url('/carbon/calculate') }}" method="POST" class="p-6 space-y-6">
                     @csrf
                     <!-- Month Selection -->
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div>
-                            <label for="month" class="block text-sm font-medium text-kahejo-darkest">Month</label>
+                            <label for="month" class="block text-sm font-medium text-kahejo-darkest dark:text-dark-text-secondary">Month</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-calendar text-kahejo-dark"></i>
+                                    <i class="fas fa-calendar text-kahejo-dark dark:text-dark-text-secondary"></i>
                                 </div>
-                                <input type="month" name="month" id="month" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" required>
+                                <input type="month" name="month" id="month" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 dark:border-dark-border dark:bg-dark-bg-primary dark:text-dark-text-primary rounded-md" required>
                             </div>
                         </div>
                     </div>
@@ -58,45 +58,45 @@
                     <!-- Electricity Usage -->
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div>
-                            <label for="electricity" class="block text-sm font-medium text-kahejo-darkest">Monthly Electricity Usage (kWh)</label>
+                            <label for="electricity" class="block text-sm font-medium text-kahejo-darkest dark:text-dark-text-secondary">Monthly Electricity Usage (kWh)</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-bolt text-kahejo-dark"></i>
+                                    <i class="fas fa-bolt text-kahejo-dark dark:text-dark-text-secondary"></i>
                                 </div>
-                                <input type="number" name="electricity" id="electricity" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
+                                <input type="number" name="electricity" id="electricity" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 dark:border-dark-border dark:bg-dark-bg-primary dark:text-dark-text-primary rounded-md" placeholder="0">
                             </div>
                         </div>
 
                         <!-- Transportation -->
                         <div>
-                            <label for="transportation" class="block text-sm font-medium text-kahejo-darkest">Daily Transportation (km)</label>
+                            <label for="transportation" class="block text-sm font-medium text-kahejo-darkest dark:text-dark-text-secondary">Daily Transportation (km)</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-car text-kahejo-dark"></i>
+                                    <i class="fas fa-car text-kahejo-dark dark:text-dark-text-secondary"></i>
                                 </div>
-                                <input type="number" name="transportation" id="transportation" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
+                                <input type="number" name="transportation" id="transportation" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 dark:border-dark-border dark:bg-dark-bg-primary dark:text-dark-text-primary rounded-md" placeholder="0">
                             </div>
                         </div>
 
                         <!-- Waste -->
                         <div>
-                            <label for="waste" class="block text-sm font-medium text-kahejo-darkest">Monthly Waste (kg)</label>
+                            <label for="waste" class="block text-sm font-medium text-kahejo-darkest dark:text-dark-text-secondary">Monthly Waste (kg)</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-trash text-kahejo-dark"></i>
+                                    <i class="fas fa-trash text-kahejo-dark dark:text-dark-text-secondary"></i>
                                 </div>
-                                <input type="number" name="waste" id="waste" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
+                                <input type="number" name="waste" id="waste" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 dark:border-dark-border dark:bg-dark-bg-primary dark:text-dark-text-primary rounded-md" placeholder="0">
                             </div>
                         </div>
 
                         <!-- Water Usage -->
                         <div>
-                            <label for="water" class="block text-sm font-medium text-kahejo-darkest">Monthly Water Usage (m³)</label>
+                            <label for="water" class="block text-sm font-medium text-kahejo-darkest dark:text-dark-text-secondary">Monthly Water Usage (m³)</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-water text-kahejo-dark"></i>
+                                    <i class="fas fa-water text-kahejo-dark dark:text-dark-text-secondary"></i>
                                 </div>
-                                <input type="number" name="water" id="water" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 rounded-md" placeholder="0">
+                                <input type="number" name="water" id="water" class="focus:ring-kahejo-medium focus:border-kahejo-medium block w-full pl-10 sm:text-sm border-kahejo-light/20 dark:border-dark-border dark:bg-dark-bg-primary dark:text-dark-text-primary rounded-md" placeholder="0">
                             </div>
                         </div>
                         <p class="mt-2 text-sm text-gray-500 dark:text-dark-text-secondary hidden" id="electricityHelp">
@@ -293,12 +293,63 @@
                             <div class="flex items-center">
                                 <div class="flex-shrink-0">
                                     <div class="p-2 rounded-lg bg-green-100 dark:bg-green-900/30">
-                                        <i class="fas fa-recycle text-xl text-green-600 dark:text-green-400"></i>
+                                        <i class="fas fa-trash text-xl text-green-600 dark:text-green-400"></i>
                                     </div>
                                 </div>
                                 <div class="ml-4">
                                     <h5 class="text-sm font-medium text-gray-900 dark:text-dark-text-primary">Waste Reduction</h5>
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-dark-text-secondary">Practice recycling and composting to reduce waste.</p>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-dark-text-secondary">Reduce, reuse, and recycle to minimize landfill waste.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Water Conservation -->
+                    <div class="bg-white dark:bg-dark-bg-primary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border transform transition-all duration-300 hover:scale-[1.02]">
+                        <div class="p-5">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="p-2 rounded-lg bg-green-100 dark:bg-green-900/30">
+                                        <i class="fas fa-water text-xl text-green-600 dark:text-green-400"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <h5 class="text-sm font-medium text-gray-900 dark:text-dark-text-primary">Water Conservation</h5>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-dark-text-secondary">Take shorter showers and fix leaky faucets.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diet Choices -->
+                    <div class="bg-white dark:bg-dark-bg-primary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border transform transition-all duration-300 hover:scale-[1.02]">
+                        <div class="p-5">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="p-2 rounded-lg bg-green-100 dark:bg-green-900/30">
+                                        <i class="fas fa-apple-alt text-xl text-green-600 dark:text-green-400"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <h5 class="text-sm font-medium text-gray-900 dark:text-dark-text-primary">Diet Choices</h5>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-dark-text-secondary">Consider a plant-rich diet to lower food-related emissions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Responsible Consumption -->
+                    <div class="bg-white dark:bg-dark-bg-primary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border transform transition-all duration-300 hover:scale-[1.02]">
+                        <div class="p-5">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="p-2 rounded-lg bg-green-100 dark:bg-green-900/30">
+                                        <i class="fas fa-shopping-bag text-xl text-green-600 dark:text-green-400"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <h5 class="text-sm font-medium text-gray-900 dark:text-dark-text-primary">Responsible Consumption</h5>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-dark-text-secondary">Choose products with minimal packaging and local sourcing.</p>
                                 </div>
                             </div>
                         </div>
@@ -306,7 +357,7 @@
                 </div>
             </div>
 
-            <!-- Comparison Section -->
+            <!-- How You Compare Section -->
             <div class="mt-8" data-aos="fade-up" data-aos-delay="700">
                 <h4 class="text-lg font-medium text-gray-900 dark:text-dark-text-primary mb-4">How You Compare</h4>
                 <div class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-6">
@@ -325,7 +376,12 @@
                             <div class="flex mb-2 items-center justify-between">
                                 <div>
                                     <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30">
-                                        Comparison
+                                        Progress
+                                    </span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-xs font-semibold inline-block text-green-600 dark:text-green-400">
+                                        {{ number_format(($results['total'] / 1000) * 100, 1) }}%
                                     </span>
                                 </div>
                             </div>
