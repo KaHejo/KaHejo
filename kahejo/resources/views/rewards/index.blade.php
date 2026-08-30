@@ -1,313 +1,252 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KaHejo - Rewards</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'kahejo': {
-                            'darkest': '#3E362E',
-                            'dark': '#865D36',
-                            'medium': '#93785B',
-                            'light': '#AC8968',
-                            'lightest': '#A69080',
-                        },
-                    },
-                },
-            },
-        }
-    </script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-        .nav-link {
-            position: relative;
-            transition: color 0.2s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            margin: 0 0.25rem;
-        }
-        .nav-link:hover {
-            color: #10B981;
-            background-color: #F3F4F6;
-        }
-        .nav-link.active {
-            color: #10B981;
-            background-color: #F3F4F6;
-        }
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(to right, #10B981, #059669);
-            border-radius: 2px;
-        }
-        .nav-icon {
-            transition: transform 0.2s ease;
-        }
-        .nav-link:hover .nav-icon {
-            transform: translateY(-1px);
-        }
-        .logo-text {
-            background: linear-gradient(to right, #10B981, #059669);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 700;
-        }
-        .user-profile {
-            transition: transform 0.2s ease;
-        }
-        .user-profile:hover {
-            transform: translateY(-1px);
-        }
-        .logout-btn {
-            transition: all 0.2s ease;
-            background: linear-gradient(to right, #10B981, #059669);
-            color: white;
-            padding: 0.5rem 1.25rem;
-            border-radius: 9999px;
-            font-weight: 500;
-            border: none;
-        }
-        .logout-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-    </style>
-</head>
-<body class="bg-gray-50">
-    <!-- Navbar -->
-    <nav class="bg-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <!-- Logo and Navigation -->
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center">
-                        <span class="logo-text text-2xl font-extrabold">KaHejo</span>
-                    </div>
-                    <div class="hidden md:flex md:ml-10">
-                        <a href="{{ route('main') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('main') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-home text-lg mr-2"></i>
-                            Dashboard
-                        </a>
-                        <a href="{{ route('profile') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('profile') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-user text-lg mr-2"></i>
-                            Profile
-                        </a>
-                        <a href="{{ route('carbon') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('carbon') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-calculator text-lg mr-2"></i>
-                            Carbon Calculator
-                        </a>
-                        <a href="{{ route('company') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('company') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-chart-line text-lg mr-2"></i>
-                            Energy Consumption
-                        </a>
-                        <a href="{{ route('achievements') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('achievements') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-trophy text-lg mr-2"></i>
-                            Achievements
-                        </a>
-                        <a href="{{ route('education') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('achievements.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-trophy text-lg mr-2"></i>
-                            Education
-                        </a>
-                    </div>
+@extends('layouts.app')
+
+@section('title', 'Katalog Rewards')
+
+@section('content')
+<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-8">
+
+    <!-- Top Hero Header & Points Summary Card -->
+    <div class="glass-card p-6 sm:p-8 relative overflow-hidden">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+            <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-semibold mb-2">
+                    <i class="fa-solid fa-gift text-[11px]"></i>
+                    <span>Tukar Poin Aksi Hijau</span>
                 </div>
-                <!-- Right side of navbar -->
-                <div class="flex items-center space-x-6">
-                    <!-- User Profile -->
-                    <div class="user-profile flex items-center bg-gray-50 rounded-full px-3 py-1">
-                        <img class="h-8 w-8 rounded-full ring-2 ring-green-500" src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'User') }}&background=10B981&color=fff" alt="User">
-                        <div class="ml-3">
-                            <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name ?? 'User' }}</p>
-                            <p class="text-xs text-gray-500">User</p>
-                        </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                    Katalog Hadiah & Rewards
+                </h1>
+                <p class="mt-1 text-sm text-slate-400 max-w-2xl">
+                    Tukarkan akumulasi poin pengurangan jejak karbon Anda dengan merchandise ramah lingkungan dan voucher menarik!
+                </p>
+            </div>
+
+            <!-- Total Points Balance Card -->
+            @php
+                $user = Auth::user();
+                $totalPoints = $user->points ?? 0;
+            @endphp
+            <div class="flex items-center gap-4 self-start md:self-auto">
+                <div class="p-4 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center gap-3.5 shadow-lg shadow-black/20">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white text-xl shadow-lg shadow-amber-500/25 shrink-0">
+                        <i class="fa-solid fa-coins"></i>
                     </div>
-                    <!-- Logout Button -->
-                    <form action="{{ route('logout') }}" method="POST" class="inline">
-                        @csrf
-                        <button type="submit" class="logout-btn inline-flex items-center">
-                            <i class="fas fa-sign-out-alt mr-2"></i>
-                            Logout
-                        </button>
-                    </form>
+                    <div>
+                        <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Saldo Poin Anda</span>
+                        <span class="text-xl font-black text-white leading-none block mt-0.5">
+                            {{ number_format($totalPoints, 0, ',', '.') }} <span class="text-xs text-amber-400 font-semibold">PTS</span>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
-    </nav>
 
-    <!-- Main Content -->
-    <div class="max-w-7xl mx-auto py-8 sm:px-6 lg:px-8">
-        <div class="bg-white shadow rounded-lg border border-kahejo-light/20 p-6">
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-                <div>
-                    <h1 class="text-2xl font-bold text-kahejo-darkest">Rewards</h1>
-                    <p class="text-kahejo-medium mt-1">Tukarkan poinmu dengan reward menarik!</p>
-                </div>
-                <div class="flex items-center space-x-3 mt-4 sm:mt-0">
-                    @php
-                        $user = Auth::user();
-                        $totalPoints = $user->points;
-                    @endphp
-                    <span class="inline-flex items-center px-3 py-2 rounded-lg bg-green-100 text-green-700 font-semibold text-lg">
-                        <i class="fas fa-coins mr-2"></i>
-                        Total Points: {{ $totalPoints }}
-                    </span>
-                </div>
-            </div>
+        <!-- Navigation Tabs: Prestasi & Rewards -->
+        <div class="flex items-center gap-3 mt-6 pt-6 border-t border-white/[0.08]">
+            <a href="{{ route('achievements') }}" 
+               class="px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white border border-white/10 text-xs font-semibold flex items-center gap-2 transition-colors">
+                <i class="fa-solid fa-medal text-xs text-mintGlow"></i>
+                <span>Daftar Prestasi & Badges</span>
+            </a>
+            <a href="{{ route('rewards') }}" 
+               class="px-4 py-2 rounded-xl bg-emeraldBrand/20 text-mintGlow border border-emeraldBrand/40 text-xs font-bold flex items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-gift text-xs text-amber-400"></i>
+                <span>Tukar Rewards & Hadiah</span>
+            </a>
+        </div>
+    </div>
 
-            @if (session('success'))
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-                    {{ session('success') }}
-                </div>
-            @endif
+    <!-- Rewards Grid Section -->
+    <div class="space-y-4">
+        <div class="flex items-center justify-between">
+            <h2 class="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                <i class="fa-solid fa-boxes-stacked text-mintGlow text-sm"></i>
+                <span>Pilihan Reward Tersedia</span>
+            </h2>
+            <span class="text-xs text-slate-400">Total {{ count($rewards) }} item</span>
+        </div>
 
-            @if (session('error'))
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                    {{ session('error') }}
-                </div>
-            @endif
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            @forelse($rewards as $reward)
+                @php
+                    $canRedeem = ($totalPoints >= $reward->points_required) && ($reward->stock > 0);
+                @endphp
+                <div class="glass-card p-6 flex flex-col justify-between relative overflow-hidden transition-all duration-300 group hover:-translate-y-1">
+                    
+                    <!-- Top Stock & Points Badges -->
+                    <div class="flex items-center justify-between gap-2 mb-4">
+                        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1
+                            {{ $reward->stock > 0 ? 'bg-emerald-500/15 text-mintGlow border border-emerald-500/30' : 'bg-rose-500/15 text-rose-400 border border-rose-500/30' }}">
+                            <i class="fa-solid {{ $reward->stock > 0 ? 'fa-box' : 'fa-ban' }} text-[10px]"></i>
+                            <span>Stok: {{ $reward->stock }}</span>
+                        </span>
 
-            <!-- Modal Konfirmasi Redeem -->
-            <div id="redeemModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
-                <div class="bg-white rounded-lg shadow-lg max-w-sm w-full p-6 relative">
-                    <button id="closeModalBtn" class="absolute top-2 right-2 text-gray-400 hover:text-red-500 text-xl">&times;</button>
-                    <div class="flex flex-col items-center text-center">
-                        <div id="modalRewardImage" class="mb-3"></div>
-                        <h2 id="modalRewardName" class="font-bold text-lg text-kahejo-darkest mb-1"></h2>
-                        <p id="modalRewardDesc" class="text-kahejo-medium text-sm mb-2"></p>
-                        <div class="flex justify-center items-center space-x-2 mb-4">
-                            <span id="modalRewardPoints" class="px-2 py-1 text-xs rounded-full bg-kahejo-dark text-white"></span>
-                            <span id="modalRewardStock" class="px-2 py-1 text-xs rounded-full"></span>
-                        </div>
-                        <form id="modalRedeemForm" method="POST">
-                            @csrf
-                            <button type="submit" class="inline-flex items-center px-4 py-2 rounded-lg bg-green-500 hover:bg-green-600 text-white font-semibold shadow transition">
-                                <i class="fas fa-check-circle mr-2"></i>
-                                Konfirmasi Redeem
-                            </button>
-                        </form>
+                        <span class="px-2.5 py-1 rounded-full bg-amber-400/15 text-amber-300 border border-amber-400/30 text-[11px] font-black flex items-center gap-1">
+                            <i class="fa-solid fa-coins text-[10px] text-amber-400"></i>
+                            <span>{{ number_format($reward->points_required, 0, ',', '.') }} PTS</span>
+                        </span>
                     </div>
-                </div>
-            </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                @forelse($rewards as $reward)
-                    <div class="bg-kahejo-lightest/10 border border-kahejo-light/30 rounded-lg shadow p-5 flex flex-col items-center text-center transition-all duration-200">
-                        <div class="w-20 h-20 mb-3 flex items-center justify-center rounded-full border-2 border-kahejo-dark bg-white">
-                            @if($reward->reward_image)
-                                <img src="{{ asset($reward->reward_image) }}" alt="{{ $reward->name }}" class="w-14 h-14 object-contain mx-auto">
-                            @else
-                                <i class="fas fa-gift text-4xl text-kahejo-dark"></i>
-                            @endif
-                        </div>
-                        <div class="font-semibold text-kahejo-darkest text-lg mb-1">{{ $reward->reward_name }}</div>
-                        <div class="text-kahejo-medium text-sm mb-2">{{ $reward->reward_description }}</div>
-                        <div class="flex justify-center items-center space-x-2 mb-2">
-                            <span class="px-2 py-1 text-xs rounded-full bg-kahejo-dark text-white">
-                                {{ $reward->points_required }} pts
-                            </span>
-                            <span class="px-2 py-1 text-xs rounded-full {{ $reward->stock > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-                                Stock: {{ $reward->stock }}
-                            </span>
-                        </div>
+                    <!-- Image Showcase Container -->
+                    <div class="w-full h-40 mb-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center p-3 relative overflow-hidden group-hover:border-emeraldBrand/30 transition-colors">
+                        @if($reward->reward_image)
+                            <img src="{{ asset($reward->reward_image) }}" 
+                                 alt="{{ $reward->reward_name }}" 
+                                 class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-md">
+                        @else
+                            <i class="fa-solid fa-gift text-5xl text-emeraldBrand/40 group-hover:scale-110 transition-transform"></i>
+                        @endif
+                    </div>
+
+                    <!-- Info -->
+                    <div class="mb-5 flex-1">
+                        <h3 class="font-extrabold text-white text-base mb-1 group-hover:text-mintGlow transition-colors line-clamp-1">
+                            {{ $reward->reward_name }}
+                        </h3>
+                        <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                            {{ $reward->reward_description }}
+                        </p>
+                    </div>
+
+                    <!-- Action Button -->
+                    <div class="pt-3 border-t border-white/[0.08]">
                         @if($reward->stock > 0)
                             @if($totalPoints >= $reward->points_required)
-                                <form action="{{ route('rewards.redeem', $reward->id) }}" method="POST" class="redeem-form"
-                                    data-name="{{ $reward->reward_name }}"
-                                    data-desc="{{ $reward->reward_description }}"
-                                    data-image="{{ $reward->reward_image ? asset($reward->reward_image) : '' }}"
-                                    data-points="{{ $reward->points_required }}"
-                                    data-stock="{{ $reward->stock }}"
-                                    data-stock-badge="{{ $reward->stock > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}"
-                                >
+                                <form action="{{ route('rewards.redeem', $reward->id) }}" method="POST" class="redeem-form w-full"
+                                      data-name="{{ $reward->reward_name }}"
+                                      data-desc="{{ $reward->reward_description }}"
+                                      data-image="{{ $reward->reward_image ? asset($reward->reward_image) : '' }}"
+                                      data-points="{{ $reward->points_required }}"
+                                      data-stock="{{ $reward->stock }}">
                                     @csrf
-                                    <button type="submit" class="inline-flex items-center px-4 py-2 rounded-lg bg-green-500 hover:bg-green-600 text-white font-semibold shadow transition redeem-btn">
-                                        <i class="fas fa-check-circle mr-2"></i>
-                                        Redeem
+                                    <button type="submit" 
+                                            class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emeraldBrand to-emeraldDark hover:from-[#18c58f] hover:to-emeraldDark text-white text-xs font-bold shadow-lg shadow-emeraldBrand/25 hover:shadow-emeraldBrand/40 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer">
+                                        <i class="fa-solid fa-check-circle text-xs"></i>
+                                        <span>Tukar Reward Ini</span>
                                     </button>
                                 </form>
                             @else
-                                <button class="inline-flex items-center px-4 py-2 rounded-lg bg-gray-300 text-gray-500 font-semibold shadow cursor-not-allowed" disabled>
-                                    <i class="fas fa-lock mr-2"></i>
-                                    Not enough points
+                                <button disabled 
+                                        class="w-full py-2.5 px-4 rounded-xl bg-white/[0.04] border border-white/10 text-slate-400 text-xs font-semibold flex items-center justify-center gap-2 cursor-not-allowed"
+                                        title="Poin Anda tidak mencukupi (Butuh {{ $reward->points_required - $totalPoints }} pts lagi)">
+                                    <i class="fa-solid fa-lock text-xs text-slate-500"></i>
+                                    <span>Poin Belum Cukup</span>
                                 </button>
                             @endif
                         @else
-                            <button class="inline-flex items-center px-4 py-2 rounded-lg bg-red-300 text-red-700 font-semibold shadow cursor-not-allowed" disabled>
-                                <i class="fas fa-times-circle mr-2"></i>
-                                Out of stock
+                            <button disabled 
+                                    class="w-full py-2.5 px-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold flex items-center justify-center gap-2 cursor-not-allowed">
+                                <i class="fa-solid fa-ban text-xs"></i>
+                                <span>Stok Habis</span>
                             </button>
                         @endif
                     </div>
-                @empty
-                    <div class="col-span-4 text-center text-kahejo-medium py-8">
-                        Belum ada reward tersedia.
-                    </div>
-                @endforelse
-            </div>
+
+                </div>
+            @empty
+                <div class="col-span-4 glass-card p-12 text-center text-slate-400">
+                    <i class="fa-solid fa-gift text-4xl text-slate-600 mb-3 block"></i>
+                    <p class="text-sm font-semibold text-white">Belum Ada Reward</p>
+                    <p class="text-xs text-slate-400 mt-1">Reward baru akan segera ditambahkan di katalog.</p>
+                </div>
+            @endforelse
         </div>
     </div>
-    <script>
-        document.querySelectorAll('.redeem-form').forEach(form => {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
 
-                // Ambil data reward dari atribut data-*
-                const name = form.getAttribute('data-name');
-                const desc = form.getAttribute('data-desc');
-                const image = form.getAttribute('data-image');
-                const points = form.getAttribute('data-points');
-                const stock = form.getAttribute('data-stock');
-                const stockBadge = form.getAttribute('data-stock-badge');
+</div>
 
-                // Isi modal dengan data reward
-                document.getElementById('modalRewardName').textContent = name;
-                document.getElementById('modalRewardDesc').textContent = desc;
-                document.getElementById('modalRewardPoints').textContent = points + ' pts';
-                document.getElementById('modalRewardStock').textContent = 'Stock: ' + stock;
-                document.getElementById('modalRewardStock').className = 'px-2 py-1 text-xs rounded-full ' + stockBadge;
+<!-- Modal Konfirmasi Redeem (Obsidian Emerald Glass Modal) -->
+<div id="redeemModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md hidden transition-opacity duration-200 p-4">
+    <div class="glass-card max-w-md w-full p-6 sm:p-7 relative border border-emeraldBrand/30 shadow-2xl shadow-black/80 animate-scaleUp">
+        
+        <!-- Close Button -->
+        <button id="closeModalBtn" class="absolute top-4 right-4 w-8 h-8 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer" aria-label="Tutup">
+            <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
 
-                // Gambar
-                const imgDiv = document.getElementById('modalRewardImage');
-                if (image) {
-                    imgDiv.innerHTML = `<img src="${image}" alt="${name}" class="w-14 h-14 object-contain mx-auto rounded-full border-2 border-kahejo-dark bg-white">`;
-                } else {
-                    imgDiv.innerHTML = `<i class="fas fa-gift text-4xl text-kahejo-dark"></i>`;
-                }
+        <div class="flex flex-col items-center text-center">
+            <!-- Modal Reward Image Container -->
+            <div id="modalRewardImage" class="w-24 h-24 mb-4 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center p-2 shadow-inner"></div>
 
-                // Set action form modal
-                document.getElementById('modalRedeemForm').action = form.action;
+            <span class="px-3 py-1 rounded-full bg-emeraldBrand/15 border border-emeraldBrand/30 text-mintGlow text-[11px] font-bold mb-2">
+                Konfirmasi Penukaran Poin
+            </span>
 
-                // Tampilkan modal
-                document.getElementById('redeemModal').classList.remove('hidden');
-            });
-        });
+            <h3 id="modalRewardName" class="font-extrabold text-xl text-white tracking-tight mb-1"></h3>
+            <p id="modalRewardDesc" class="text-slate-400 text-xs mb-5 max-w-sm leading-relaxed"></p>
 
-        // Tombol close modal
-        document.getElementById('closeModalBtn').onclick = function() {
-            document.getElementById('redeemModal').classList.add('hidden');
-        };
-        // Klik di luar modal untuk close
-        document.getElementById('redeemModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.classList.add('hidden');
+            <!-- Points Cost Breakdown Box -->
+            <div class="w-full p-4 rounded-xl bg-white/[0.03] border border-white/10 mb-6 space-y-2 text-xs">
+                <div class="flex items-center justify-between text-slate-300">
+                    <span>Biaya Poin:</span>
+                    <span id="modalRewardPoints" class="font-black text-amber-300"></span>
+                </div>
+                <div class="flex items-center justify-between text-slate-300">
+                    <span>Saldo Poin Anda Saat Ini:</span>
+                    <span class="font-bold text-white">{{ number_format($totalPoints, 0, ',', '.') }} PTS</span>
+                </div>
+                <div class="flex items-center justify-between pt-2 border-t border-white/[0.08] text-slate-300">
+                    <span>Ketersediaan Stok:</span>
+                    <span id="modalRewardStock" class="font-bold text-mintGlow"></span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-3 w-full">
+                <button type="button" id="cancelModalBtn" class="flex-1 py-2.5 px-4 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-slate-300 text-xs font-semibold transition-colors cursor-pointer">
+                    Batal
+                </button>
+                <form id="modalRedeemForm" method="POST" class="flex-1">
+                    @csrf
+                    <button type="submit" class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-emeraldBrand to-emeraldDark hover:from-[#18c58f] hover:to-emeraldDark text-white text-xs font-bold shadow-lg shadow-emeraldBrand/25 transition-all cursor-pointer">
+                        <i class="fa-solid fa-check mr-1.5 text-xs"></i>
+                        <span>Konfirmasi</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section('scripts')
+<script>
+    document.querySelectorAll('.redeem-form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = form.getAttribute('data-name');
+            const desc = form.getAttribute('data-desc');
+            const image = form.getAttribute('data-image');
+            const points = form.getAttribute('data-points');
+            const stock = form.getAttribute('data-stock');
+
+            document.getElementById('modalRewardName').textContent = name;
+            document.getElementById('modalRewardDesc').textContent = desc;
+            document.getElementById('modalRewardPoints').textContent = points + ' PTS';
+            document.getElementById('modalRewardStock').textContent = stock + ' unit';
+
+            const imgDiv = document.getElementById('modalRewardImage');
+            if (image) {
+                imgDiv.innerHTML = `<img src="${image}" alt="${name}" class="w-full h-full object-contain drop-shadow">`;
+            } else {
+                imgDiv.innerHTML = `<i class="fa-solid fa-gift text-4xl text-emeraldBrand"></i>`;
             }
+
+            document.getElementById('modalRedeemForm').action = form.action;
+            document.getElementById('redeemModal').classList.remove('hidden');
         });
-    </script>
-</body>
-</html>
+    });
+
+    const closeModal = () => document.getElementById('redeemModal').classList.add('hidden');
+    
+    document.getElementById('closeModalBtn').onclick = closeModal;
+    document.getElementById('cancelModalBtn').onclick = closeModal;
+    document.getElementById('redeemModal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+</script>
+@endsection
+@endsection

@@ -1,250 +1,185 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KaHejo - Achievements</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'kahejo': {
-                            'darkest': '#3E362E',
-                            'dark': '#865D36',
-                            'medium': '#93785B',
-                            'light': '#AC8968',
-                            'lightest': '#A69080',
-                        },
-                    },
-                },
-            },
-        }
-    </script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-        .logo-text {
-            background: linear-gradient(to right, #10B981, #059669);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 700;
-        }
-                body {
-            font-family: 'Poppins', sans-serif;
-        }
-        .nav-link {
-            position: relative;
-            transition: color 0.2s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            margin: 0 0.25rem;
-        }
-        .nav-link:hover {
-            color: #10B981;
-            background-color: #F3F4F6;
-        }
-        .nav-link.active {
-            color: #10B981;
-            background-color: #F3F4F6;
-        }
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(to right, #10B981, #059669);
-            border-radius: 2px;
-        }
-        .nav-icon {
-            transition: transform 0.2s ease;
-        }
-        .nav-link:hover .nav-icon {
-            transform: translateY(-1px);
-        }
-        .logo-text {
-            background: linear-gradient(to right, #10B981, #059669);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 700;
-        }
-        .user-profile {
-            transition: transform 0.2s ease;
-        }
-        .user-profile:hover {
-            transform: translateY(-1px);
-        }
-        .logout-btn {
-            transition: all 0.2s ease;
-            background: linear-gradient(to right, #10B981, #059669);
-            color: white;
-            padding: 0.5rem 1.25rem;
-            border-radius: 9999px;
-            font-weight: 500;
-            border: none;
-        }
-        .logout-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-    </style>
-</head>
-<body class="bg-gray-50">
-    <!-- Navbar -->
-    <nav class="bg-white shadow-md">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <!-- Logo and Navigation -->
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center">
-                        <span class="logo-text text-2xl font-extrabold">KaHejo</span>
-                    </div>
-                    <div class="hidden md:flex md:ml-10">
-                        <a href="{{ route('main') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('main') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-home text-lg mr-2"></i>
-                            Dashboard
-                        </a>
-                        <a href="{{ route('profile') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('profile') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-user text-lg mr-2"></i>
-                            Profile
-                        </a>
-                        <a href="{{ route('carbon') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('carbon') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-calculator text-lg mr-2"></i>
-                            Carbon Calculator
-                        </a>
-                        <a href="{{ route('company') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('company') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-chart-line text-lg mr-2"></i>
-                            Energy Consumption
-                        </a>
-                        <a href="{{ route('achievements') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('achievements') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-trophy text-lg mr-2"></i>
-                            Achievements
-                        </a>
-                        <a href="{{ route('education') }}" class="nav-link flex items-center text-sm font-medium text-gray-500 {{ request()->routeIs('achievements.*') ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-trophy text-lg mr-2"></i>
-                            Education
-                        </a>
-                    </div>
+@extends('layouts.app')
+
+@section('title', 'Prestasi & Pencapaian')
+
+@section('content')
+<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-8">
+
+    <!-- Top Hero Header & Points Summary Card -->
+    <div class="glass-card p-6 sm:p-8 relative overflow-hidden">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-emeraldBrand/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+            <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emeraldBrand/10 border border-emeraldBrand/25 text-mintGlow text-xs font-semibold mb-2">
+                    <i class="fa-solid fa-medal text-[11px]"></i>
+                    <span>Gamifikasi & Eco Badges</span>
                 </div>
-                <!-- Right side of navbar -->
-                <div class="flex items-center space-x-6">
-                    <!-- User Profile -->
-                    <div class="user-profile flex items-center bg-gray-50 rounded-full px-3 py-1">
-                        <img class="h-8 w-8 rounded-full ring-2 ring-green-500" src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'User') }}&background=10B981&color=fff" alt="User">
-                        <div class="ml-3">
-                            <p class="text-sm font-medium text-gray-900">{{ Auth::user()->name ?? 'User' }}</p>
-                            <p class="text-xs text-gray-500">User</p>
-                        </div>
-                    </div>
-                    <!-- Logout Button -->
-                    <form action="{{ route('logout') }}" method="POST" class="inline">
-                        @csrf
-                        <button type="submit" class="logout-btn inline-flex items-center">
-                            <i class="fas fa-sign-out-alt mr-2"></i>
-                            Logout
-                        </button>
-                    </form>
-                </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                    Prestasi & Pencapaian
+                </h1>
+                <p class="mt-1 text-sm text-slate-400 max-w-2xl">
+                    Kumpulkan poin dari setiap aksi pengurangan emisi dan catat jejak prestasi Anda untuk membuka lencana eksklusif.
+                </p>
             </div>
-        </div>
-    </nav>
 
-    <!-- Main Content -->
-    <div class="max-w-7xl mx-auto py-8 sm:px-6 lg:px-8">
-        <div class="bg-white shadow rounded-lg border border-kahejo-light/20 p-6">
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-2xl font-bold text-kahejo-darkest">Achievements</h1>
-            </div>
-            <p class="text-gray-600 mb-4">Here you can view all your achievements and their details.</p>
-            
-
-            @if (session('success'))
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            @if (session('error'))
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                    {{ session('error') }}
-                </div>
-            @endif
-
+            <!-- Total Points Balance Pill -->
             @php
                 $user = Auth::user();
-                $totalPoints = $user->points;
+                $totalPoints = $user->points ?? 0;
+                $userAchievements = $user->achievements ? $user->achievements->pluck('id')->toArray() : [];
+                $totalCount = $achievements->total();
+                $unlockedCount = count($userAchievements);
+                $percentage = $totalCount > 0 ? round(($unlockedCount / $totalCount) * 100) : 0;
             @endphp
-
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
-                <div class="flex items-center space-x-3">
-                    <span class="inline-flex items-center px-3 py-2 rounded-lg bg-green-100 text-green-700 font-semibold text-lg">
-                        <i class="fas fa-coins mr-2"></i>
-                        Total Points: {{ $totalPoints }}
-                    </span>
-                </div>
-                <a href="{{ route('rewards') }}"
-                   class="inline-flex items-center px-4 py-2 rounded-lg bg-kahejo-dark hover:bg-kahejo-darkest text-white font-semibold shadow transition">
-                    <i class="fas fa-gift mr-2"></i>
-                    Go to Rewards
-                </a>
-            </div>
-
-            @php
-                $userAchievements = Auth::user()->achievements->pluck('id')->toArray();
-            @endphp
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                @foreach($achievements as $achievement)
-                    @php
-                        $achieved = in_array($achievement->id, $userAchievements);
-                    @endphp
-                    <div class="relative bg-kahejo-lightest/10 border border-kahejo-light/30 rounded-lg shadow p-5 flex flex-col items-center text-center transition-all duration-200
-                        {{ $achieved ? 'opacity-100' : 'opacity-60 grayscale' }}">
-                        <div class="w-16 h-16 mb-3 flex items-center justify-center rounded-full border-2 {{ $achieved ? 'border-green-400 bg-white' : 'border-gray-300 bg-gray-100' }}">
-                            @if($achievement->icon)
-                                <img src="{{ asset($achievement->icon) }}" alt="{{ $achievement->name }}" class="w-12 h-12 object-contain mx-auto {{ $achieved ? '' : 'grayscale' }}">
-                            @else
-                                <i class="fas fa-award text-3xl {{ $achieved ? 'text-kahejo-dark' : 'text-gray-400' }}"></i>
-                            @endif
-                        </div>
-                        <div class="font-semibold text-kahejo-darkest text-lg mb-1">{{ $achievement->name }}</div>
-                        <div class="text-kahejo-medium text-sm mb-2">{{ $achievement->description }}</div>
-                        <div class="flex justify-center items-center space-x-2 mb-2">
-                            <span class="px-2 py-1 text-xs rounded-full {{ $achieved ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-400' }}">
-                                {{ ucfirst($achievement->category ?? '-') }}
-                            </span>
-                            <span class="px-2 py-1 text-xs rounded-full {{ $achieved ? 'bg-kahejo-dark text-white' : 'bg-gray-200 text-gray-400' }}">
-                                {{ $achievement->points_awarded ?? 0 }} pts
-                            </span>
-                        </div>
-                        @if($achieved)
-                            <span class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded bg-green-50 text-green-700">
-                                <i class="fas fa-check-circle mr-1"></i> Achieved
-                            </span>
-                        @else
-                            <span class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded bg-gray-100 text-gray-400">
-                                <i class="fas fa-lock mr-1"></i> Locked
-                            </span>
-                        @endif
+            <div class="flex items-center gap-4 self-start md:self-auto">
+                <div class="p-4 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center gap-3.5 shadow-lg shadow-black/20">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-white text-xl shadow-lg shadow-amber-500/25 shrink-0">
+                        <i class="fa-solid fa-coins"></i>
                     </div>
-                @endforeach
-            </div>
-
-            <div class="mt-8">
-                {{ $achievements->links() }}
+                    <div>
+                        <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Total Poin Anda</span>
+                        <span class="text-xl font-black text-white leading-none block mt-0.5">
+                            {{ number_format($totalPoints, 0, ',', '.') }} <span class="text-xs text-amber-400 font-semibold">PTS</span>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Navigation Tabs: Prestasi & Rewards -->
+        <div class="flex items-center gap-3 mt-6 pt-6 border-t border-white/[0.08]">
+            <a href="{{ route('achievements') }}" 
+               class="px-4 py-2 rounded-xl bg-emeraldBrand/20 text-mintGlow border border-emeraldBrand/40 text-xs font-bold flex items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-medal text-xs"></i>
+                <span>Daftar Prestasi ({{ $unlockedCount }}/{{ $totalCount }})</span>
+            </a>
+            <a href="{{ route('rewards') }}" 
+               class="px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white border border-white/10 text-xs font-semibold flex items-center gap-2 transition-colors">
+                <i class="fa-solid fa-gift text-xs text-amber-400"></i>
+                <span>Tukar Rewards & Hadiah</span>
+            </a>
+        </div>
     </div>
-</body>
-</html>
+
+    <!-- Overview Metrics Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <div class="glass-card p-5">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Prestasi Diraih</span>
+                <div class="w-8 h-8 rounded-lg bg-emeraldBrand/15 text-mintGlow flex items-center justify-center text-xs">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+            </div>
+            <div class="text-2xl font-extrabold text-white">{{ $unlockedCount }} <span class="text-xs text-slate-400 font-normal">/ {{ $totalCount }} Badge</span></div>
+            <p class="text-[11px] text-slate-400 mt-1">Lencana keberlanjutan yang telah aktif</p>
+        </div>
+
+        <div class="glass-card p-5">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tingkat Kemajuan</span>
+                <div class="w-8 h-8 rounded-lg bg-sky-500/15 text-sky-400 flex items-center justify-center text-xs">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+            </div>
+            <div class="text-2xl font-extrabold text-white">{{ $percentage }}%</div>
+            <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden mt-2">
+                <div class="bg-gradient-to-r from-emeraldBrand to-mintGlow h-full rounded-full" style="width: {{ $percentage }}%"></div>
+            </div>
+        </div>
+
+        <div class="glass-card p-5">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Rewards Siap Ditukar</span>
+                <div class="w-8 h-8 rounded-lg bg-amber-500/15 text-amber-400 flex items-center justify-center text-xs">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
+            </div>
+            <div class="text-2xl font-extrabold text-white">Katalog Aktif</div>
+            <a href="{{ route('rewards') }}" class="text-[11px] text-mintGlow hover:underline inline-flex items-center gap-1 mt-1 font-semibold">
+                <span>Kunjungi Katalog Hadiah</span>
+                <i class="fa-solid fa-arrow-right text-[9px]"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Achievements Cards Grid -->
+    <div class="space-y-4">
+        <div class="flex items-center justify-between">
+            <h2 class="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+                <i class="fa-solid fa-trophy text-amber-400 text-sm"></i>
+                <span>Semua Lencana Prestasi</span>
+            </h2>
+            <span class="text-xs text-slate-400">Halaman {{ $achievements->currentPage() }} dari {{ $achievements->lastPage() }}</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            @forelse($achievements as $achievement)
+                @php
+                    $achieved = in_array($achievement->id, $userAchievements);
+                @endphp
+                <div class="glass-card p-6 flex flex-col items-center text-center relative overflow-hidden transition-all duration-300 group
+                    {{ $achieved ? 'border-emeraldBrand/35 shadow-lg shadow-emeraldBrand/10' : 'opacity-70 hover:opacity-100' }}">
+                    
+                    @if($achieved)
+                        <!-- Achieved Glow Ribbon/Badge -->
+                        <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-emeraldBrand/20 border border-emeraldBrand/40 text-mintGlow text-[10px] font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-check text-[9px]"></i>
+                            <span>Terbuka</span>
+                        </div>
+                    @else
+                        <div class="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/10 text-slate-400 text-[10px] font-semibold flex items-center gap-1">
+                            <i class="fa-solid fa-lock text-[9px]"></i>
+                            <span>Terkunci</span>
+                        </div>
+                    @endif
+
+                    <!-- Icon Circle -->
+                    <div class="w-20 h-20 mb-4 rounded-2xl flex items-center justify-center relative transition-transform duration-300 group-hover:scale-105
+                        {{ $achieved 
+                            ? 'bg-gradient-to-br from-emerald-600/30 to-emerald-950/80 border-2 border-emeraldBrand/50 shadow-xl shadow-emeraldBrand/25' 
+                            : 'bg-white/[0.03] border border-white/10 grayscale' }}">
+                        @if($achievement->icon)
+                            <img src="{{ asset($achievement->icon) }}" alt="{{ $achievement->name }}" class="w-12 h-12 object-contain mx-auto">
+                        @else
+                            <i class="fa-solid fa-award text-3xl {{ $achieved ? 'text-mintGlow' : 'text-slate-500' }}"></i>
+                        @endif
+                    </div>
+
+                    <!-- Details -->
+                    <h3 class="font-extrabold text-white text-base mb-1.5 group-hover:text-mintGlow transition-colors line-clamp-1">
+                        {{ $achievement->name }}
+                    </h3>
+                    <p class="text-xs text-slate-400 mb-4 line-clamp-2 leading-relaxed flex-1">
+                        {{ $achievement->description }}
+                    </p>
+
+                    <!-- Meta Tags -->
+                    <div class="w-full pt-3 border-t border-white/[0.08] flex items-center justify-between text-xs">
+                        <span class="px-2.5 py-1 rounded-lg bg-white/[0.04] text-slate-300 text-[11px] font-medium">
+                            {{ ucfirst($achievement->category ?? 'Umum') }}
+                        </span>
+                        <span class="px-2.5 py-1 rounded-lg font-bold flex items-center gap-1
+                            {{ $achieved ? 'bg-amber-400/15 text-amber-300 border border-amber-400/30' : 'bg-white/[0.04] text-slate-400' }}">
+                            <i class="fa-solid fa-coins text-[10px] text-amber-400"></i>
+                            <span>+{{ $achievement->points_awarded ?? 0 }} pts</span>
+                        </span>
+                    </div>
+                </div>
+            @empty
+                <div class="col-span-4 glass-card p-12 text-center text-slate-400">
+                    <i class="fa-solid fa-medal text-4xl text-slate-600 mb-3 block"></i>
+                    <p class="text-sm font-semibold text-white">Belum Ada Prestasi</p>
+                    <p class="text-xs text-slate-400 mt-1">Data prestasi akan segera ditambahkan oleh administrator.</p>
+                </div>
+            @endforelse
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-8 flex justify-center">
+            {{ $achievements->links() }}
+        </div>
+    </div>
+
+</div>
+@endsection
