@@ -1,88 +1,155 @@
-<!-- C:\Users\Daniel Lincoln\Documents\GitHub\KaHejo\kahejo\resources\views\emission-factors\edit.blade.php -->
-
 @extends('layouts.admin')
 
+@section('title', 'Edit Faktor Emisi')
+@section('page-title', 'Edit Faktor Emisi')
+
 @section('main-content')
-<div class="max-w-2xl mx-auto px-4 py-6">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">Edit Faktor Konversi Emisi</h2>
+<div class="max-w-3xl mx-auto space-y-6">
 
-    <form action="{{ route('admin.emission-factors.update', $emissionFactor) }}" method="POST" class="bg-white p-6 rounded shadow">
-        @csrf
-        @method('PUT')
-
-        {{-- Nama Faktor --}}
-        <div class="mb-4">
-            <label for="name" class="block font-medium text-gray-700">Nama Faktor <span class="text-red-500">*</span></label>
-            <input type="text" id="name" name="name" value="{{ old('name', $emissionFactor->name) }}"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('name') border-red-500 @enderror" required>
-            @error('name')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
+    <!-- Header & Back Button -->
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
+                <i class="fa-solid fa-pen-to-square text-emeraldBrand text-2xl"></i>
+                <span>Edit Faktor Emisi</span>
+            </h1>
+            <p class="text-slate-400 text-xs sm:text-sm mt-1">Perbarui koefisien konversi emisi atau rujukan metodologi ilmiah.</p>
         </div>
 
-        {{-- Kategori --}}
-        <div class="mb-4">
-            <label for="category" class="block font-medium text-gray-700">Kategori <span class="text-red-500">*</span></label>
-            <select id="category" name="category" required
-            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('category') border-red-500 @enderror">
-            <option value="">-- Pilih Kategori --</option>
-            <option value="Energi" {{ old('category', $emissionFactor->category) == 'Energi' ? 'selected' : '' }}>Energi</option>
-            <option value="Transportasi" {{ old('category', $emissionFactor->category) == 'Transportasi' ? 'selected' : '' }}>Transportasi</option>
-            <option value="Limbah" {{ old('category', $emissionFactor->category) == 'Limbah' ? 'selected' : '' }}>Limbah</option>
-            <option value="Pertanian" {{ old('category', $emissionFactor->category) == 'Pertanian' ? 'selected' : '' }}>Pertanian</option>
-        </select>
-        @error('category')
-            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-        @enderror
-        </div>
+        <a href="{{ route('admin.emission-factors.index') }}" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-xs font-semibold flex items-center gap-2 text-decoration-none transition-colors">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Kembali</span>
+        </a>
+    </div>
 
-        {{-- Nilai dan Unit --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+    <!-- Form Glass Card -->
+    <div class="glass-card p-6 sm:p-8">
+        <form action="{{ route('admin.emission-factors.update', $emissionFactor) }}" method="POST" class="space-y-5">
+            @csrf
+            @method('PUT')
+
+            <!-- Nama Faktor -->
             <div>
-                <label for="value" class="block font-medium text-gray-700">Nilai <span class="text-red-500">*</span></label>
-                <input type="number" step="0.0001" id="value" name="value" value="{{ old('value', $emissionFactor->value) }}"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('value') border-red-500 @enderror" required>
-                @error('value')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                    Nama Sumber Energi / Material <span class="text-emeraldBrand">*</span>
+                </label>
+                <input type="text" 
+                       id="name" 
+                       name="name" 
+                       value="{{ old('name', $emissionFactor->name) }}" 
+                       required 
+                       class="admin-input">
+                @error('name')
+                    <p class="text-xs text-rose-400 mt-1 flex items-center gap-1">
+                        <i class="fa-solid fa-circle-exclamation text-[10px]"></i>
+                        <span>{{ $message }}</span>
+                    </p>
                 @enderror
             </div>
+
+            <!-- Kategori -->
             <div>
-                <label for="unit" class="block font-medium text-gray-700">Unit <span class="text-red-500">*</span></label>
-                <input type="text" id="unit" name="unit" value="{{ old('unit', $emissionFactor->unit) }}"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('unit') border-red-500 @enderror" required>
-                @error('unit')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                <label for="category" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                    Kategori Emisi <span class="text-emeraldBrand">*</span>
+                </label>
+                <select name="category" id="category" required class="admin-input">
+                    <option value="Listrik" {{ old('category', $emissionFactor->category) == 'Listrik' ? 'selected' : '' }} class="bg-[#0b1c15]">Listrik (Kelistrikan PLN)</option>
+                    <option value="Bensin" {{ old('category', $emissionFactor->category) == 'Bensin' ? 'selected' : '' }} class="bg-[#0b1c15]">Bahan Bakar Bensin (Gasoline)</option>
+                    <option value="Solar" {{ old('category', $emissionFactor->category) == 'Solar' ? 'selected' : '' }} class="bg-[#0b1c15]">Bahan Bakar Solar (Diesel)</option>
+                    <option value="Gas" {{ old('category', $emissionFactor->category) == 'Gas' ? 'selected' : '' }} class="bg-[#0b1c15]">Gas Alam & LPG</option>
+                    <option value="Limbah" {{ old('category', $emissionFactor->category) == 'Limbah' ? 'selected' : '' }} class="bg-[#0b1c15]">Limbah & Sampah</option>
+                    <option value="Air" {{ old('category', $emissionFactor->category) == 'Air' ? 'selected' : '' }} class="bg-[#0b1c15]">Konsumsi Air Bersih</option>
+                </select>
+                @error('category')
+                    <p class="text-xs text-rose-400 mt-1 flex items-center gap-1">
+                        <i class="fa-solid fa-circle-exclamation text-[10px]"></i>
+                        <span>{{ $message }}</span>
+                    </p>
                 @enderror
             </div>
-        </div>
 
-        {{-- Sumber Referensi --}}
-        <div class="mb-4">
-            <label for="source" class="block font-medium text-gray-700">Sumber Referensi</label>
-            <input type="text" id="source" name="source" value="{{ old('source', $emissionFactor->source) }}"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('source') border-red-500 @enderror">
-            @error('source')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
-        </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <!-- Nilai -->
+                <div>
+                    <label for="value" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                        Nilai Faktor Konversi <span class="text-emeraldBrand">*</span>
+                    </label>
+                    <input type="number" 
+                           step="0.0001" 
+                           id="value" 
+                           name="value" 
+                           value="{{ old('value', $emissionFactor->value) }}" 
+                           required 
+                           class="admin-input">
+                    @error('value')
+                        <p class="text-xs text-rose-400 mt-1 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-exclamation text-[10px]"></i>
+                            <span>{{ $message }}</span>
+                        </p>
+                    @enderror
+                </div>
 
-        {{-- Deskripsi --}}
-        <div class="mb-4">
-            <label for="description" class="block font-medium text-gray-700">Deskripsi</label>
-            <textarea id="description" name="description" rows="3"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 @error('description') border-red-500 @enderror">{{ old('description', $emissionFactor->description) }}</textarea>
-            @error('description')
-                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
-        </div>
+                <!-- Unit -->
+                <div>
+                    <label for="unit" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                        Satuan (Unit) <span class="text-emeraldBrand">*</span>
+                    </label>
+                    <input type="text" 
+                           id="unit" 
+                           name="unit" 
+                           value="{{ old('unit', $emissionFactor->unit) }}" 
+                           required 
+                           class="admin-input">
+                    @error('unit')
+                        <p class="text-xs text-rose-400 mt-1 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-exclamation text-[10px]"></i>
+                            <span>{{ $message }}</span>
+                        </p>
+                    @enderror
+                </div>
+            </div>
 
-        {{-- Tombol --}}
-        <div class="flex justify-between mt-6">
-            <a href="{{ route('admin.emission-factors.index') }}"
-               class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition">Kembali</a>
-            <button type="submit"
-               class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">Perbarui</button>
-        </div>
-    </form>
+            <!-- Sumber Referensi -->
+            <div>
+                <label for="source" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                    Sumber Regulasi / Referensi Ilmiah
+                </label>
+                <input type="text" 
+                       id="source" 
+                       name="source" 
+                       value="{{ old('source', $emissionFactor->source) }}" 
+                       class="admin-input">
+                @error('source')
+                    <p class="text-xs text-rose-400 mt-1 flex items-center gap-1">
+                        <i class="fa-solid fa-circle-exclamation text-[10px]"></i>
+                        <span>{{ $message }}</span>
+                    </p>
+                @enderror
+            </div>
+
+            <!-- Deskripsi -->
+            <div>
+                <label for="description" class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                    Catatan Metodologi
+                </label>
+                <textarea id="description" 
+                          name="description" 
+                          rows="3" 
+                          class="admin-input">{{ old('description', $emissionFactor->description) }}</textarea>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
+                <a href="{{ route('admin.emission-factors.index') }}" class="px-5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-bold transition-colors text-decoration-none">
+                    Batal
+                </a>
+                <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emeraldBrand to-emeraldDark hover:from-[#18c58f] hover:to-emeraldDark text-white text-xs font-bold shadow-lg shadow-emeraldBrand/30 transition-all transform hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-check text-xs"></i>
+                    <span>Simpan Perubahan</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
 </div>
 @endsection

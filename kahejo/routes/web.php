@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CarbonFootprintController; 
+use App\Http\Controllers\CarbonFootprintController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\EmissionFactorController;
 use App\Http\Controllers\CompanyEnergyController;
@@ -68,7 +68,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/company/history', [CompanyEnergyController::class, 'history'])->name('company.history');
     Route::get('/company/view/{id}', [CompanyEnergyController::class, 'view'])->name('company.view');
 
-        // Education Routes
+    // Education Routes
     Route::get('/education', [EducationController::class, 'education'])->name('education');
     Route::get('/education/article/{slug}', [EducationController::class, 'article'])->name('education.article');
 
@@ -87,10 +87,11 @@ Route::middleware(['auth'])->group(function () {
 
 // Admin Routes
 Route::prefix('admin')->name('admin.')->group(function () {
-    // Login Route
+    // Login & Logout Route
     Route::get('/login', [LoginController::class, 'create'])->name('login');
     Route::post('/login', [LoginController::class, 'store'])->name('login.store');
-    
+    Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
+
     // Dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

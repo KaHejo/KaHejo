@@ -1,121 +1,111 @@
 @extends('layouts.admin')
 
+@section('title', 'Katalog Prestasi')
+@section('page-title', 'Prestasi')
+
 @section('main-content')
-<div class="container mx-auto px-4 py-8">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Dashboard Achievement</h1>
-        <a href="{{ route('admin.achievements.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-            New Achievement
+<div class="max-w-7xl mx-auto space-y-6">
+
+    <!-- Header & Action Row -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2.5">
+                <i class="fa-solid fa-medal text-emeraldBrand text-2xl"></i>
+                <span>Katalog Prestasi & Lencana</span>
+            </h1>
+            <p class="text-slate-400 text-xs sm:text-sm mt-1">Kelola lencana penghargaan dan insentif poin yang dapat diraih pengguna melalui aksi pengurangan jejak karbon.</p>
+        </div>
+
+        <a href="{{ route('admin.achievements.create') }}" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emeraldBrand to-emeraldDark hover:from-[#18c58f] hover:to-emeraldDark text-white text-xs font-bold shadow-lg shadow-emeraldBrand/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-decoration-none self-start sm:self-auto">
+            <i class="fa-solid fa-plus text-xs"></i>
+            <span>Tambah Prestasi Baru</span>
         </a>
     </div>
 
-    @if (session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-            {{ session('success') }}
+    <!-- Achievements Glass Table Container -->
+    <div class="glass-card overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                <thead>
+                    <tr class="border-b border-emeraldBrand/20 bg-emerald-950/40 text-slate-300 font-bold uppercase tracking-wider text-[11px]">
+                        <th class="py-4 px-6">No</th>
+                        <th class="py-4 px-6">Ikon Lencana</th>
+                        <th class="py-4 px-6">Nama Prestasi</th>
+                        <th class="py-4 px-6">Kategori</th>
+                        <th class="py-4 px-6">Syarat Poin</th>
+                        <th class="py-4 px-6">Hadiah Poin</th>
+                        <th class="py-4 px-6">Deskripsi</th>
+                        <th class="py-4 px-6 text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5 text-slate-200">
+                    @forelse($achievements as $achievement)
+                    <tr class="hover:bg-white/[0.03] transition-colors">
+                        <td class="py-4 px-6 font-semibold text-slate-400">
+                            {{ $loop->iteration }}
+                        </td>
+                        <td class="py-4 px-6">
+                            @if($achievement->icon)
+                                <img src="{{ asset($achievement->icon) }}" alt="{{ $achievement->name }}" class="h-11 w-11 object-cover rounded-xl border border-amber-500/30 shadow-md">
+                            @else
+                                <div class="h-11 w-11 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 text-base">
+                                    <i class="fa-solid fa-medal"></i>
+                                </div>
+                            @endif
+                        </td>
+                        <td class="py-4 px-6">
+                            <div class="font-bold text-white text-sm">{{ $achievement->name }}</div>
+                            <div class="text-[11px] text-slate-400">ID: #ACH-{{ str_pad($achievement->id, 3, '0', STR_PAD_LEFT) }}</div>
+                        </td>
+                        <td class="py-4 px-6">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-emeraldBrand/15 border border-emeraldBrand/30 text-mintGlow text-xs font-semibold">
+                                {{ $achievement->category ?? 'Umum' }}
+                            </span>
+                        </td>
+                        <td class="py-4 px-6 text-slate-300 font-mono">
+                            {{ number_format($achievement->points_needed ?? 0) }} Poin
+                        </td>
+                        <td class="py-4 px-6">
+                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-bold text-xs">
+                                <i class="fa-solid fa-plus text-[10px]"></i>
+                                <span>{{ number_format($achievement->points_awarded ?? 0) }}</span>
+                            </span>
+                        </td>
+                        <td class="py-4 px-6 text-slate-400 max-w-xs truncate text-xs">
+                            {{ $achievement->description ?? '-' }}
+                        </td>
+                        <td class="py-4 px-6 text-center whitespace-nowrap">
+                            <div class="inline-flex items-center gap-2">
+                                <a href="{{ route('admin.achievements.edit', $achievement->id) }}" class="w-8 h-8 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/30 border border-emerald-500/30 text-mintGlow flex items-center justify-center transition-colors" title="Edit Prestasi">
+                                    <i class="fa-solid fa-pen-to-square text-xs"></i>
+                                </a>
+                                <form action="{{ route('admin.achievements.destroy', $achievement->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus prestasi ini?')" class="inline m-0">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="w-8 h-8 rounded-lg bg-rose-500/15 hover:bg-rose-500/30 border border-rose-500/30 text-rose-400 flex items-center justify-center transition-colors cursor-pointer" title="Hapus Prestasi">
+                                        <i class="fa-solid fa-trash text-xs"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="8" class="text-center py-12 text-slate-400">
+                            <div class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-500 mx-auto mb-3 text-lg">
+                                <i class="fa-solid fa-medal"></i>
+                            </div>
+                            <p class="font-medium text-sm">Belum ada lencana prestasi yang dibuat.</p>
+                            <a href="{{ route('admin.achievements.create') }}" class="text-xs text-mintGlow hover:underline mt-2 inline-block font-semibold">
+                                + Buat Prestasi Baru
+                            </a>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
-    @endif
-
-    @if (session('error'))
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    <div class="bg-white rounded-lg shadow overflow-hidden">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Point Needed</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Point Awarded</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Icon</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                @foreach($achievements as $achievement)
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm text-gray-900">{{ $loop->iteration }}</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm font-medium text-gray-900">{{ $achievement->name }}</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ $achievement->description }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ $achievement->category ?? '-' }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ $achievement->points_needed }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ $achievement->points_awarded }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        @if($achievement->icon)
-                            <img src="{{ asset($achievement->icon) }}" alt="{{ $achievement->name }}" class="h-16 w-16 object-cover rounded">
-                        @else
-                            <span class="text-xs text-gray-400">No Icon</span>
-                        @endif
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium flex space-x-2">
-                        <a href="{{ route('admin.achievements.edit', $achievement->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                        <button type="button" class="text-blue-600 hover:text-blue-900" data-toggle="modal" data-target="#achievementDetailModal-{{ $achievement->id }}">Detail</button>
-                        <form action="{{ route('admin.achievements.destroy', $achievement->id) }}" method="post" onsubmit="return confirm('Are you sure to delete this?')" class="inline">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-        <!-- Modals for Each Achievement -->
-    @foreach ($achievements as $item)
-        <div class="modal fade" id="achievementDetailModal-{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="achievementDetailModalLabel-{{ $item->id }}" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="achievementDetailModalLabel-{{ $item->id }}">Achievement: {{ $item->name }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h4>Details:</h4>
-                        <ul>
-                            <li>Achievement Name: {{ $item->name }}</li>
-                            <li>Points Required: {{ $item->points_needed }}</li>
-                            <li>Points Awarded: {{ $item->points_awarded }}</li>
-                            <li>Category: {{ $item->category ?? '-' }}</li>
-                            <li>Description: {{ $item->description }}</li>
-                            <li>Image: <br>
-                                @if($item->icon)
-                                    <img src="{{ asset($item->icon) }}" alt="{{ $item->name }}" class="h-24 w-24 object-cover rounded">
-                                @else
-                                    <span class="text-xs text-gray-400">No Image</span>
-                                @endif
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
     </div>
 
-    <div class="mt-4">
-        {{ $achievements->links() }}
-    </div>
 </div>
 @endsection

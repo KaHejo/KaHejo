@@ -1,491 +1,274 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - KaHejo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style>
-        :root {
-            --primary-color: #2ecc71;
-            --secondary-color: #27ae60;
-            --accent-color: #f39c12;
-            --dark-color: #2c3e50;
-            --light-color: #ecf0f1;
-            --error-color: #e74c3c;
-            --success-color: #2ecc71;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', 'Segoe UI', sans-serif;
-            background-color: var(--light-color);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .alert {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            min-width: 300px;
-            text-align: center;
-            animation: slideDown 0.5s ease-out;
-            border: none;
-            border-radius: 10px;
-            padding: 15px 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .alert-success {
-            background-color: var(--success-color);
-            color: white;
-        }
-
-        .alert-danger {
-            background-color: var(--error-color);
-            color: white;
-        }
-
-        .alert i {
-            margin-right: 10px;
-        }
-
-        .btn-close {
-            color: white;
-            opacity: 0.8;
-            margin-left: 10px;
-        }
-
-        .btn-close:hover {
-            opacity: 1;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translate(-50%, -100%);
-                opacity: 0;
-            }
-            to {
-                transform: translate(-50%, 0);
-                opacity: 1;
+    <title>Masuk Admin — KaHejo</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emeraldBrand: '#10b981',
+                        emeraldDark: '#059669',
+                        mintGlow: '#34d399',
+                        obsidianBg: '#050d0a',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
             }
         }
+    </script>
 
-        @keyframes shake {
-            0%, 100% { transform: translate(-50%, 0); }
-            25% { transform: translate(-52%, 0); }
-            75% { transform: translate(-48%, 0); }
-        }
-
-        .alert-danger {
-            animation: slideDown 0.5s ease-out, shake 0.5s ease-in-out;
-        }
-
-        /* Animated background */
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        }
-
-        .background::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%232ecc71' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.5;
-            animation: backgroundMove 30s linear infinite;
-        }
-
-        @keyframes backgroundMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 100px 100px; }
-        }
-
-        .login-container {
-            display: flex;
-            width: 100%;
-            max-width: 1000px;
-            min-height: 600px;
-            margin: 20px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .login-image {
-            flex: 1;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.3;
-            animation: backgroundMove 30s linear infinite;
-        }
-
-        .brand-logo {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            color: white;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .login-image h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-align: center;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .login-image p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            text-align: center;
-            max-width: 80%;
-            line-height: 1.6;
-        }
-
-        .login-form {
-            flex: 1;
-            background-color: white;
-            padding: 60px 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .form-header {
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .form-header h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--dark-color);
-            margin-bottom: 10px;
-        }
-
-        .form-header p {
-            color: #7f8c8d;
-            font-size: 1rem;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .form-control {
-            height: 55px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 0 20px 0 50px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            background-color: #f8f9fa;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.15);
-            background-color: white;
-        }
-
-        .form-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #95a5a6;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus + .form-icon {
-            color: var(--primary-color);
-        }
-
-        .form-check {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .form-check-input {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            cursor: pointer;
-            border: 2px solid #e0e0e0;
-        }
-
-        .form-check-input:checked {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .form-check-label {
-            color: #7f8c8d;
-            font-size: 0.95rem;
-            cursor: pointer;
-        }
-
-        .btn-login {
-            height: 55px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-weight: 600;
-            font-size: 1rem;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 25px;
-        }
-
-        .btn-login::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-login:hover::before {
-            left: 100%;
-        }
-
-        .btn-login:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.2);
-        }
-
-        .register-link {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .register-link p {
-            color: #7f8c8d;
-            font-size: 0.95rem;
-        }
-
-        .register-link a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .register-link a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-
-        .register-link a:hover::after {
-            width: 100%;
-        }
-
-        .error {
-            color: var(--error-color);
-            font-size: 0.85rem;
-            margin-top: 5px;
-            display: flex;
-            align-items: center;
-            animation: shake 0.5s ease-in-out;
-        }
-
-        .error::before {
-            content: '⚠️';
-            margin-right: 5px;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 992px) {
-            .login-container {
-                flex-direction: column;
-                min-height: auto;
-            }
-
-            .login-image {
-                padding: 40px 20px;
-            }
-
-            .login-form {
-                padding: 40px 30px;
-            }
-
-            .brand-logo {
-                font-size: 3rem;
-            }
-
-            .login-image h2 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .login-container {
-                margin: 10px;
-                border-radius: 15px;
-            }
-
-            .login-image {
-                padding: 30px 15px;
-            }
-
-            .login-form {
-                padding: 30px 20px;
-            }
-
-            .form-header h2 {
-                font-size: 1.8rem;
-            }
-
-            .brand-logo {
-                font-size: 2.5rem;
-            }
-
-            .login-image h2 {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
+    <!-- Modular Auth Stylesheet -->
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 </head>
-<body>
-    <div class="background"></div>
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8">
 
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="fas fa-check-circle"></i>
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <!-- Ambient Dynamic Background -->
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+    <div class="ambient-grid"></div>
+
+    <!-- Floating Top Navigation -->
+    <header class="fixed top-5 left-5 right-5 z-50 flex items-center justify-between max-w-6xl mx-auto pointer-events-none">
+        <a href="/" class="pointer-events-auto inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-white/[0.07] hover:bg-white/[0.14] text-white border border-white/15 backdrop-blur-xl text-xs font-semibold tracking-wide transition-all duration-200 hover:-translate-x-0.5 shadow-lg shadow-black/20">
+            <i class="fa-solid fa-arrow-left text-xs text-emeraldBrand"></i>
+            <span>Kembali ke Beranda</span>
+        </a>
+
+        <div class="pointer-events-auto hidden sm:flex items-center gap-2 text-xs text-slate-400 bg-white/[0.05] border border-white/10 px-3.5 py-1.5 rounded-full backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-emeraldBrand animate-pulse"></span>
+            <span>Konsol Manajemen Administrator</span>
         </div>
-    @endif
+    </header>
 
-    @if($errors->any())
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="fas fa-exclamation-circle"></i>
-            {{ $errors->first() }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
-    <div class="login-container">
-        <div class="login-image">
-            <div class="brand-logo">
-                <i class="fas fa-leaf"></i>
-            </div>
-            <h2>Welcome to KaHejo</h2>
-            <p>Your personal health companion. Track your health, get personalized recommendations, and achieve your wellness goals.</p>
-        </div>
-        <div class="login-form">
-            <div class="form-header">
-                <h2>Login Admin</h2>
-                <p>Please enter your credentials to access your account</p>
-            </div>
-            <form method="POST" action="{{ route('admin.login') }}">
-                @csrf
-
-                <div class="form-group">
-                    <input type="text" class="form-control @error('name') is-invalid @enderror"
-                           id="email" name="email" value="{{ old('name') }}"
-                           placeholder="Your Email" required autofocus>
-                    <i class="fas fa-user form-icon"></i>
-                    @error('name')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
+    <!-- Success Notification -->
+    @if(session('status') || session('success'))
+        <div class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 animate-slideDown max-w-md w-full px-4">
+            <div class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center justify-between backdrop-blur-xl border border-emerald-400/30">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-circle-check text-lg text-emerald-200"></i>
+                    <span class="text-sm font-medium">{{ session('status') ?? session('success') }}</span>
                 </div>
-
-                <div class="form-group">
-                    <input type="password" class="form-control @error('password') is-invalid @enderror"
-                           id="password" name="password" placeholder="Password" required>
-                    <i class="fas fa-lock form-icon"></i>
-                    @error('password')
-                        <div class="error">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <button type="submit" class="btn btn-login">
-                    <i class="fas fa-sign-in-alt me-2"></i>Login as Admin
+                <button class="text-white/80 hover:text-white transition-colors" onclick="this.parentElement.parentElement.remove()">
+                    <i class="fa-solid fa-xmark"></i>
                 </button>
-
-            </form>
-
-            <div class="register-link w-full inline-flex items-center justify-center mt-10">
-                <p>Login As <a href="{{route('login')}}">Users</a></p>
             </div>
         </div>
-    </div>
+    @endif
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Error Alert Notification -->
+    @if($errors->any())
+        <div class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 animate-slideDown max-w-md w-full px-4">
+            <div class="bg-gradient-to-r from-red-600 to-rose-700 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center justify-between backdrop-blur-xl border border-red-400/30 animate-shake">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-circle-exclamation text-lg text-rose-200"></i>
+                    <span class="text-sm font-medium">{{ $errors->first() }}</span>
+                </div>
+                <button class="text-white/80 hover:text-white transition-colors" onclick="this.parentElement.parentElement.remove()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+    @endif
+
+    <!-- Main Glass Auth Container -->
+    <main class="w-full max-w-5xl bg-[#091712]/85 backdrop-blur-2xl rounded-3xl shadow-[0_25px_70px_-15px_rgba(0,0,0,0.85)] border border-emeraldBrand/25 overflow-hidden grid grid-cols-1 lg:grid-cols-12 relative z-10 my-16">
+        
+        <!-- Left Showcase Side (5 Columns) -->
+        <section class="lg:col-span-5 bg-gradient-to-br from-[#063b2c]/90 via-[#072a20]/95 to-[#041a13] p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden border-b lg:border-b-0 lg:border-r border-emeraldBrand/20">
+            <!-- Ambient Radial Reflection -->
+            <div class="absolute -top-24 -left-24 w-72 h-72 bg-emeraldBrand/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- Brand Header -->
+            <div class="relative z-10">
+                <a href="/" class="inline-flex items-center gap-3 mb-8 group text-decoration-none">
+                    <img src="{{ asset('images/logo.svg') }}" alt="KaHejo Logo" class="w-11 h-11 object-contain drop-shadow-[0_0_12px_rgba(52,211,153,0.5)] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                    <span class="text-2xl font-extrabold tracking-tight text-white">KaHejo</span>
+                </a>
+
+                <h1 class="text-2xl lg:text-3xl font-extrabold text-white leading-tight mb-3 tracking-tight">
+                    Portal Kontrol <br>
+                    <span class="bg-gradient-to-r from-mintGlow to-emeraldBrand bg-clip-text text-transparent">Administrator.</span>
+                </h1>
+                
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                    Akses terproteksi bagi pengelola platform untuk memantau aktivitas emisi, mengelola katalog reward, mengatur faktor emisi, dan audit pengguna.
+                </p>
+            </div>
+
+            <!-- Feature Checkpoints -->
+            <div class="relative z-10 space-y-3.5 my-6">
+                <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-sm">
+                    <div class="w-7 h-7 rounded-lg bg-emeraldBrand/15 border border-emeraldBrand/30 flex items-center justify-center text-mintGlow text-xs shrink-0">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-slate-200">Akses Enkripsi Sesi Khusus Admin</span>
+                </div>
+
+                <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-sm">
+                    <div class="w-7 h-7 rounded-lg bg-emeraldBrand/15 border border-emeraldBrand/30 flex items-center justify-center text-mintGlow text-xs shrink-0">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-slate-200">Manajemen Faktor Emisi & Gamifikasi</span>
+                </div>
+
+                <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-sm">
+                    <div class="w-7 h-7 rounded-lg bg-emeraldBrand/15 border border-emeraldBrand/30 flex items-center justify-center text-mintGlow text-xs shrink-0">
+                        <i class="fa-solid fa-users-gear"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-slate-200">Verifikasi Pengguna & Klaim Rewards</span>
+                </div>
+            </div>
+
+            <!-- Security Badge -->
+            <div class="relative z-10 pt-4 border-t border-white/10 flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-emerald-600/30 border border-emeraldBrand/40 flex items-center justify-center text-mintGlow text-xs">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <div class="text-xs text-slate-300">
+                    <strong class="text-white font-bold">Autentikasi Aman</strong> berstandar TLS/SSL.
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Form Side (7 Columns) -->
+        <section class="lg:col-span-7 p-8 lg:p-12 flex flex-col justify-center bg-[#07140f]/95">
+            <div class="max-w-md mx-auto w-full">
+                
+                <!-- Form Header -->
+                <div class="mb-7 text-center sm:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emeraldBrand/10 border border-emeraldBrand/25 text-mintGlow text-xs font-semibold mb-3">
+                        <i class="fa-solid fa-user-shield text-[11px]"></i>
+                        <span>Otentikasi Pengelola Sistem</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Login Admin</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-1">Masukkan kredensial administrator Anda untuk masuk ke konsol manajemen.</p>
+                </div>
+
+                <!-- Admin Login Form -->
+                <form method="POST" action="{{ route('admin.login.store') }}" class="space-y-4">
+                    @csrf
+
+                    <!-- Email Address -->
+                    <div>
+                        <label for="email" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                            Alamat Email Admin <span class="text-emeraldBrand">*</span>
+                        </label>
+                        <div class="relative">
+                            <i class="fa-solid fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm transition-colors duration-200"></i>
+                            <input type="email" 
+                                   id="email" 
+                                   name="email" 
+                                   value="{{ old('email') }}" 
+                                   placeholder="admin@kahejo.id" 
+                                   required 
+                                   autofocus 
+                                   class="auth-input">
+                        </div>
+                        @error('email')
+                            <p class="mt-1 text-xs text-rose-400 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-exclamation text-[10px]"></i>
+                                <span>{{ $message }}</span>
+                            </p>
+                        @enderror
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label for="password" class="block text-xs font-semibold text-slate-300">
+                                Kata Sandi <span class="text-emeraldBrand">*</span>
+                            </label>
+                        </div>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm transition-colors duration-200"></i>
+                            <input type="password" 
+                                   id="password" 
+                                   name="password" 
+                                   placeholder="Masukkan kata sandi admin Anda" 
+                                   required 
+                                   class="auth-input" 
+                                   style="padding-right: 2.85rem;">
+                            <button type="button" 
+                                    id="togglePassword" 
+                                    class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-mintGlow transition-colors duration-200 focus:outline-none"
+                                    aria-label="Toggle Password Visibility">
+                                <i class="fa-solid fa-eye text-sm"></i>
+                            </button>
+                        </div>
+                        @error('password')
+                            <p class="mt-1 text-xs text-rose-400 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-exclamation text-[10px]"></i>
+                                <span>{{ $message }}</span>
+                            </p>
+                        @enderror
+                    </div>
+
+                    <!-- Remember Me Checkbox -->
+                    <div class="flex items-center justify-between py-1">
+                        <label class="inline-flex items-center gap-2 text-xs text-slate-300 cursor-pointer select-none">
+                            <input type="checkbox" 
+                                   id="remember" 
+                                   name="remember" 
+                                   class="w-4 h-4 rounded border-white/20 bg-white/5 text-emeraldBrand focus:ring-emeraldBrand/30 focus:ring-offset-0 transition-colors">
+                            <span>Ingat Sesi di Perangkat Ini</span>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-2">
+                        <button type="submit" 
+                                class="btn-shimmer w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emeraldBrand to-emeraldDark hover:from-[#18c58f] hover:to-emeraldDark text-white font-bold text-sm tracking-wide shadow-lg shadow-emeraldBrand/30 hover:shadow-xl hover:shadow-emeraldBrand/40 transition-all duration-200 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer">
+                            <i class="fa-solid fa-shield text-xs"></i>
+                            <span>Masuk ke Konsol Admin</span>
+                        </button>
+                    </div>
+
+                    <!-- Switch to Regular User Login -->
+                    <div class="text-center pt-3 border-t border-white/10 space-y-2.5">
+                        <p class="text-xs text-slate-400">
+                            Bukan Administrator? 
+                            <a href="{{ route('login') }}" class="text-mintGlow font-bold hover:text-emeraldBrand hover:underline ml-1 transition-colors">
+                                Masuk sebagai Pengguna Biasa &rarr;
+                            </a>
+                        </p>
+                    </div>
+                </form>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Password Visibility Toggle
+        const toggleBtn = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        if (toggleBtn && passwordInput) {
+            toggleBtn.addEventListener('click', () => {
+                const isPassword = passwordInput.getAttribute('type') === 'password';
+                passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+                const icon = toggleBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-eye', !isPassword);
+                    icon.classList.toggle('fa-eye-slash', isPassword);
+                }
+            });
+        }
+    </script>
 </body>
 </html>

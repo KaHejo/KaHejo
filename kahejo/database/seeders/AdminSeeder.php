@@ -13,17 +13,17 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        // Contoh data admin
-        DB::table('admins')->insert([
+        // Data admin (updateOrInsert agar aman dijalankan berulang kali tanpa duplikasi)
+        DB::table('admins')->updateOrInsert(
+            ['email' => 'adminkahejo@gmail.com'],
             [
                 'name' => 'Admin',
-                'email' => 'adminkahejo@gmail.com',
                 'email_verified_at' => null,
                 'password' => Hash::make('password123'),
                 'remember_token' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]
-        ]);
+        );
     }
 }
