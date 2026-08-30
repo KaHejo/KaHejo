@@ -1,296 +1,359 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - KaHejo</title>
+    <title>Daftar Akun — KaHejo</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#2ecc71',
-                        secondary: '#27ae60',
-                        accent: '#f39c12',
-                        dark: '#2c3e50',
-                        light: '#ecf0f1',
+                        emeraldBrand: '#10b981',
+                        emeraldDark: '#059669',
+                        mintGlow: '#34d399',
+                        obsidianBg: '#050d0a',
                     },
                     fontFamily: {
-                        'poppins': ['Poppins', 'sans-serif'],
-                    },
-                    animation: {
-                        'gradient': 'gradient 8s linear infinite',
-                        'float': 'float 3s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        gradient: {
-                            '0%, 100%': {
-                                'background-size': '200% 200%',
-                                'background-position': 'left center'
-                            },
-                            '50%': {
-                                'background-size': '200% 200%',
-                                'background-position': 'right center'
-                            },
-                        },
-                    },
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
                 }
             }
         }
     </script>
-</head>
-<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen flex items-center justify-center p-4 font-poppins">
-    <!-- Animated Background -->
-    <div class="fixed inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 z-0">
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%232ecc71\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
-    </div>
 
-    <!-- Error Alert -->
+    <!-- Modular Auth Stylesheet -->
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8">
+
+    <!-- Ambient Dynamic Background -->
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+    <div class="ambient-grid"></div>
+
+    <!-- Floating Top Navigation -->
+    <header class="fixed top-5 left-5 right-5 z-50 flex items-center justify-between max-w-6xl mx-auto pointer-events-none">
+        <a href="/" class="pointer-events-auto inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-white/[0.07] hover:bg-white/[0.14] text-white border border-white/15 backdrop-blur-xl text-xs font-semibold tracking-wide transition-all duration-200 hover:-translate-x-0.5 shadow-lg shadow-black/20">
+            <i class="fa-solid fa-arrow-left text-xs text-emeraldBrand"></i>
+            <span>Kembali ke Beranda</span>
+        </a>
+
+        <div class="pointer-events-auto hidden sm:flex items-center gap-2 text-xs text-slate-400 bg-white/[0.05] border border-white/10 px-3.5 py-1.5 rounded-full backdrop-blur-md">
+            <span class="w-2 h-2 rounded-full bg-emeraldBrand animate-pulse"></span>
+            <span>Platform Net-Zero Terpadu</span>
+        </div>
+    </header>
+
+    <!-- Error Alert Notification -->
     @if($errors->any())
-        <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 animate-slideDown">
-            <div class="bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-xl shadow-lg flex items-center backdrop-blur-sm bg-opacity-90 animate-shake">
-                <i class="fas fa-exclamation-circle mr-2"></i>
-                {{ $errors->first() }}
-                <button class="ml-4 text-white hover:text-gray-200 transition-colors duration-200" onclick="this.parentElement.parentElement.remove()">
-                    <i class="fas fa-times"></i>
+        <div class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 animate-slideDown max-w-md w-full px-4">
+            <div class="bg-gradient-to-r from-red-600 to-rose-700 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center justify-between backdrop-blur-xl border border-red-400/30 animate-shake">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-circle-exclamation text-lg text-rose-200"></i>
+                    <span class="text-sm font-medium">{{ $errors->first() }}</span>
+                </div>
+                <button class="text-white/80 hover:text-white transition-colors" onclick="this.parentElement.parentElement.remove()">
+                    <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
         </div>
     @endif
 
-    <div class="w-full max-w-6xl bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row relative z-10 border border-white/20">
-        <!-- Left Side - Branding -->
-        <div class="md:w-1/2 bg-gradient-to-br from-primary to-secondary p-8 md:p-12 flex flex-col justify-center items-center text-white relative overflow-hidden">
-            <div class="absolute inset-0 opacity-10">
-                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23ffffff\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E')]"></div>
-            </div>
-            <div class="relative z-10 text-center">
-                <div class="text-7xl mb-8 animate-float">
-                    <i class="fas fa-leaf"></i>
-                </div>
-                <h2 class="text-5xl font-bold mb-6 text-shadow">Join KaHejo</h2>
-                <p class="text-xl opacity-90 max-w-md leading-relaxed">
-                    Create your account and start your journey to better health. Get personalized recommendations and track your progress.
-                </p>
-                <div class="mt-12 flex space-x-4">
-                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                        <i class="fas fa-heartbeat text-3xl mb-2"></i>
-                        <p class="text-sm">Health Tracking</p>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                        <i class="fas fa-chart-line text-3xl mb-2"></i>
-                        <p class="text-sm">Analytics</p>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center">
-                        <i class="fas fa-bullseye text-3xl mb-2"></i>
-                        <p class="text-sm">Goals</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Main Glass Auth Container -->
+    <main class="w-full max-w-5xl bg-[#091712]/85 backdrop-blur-2xl rounded-3xl shadow-[0_25px_70px_-15px_rgba(0,0,0,0.85)] border border-emeraldBrand/25 overflow-hidden grid grid-cols-1 lg:grid-cols-12 relative z-10 my-16">
+        
+        <!-- Left Showcase Side (5 Columns) -->
+        <section class="lg:col-span-5 bg-gradient-to-br from-[#063b2c]/90 via-[#072a20]/95 to-[#041a13] p-8 lg:p-10 flex flex-col justify-between relative overflow-hidden border-b lg:border-b-0 lg:border-r border-emeraldBrand/20">
+            <!-- Ambient Radial Reflection -->
+            <div class="absolute -top-24 -left-24 w-72 h-72 bg-emeraldBrand/20 rounded-full blur-3xl pointer-events-none"></div>
 
-        <!-- Right Side - Registration Form -->
-        <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-            <div class="max-w-md mx-auto w-full">
-                <div class="text-center mb-8">
-                    <h2 class="text-4xl font-bold text-gray-800 mb-3">Create Account</h2>
-                    <p class="text-gray-600">Please fill in the details to create your account</p>
-                </div>
+            <!-- Brand Header -->
+            <div class="relative z-10">
+                <a href="/" class="inline-flex items-center gap-3 mb-8 group text-decoration-none">
+                    <img src="{{ asset('images/logo.svg') }}" alt="KaHejo Logo" class="w-11 h-11 object-contain drop-shadow-[0_0_12px_rgba(52,211,153,0.5)] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                    <span class="text-2xl font-extrabold tracking-tight text-white">KaHejo</span>
+                </a>
 
-                <form method="POST" action="{{ route('register') }}" class="space-y-6">
-                @csrf
+                <h1 class="text-2xl lg:text-3xl font-extrabold text-white leading-tight mb-3 tracking-tight">
+                    Mulai Perjalanan <br>
+                    <span class="bg-gradient-to-r from-mintGlow to-emeraldBrand bg-clip-text text-transparent">Gaya Hidup Hijau.</span>
+                </h1>
                 
-                    <div class="relative group">
-                        <input type="text" 
-                               class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 bg-white/50 backdrop-blur-sm group-hover:border-primary/50"
-                               id="name" 
-                               name="name" 
-                               value="{{ old('name') }}"
-                               placeholder="Full Name" 
-                               required 
-                               autofocus>
-                        <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-primary transition-colors duration-200"></i>
-                    @error('name')
-                            <p class="mt-2 text-sm text-red-500 flex items-center">
-                                <i class="fas fa-exclamation-circle mr-1"></i>
-                                {{ $message }}
-                            </p>
-                    @enderror
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                    Daftar akun gratis sekarang dan nikmati akses penuh kalkulasi jejak karbon, tracking energi harian, serta konversi aksi hemat emisi menjadi reward nyata.
+                </p>
+            </div>
+
+            <!-- Feature Checkpoints -->
+            <div class="relative z-10 space-y-3.5 my-6">
+                <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-sm">
+                    <div class="w-7 h-7 rounded-lg bg-emeraldBrand/15 border border-emeraldBrand/30 flex items-center justify-center text-mintGlow text-xs shrink-0">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-slate-200">Kalkulasi Karbon Presisi Standar KLHK & IPCC</span>
                 </div>
 
-                    <div class="relative group">
-                        <input type="email" 
-                               class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 bg-white/50 backdrop-blur-sm group-hover:border-primary/50"
-                               id="email" 
-                               name="email" 
-                               value="{{ old('email') }}"
-                               placeholder="Email Address" 
-                               required>
-                        <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-primary transition-colors duration-200"></i>
-                    @error('email')
-                            <p class="mt-2 text-sm text-red-500 flex items-center">
-                                <i class="fas fa-exclamation-circle mr-1"></i>
-                                {{ $message }}
-                            </p>
-                    @enderror
+                <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-sm">
+                    <div class="w-7 h-7 rounded-lg bg-emeraldBrand/15 border border-emeraldBrand/30 flex items-center justify-center text-mintGlow text-xs shrink-0">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-slate-200">Katalog Reward Eksklusif Ramah Lingkungan</span>
                 </div>
 
+                <div class="flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-sm">
+                    <div class="w-7 h-7 rounded-lg bg-emeraldBrand/15 border border-emeraldBrand/30 flex items-center justify-center text-mintGlow text-xs shrink-0">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-slate-200">Tantangan Zero-Waste & Lencana Komunitas</span>
+                </div>
+            </div>
+
+            <!-- Community Live Badge -->
+            <div class="relative z-10 pt-4 border-t border-white/10 flex items-center gap-3">
+                <div class="flex -space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-emerald-700 border-2 border-[#041a13] flex items-center justify-center text-[10px] font-bold text-white">KH</div>
+                    <div class="w-8 h-8 rounded-full bg-emerald-600 border-2 border-[#041a13] flex items-center justify-center text-[10px] font-bold text-white"><i class="fa-solid fa-tree"></i></div>
+                    <div class="w-8 h-8 rounded-full bg-emerald-500 border-2 border-[#041a13] flex items-center justify-center text-[10px] font-bold text-white"><i class="fa-solid fa-seedling"></i></div>
+                </div>
+                <div class="text-xs text-slate-300">
+                    <strong class="text-white font-bold">10.000+</strong> pegiat aktif telah bergabung.
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Form Side (7 Columns) -->
+        <section class="lg:col-span-7 p-8 lg:p-12 flex flex-col justify-center bg-[#07140f]/95">
+            <div class="max-w-md mx-auto w-full">
+                
+                <!-- Form Header -->
+                <div class="mb-7 text-center sm:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emeraldBrand/10 border border-emeraldBrand/25 text-mintGlow text-xs font-semibold mb-3">
+                        <i class="fa-solid fa-shield-halved text-[11px]"></i>
+                        <span>Akses Terenkripsi & Aman</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Buat Akun Baru</h2>
+                    <p class="text-slate-400 text-xs sm:text-sm mt-1">Lengkapi formulir singkat di bawah untuk memulai.</p>
+                </div>
+
+                <!-- Registration Form -->
+                <form method="POST" action="{{ route('register') }}" class="space-y-4">
+                    @csrf
+
+                    <!-- Full Name -->
                     <div>
-                        <div class="relative group">
-                            <input type="password" 
-                                class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 bg-white/50 backdrop-blur-sm group-hover:border-primary/50"
-                                id="password" 
-                                name="password" 
-                                placeholder="Password" 
-                                required>
-                            <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-primary transition-colors duration-200"></i>
-                            <i class="fas fa-eye absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-primary transition-colors duration-200" id="togglePassword"></i>
+                        <label for="name" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                            Nama Lengkap <span class="text-emeraldBrand">*</span>
+                        </label>
+                        <div class="relative">
+                            <i class="fa-solid fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm transition-colors duration-200 group-focus-within:text-emeraldBrand"></i>
+                            <input type="text" 
+                                   id="name" 
+                                   name="name" 
+                                   value="{{ old('name') }}" 
+                                   placeholder="Contoh: Kevin Pratama" 
+                                   required 
+                                   autofocus 
+                                   class="auth-input">
                         </div>
-                        @error('password')
-                            <p class="mt-2 text-sm text-red-500 flex items-center">
-                                <i class="fas fa-exclamation-circle mr-1"></i>
-                                {{ $message }}
+                        @error('name')
+                            <p class="mt-1 text-xs text-rose-400 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-exclamation text-[10px]"></i>
+                                <span>{{ $message }}</span>
                             </p>
                         @enderror
-                        <div class="mt-2">
-                            <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
-                                <div class="h-full bg-primary transition-all duration-300" id="passwordStrength"></div>
-                            </div>
-                            <div class="mt-2 text-sm text-gray-500" id="passwordStrengthText"></div>
-                        </div>
                     </div>
 
+                    <!-- Email Address -->
                     <div>
-                        <div class="relative group">
+                        <label for="email" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                            Alamat Email <span class="text-emeraldBrand">*</span>
+                        </label>
+                        <div class="relative">
+                            <i class="fa-solid fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm transition-colors duration-200"></i>
+                            <input type="email" 
+                                   id="email" 
+                                   name="email" 
+                                   value="{{ old('email') }}" 
+                                   placeholder="nama@email.com" 
+                                   required 
+                                   class="auth-input">
+                        </div>
+                        @error('email')
+                            <p class="mt-1 text-xs text-rose-400 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-exclamation text-[10px]"></i>
+                                <span>{{ $message }}</span>
+                            </p>
+                        @enderror
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                            Kata Sandi <span class="text-emeraldBrand">*</span>
+                        </label>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm transition-colors duration-200"></i>
                             <input type="password" 
-                                class="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 bg-white/50 backdrop-blur-sm group-hover:border-primary/50"
-                                id="password_confirmation" 
-                                name="password_confirmation" 
-                                placeholder="Confirm Password" 
-                                required>
-                            <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-primary transition-colors duration-200"></i>
-                            <i class="fas fa-eye absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-primary transition-colors duration-200" id="toggleConfirmPassword"></i>
+                                   id="password" 
+                                   name="password" 
+                                   placeholder="Minimal 8 karakter" 
+                                   required 
+                                   class="auth-input" 
+                                   style="padding-right: 2.85rem;">
+                            <button type="button" 
+                                    id="togglePassword" 
+                                    class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-mintGlow transition-colors duration-200 focus:outline-none"
+                                    aria-label="Toggle Password Visibility">
+                                <i class="fa-solid fa-eye text-sm"></i>
+                            </button>
+                        </div>
+                        @error('password')
+                            <p class="mt-1 text-xs text-rose-400 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-exclamation text-[10px]"></i>
+                                <span>{{ $message }}</span>
+                            </p>
+                        @enderror
+
+                        <!-- Password Strength Gauge -->
+                        <div class="mt-2">
+                            <div class="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
+                                <div id="passwordStrengthBar" class="h-full w-0 bg-emeraldBrand transition-all duration-300"></div>
+                            </div>
+                            <p id="passwordStrengthLabel" class="text-[11px] text-slate-400 font-medium mt-1">Masukkan kata sandi yang kuat</p>
                         </div>
                     </div>
 
-                    <button type="submit" 
-                            class="w-full py-4 px-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center group">
-                        <i class="fas fa-user-plus mr-2 group-hover:rotate-12 transition-transform duration-200"></i>
-                        Create Account
-                </button>
+                    <!-- Confirm Password -->
+                    <div>
+                        <label for="password_confirmation" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                            Konfirmasi Kata Sandi <span class="text-emeraldBrand">*</span>
+                        </label>
+                        <div class="relative">
+                            <i class="fa-solid fa-shield-check absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm transition-colors duration-200"></i>
+                            <input type="password" 
+                                   id="password_confirmation" 
+                                   name="password_confirmation" 
+                                   placeholder="Ulangi kata sandi Anda" 
+                                   required 
+                                   class="auth-input" 
+                                   style="padding-right: 2.85rem;">
+                            <button type="button" 
+                                    id="toggleConfirmPassword" 
+                                    class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-mintGlow transition-colors duration-200 focus:outline-none"
+                                    aria-label="Toggle Confirm Password Visibility">
+                                <i class="fa-solid fa-eye text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
 
-                    <div class="text-center space-y-4">
-                        <p class="text-gray-600">
-                            Already have an account? 
-                            <a href="{{ route('login') }}" class="text-primary font-semibold hover:text-secondary transition-colors duration-200">
-                                Login here
+                    <!-- Submit Button -->
+                    <div class="pt-2">
+                        <button type="submit" 
+                                class="btn-shimmer w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emeraldBrand to-emeraldDark hover:from-[#18c58f] hover:to-emeraldDark text-white font-bold text-sm tracking-wide shadow-lg shadow-emeraldBrand/30 hover:shadow-xl hover:shadow-emeraldBrand/40 transition-all duration-200 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer">
+                            <i class="fa-solid fa-user-plus text-xs"></i>
+                            <span>Daftar Sekarang — Gratis</span>
+                        </button>
+                    </div>
+
+                    <!-- Switch to Login -->
+                    <div class="text-center pt-3 border-t border-white/10">
+                        <p class="text-xs text-slate-400">
+                            Sudah memiliki akun? 
+                            <a href="{{ route('login') }}" class="text-mintGlow font-bold hover:text-emeraldBrand hover:underline ml-1 transition-colors">
+                                Masuk ke Akun
                             </a>
                         </p>
-                </div>
-            </form>
+                    </div>
+                </form>
+
             </div>
-        </div>
-    </div>
+        </section>
 
-    <style>
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        @keyframes slideDown {
-            from { transform: translate(-50%, -100%); opacity: 0; }
-            to { transform: translate(-50%, 0); opacity: 1; }
-        }
-        @keyframes shake {
-            0%, 100% { transform: translate(-50%, 0); }
-            25% { transform: translate(-52%, 0); }
-            75% { transform: translate(-48%, 0); }
-        }
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-        .animate-slideDown {
-            animation: slideDown 0.5s ease-out;
-        }
-        .animate-shake {
-            animation: shake 0.5s ease-in-out;
-        }
-        .text-shadow {
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-    </style>
+    </main>
 
+    <!-- Interactive Scripts -->
     <script>
-        // Password visibility toggle
-        const togglePassword = document.getElementById('togglePassword');
-        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-        const password = document.getElementById('password');
-        const confirmPassword = document.getElementById('password_confirmation');
-        const passwordStrength = document.getElementById('passwordStrength');
-        const passwordStrengthText = document.getElementById('passwordStrengthText');
-        
-        togglePassword.addEventListener('click', function() {
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-            this.classList.toggle('fa-eye');
-            this.classList.toggle('fa-eye-slash');
-        });
-        
-        toggleConfirmPassword.addEventListener('click', function() {
-            const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-            confirmPassword.setAttribute('type', type);
-            this.classList.toggle('fa-eye');
-            this.classList.toggle('fa-eye-slash');
-        });
+        // 1. Password Visibility Toggles
+        function setupToggle(toggleId, inputId) {
+            const btn = document.getElementById(toggleId);
+            const input = document.getElementById(inputId);
+            if (!btn || !input) return;
 
-        // Password strength checker
-        password.addEventListener('input', function() {
-            const value = this.value;
-            let strength = 0;
-            let feedback = '';
+            btn.addEventListener('click', () => {
+                const isPassword = input.getAttribute('type') === 'password';
+                input.setAttribute('type', isPassword ? 'text' : 'password');
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-eye', !isPassword);
+                    icon.classList.toggle('fa-eye-slash', isPassword);
+                }
+            });
+        }
 
-            // Length check
-            if (value.length >= 8) strength += 25;
-            // Uppercase check
-            if (/[A-Z]/.test(value)) strength += 25;
-            // Lowercase check
-            if (/[a-z]/.test(value)) strength += 25;
-            // Number check
-            if (/[0-9]/.test(value)) strength += 25;
-            
-            // Update strength bar
-            passwordStrength.style.width = strength + '%';
+        setupToggle('togglePassword', 'password');
+        setupToggle('toggleConfirmPassword', 'password_confirmation');
 
-            // Update strength text and color
-            if (strength <= 25) {
-                passwordStrength.className = 'h-full bg-red-500 transition-all duration-300';
-                feedback = 'Weak password';
-            } else if (strength <= 50) {
-                passwordStrength.className = 'h-full bg-yellow-500 transition-all duration-300';
-                feedback = 'Medium password';
-            } else if (strength <= 75) {
-                passwordStrength.className = 'h-full bg-blue-500 transition-all duration-300';
-                feedback = 'Good password';
-            } else {
-                passwordStrength.className = 'h-full bg-green-500 transition-all duration-300';
-                feedback = 'Strong password';
-            }
+        // 2. Real-time Password Strength Meter
+        const passwordInput = document.getElementById('password');
+        const bar = document.getElementById('passwordStrengthBar');
+        const label = document.getElementById('passwordStrengthLabel');
 
-            passwordStrengthText.textContent = feedback;
-        });
-        
-        // Password confirmation check
-        confirmPassword.addEventListener('input', function() {
-            if (this.value !== password.value) {
-                this.setCustomValidity('Passwords do not match');
-            } else {
-                this.setCustomValidity('');
-            }
-        });
+        if (passwordInput && bar && label) {
+            passwordInput.addEventListener('input', () => {
+                const val = passwordInput.value;
+                let score = 0;
+
+                if (val.length >= 8) score += 25;
+                if (/[A-Z]/.test(val)) score += 25;
+                if (/[0-9]/.test(val)) score += 25;
+                if (/[^A-Za-z0-9]/.test(val)) score += 25;
+
+                bar.style.width = score + '%';
+
+                if (score === 0) {
+                    bar.className = 'h-full w-0 bg-transparent transition-all duration-300';
+                    label.innerText = 'Masukkan kata sandi yang kuat';
+                    label.className = 'text-[11px] text-slate-400 font-medium mt-1';
+                } else if (score <= 25) {
+                    bar.className = 'h-full bg-rose-500 transition-all duration-300';
+                    label.innerText = 'Kekuatan kata sandi: Lemah';
+                    label.className = 'text-[11px] text-rose-400 font-semibold mt-1';
+                } else if (score <= 50) {
+                    bar.className = 'h-full bg-amber-500 transition-all duration-300';
+                    label.innerText = 'Kekuatan kata sandi: Sedang';
+                    label.className = 'text-[11px] text-amber-400 font-semibold mt-1';
+                } else if (score <= 75) {
+                    bar.className = 'h-full bg-sky-400 transition-all duration-300';
+                    label.innerText = 'Kekuatan kata sandi: Baik';
+                    label.className = 'text-[11px] text-sky-400 font-semibold mt-1';
+                } else {
+                    bar.className = 'h-full bg-emeraldBrand transition-all duration-300';
+                    label.innerText = 'Kekuatan kata sandi: Sangat Kuat 🛡️';
+                    label.className = 'text-[11px] text-mintGlow font-semibold mt-1';
+                }
+            });
+        }
+
+        // 3. Confirm Password Validator
+        const confirmInput = document.getElementById('password_confirmation');
+        if (confirmInput && passwordInput) {
+            confirmInput.addEventListener('input', () => {
+                if (confirmInput.value !== passwordInput.value) {
+                    confirmInput.setCustomValidity('Konfirmasi kata sandi tidak cocok');
+                } else {
+                    confirmInput.setCustomValidity('');
+                }
+            });
+        }
     </script>
 </body>
 </html>

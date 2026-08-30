@@ -3,257 +3,307 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-    <!-- Welcome Section -->
-    <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-dark-text-primary">Welcome back, {{ Auth::user()->name }}!</h1>
-        <p class="mt-2 text-gray-600 dark:text-dark-text-secondary">Here's what's happening with your carbon footprint today.</p>
+<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-8">
+    
+    <!-- Welcome Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emeraldBrand/10 border border-emeraldBrand/25 text-mintGlow text-xs font-semibold mb-2">
+                <span class="w-2 h-2 rounded-full bg-emeraldBrand animate-pulse"></span>
+                <span>Live Carbon Tracking</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Welcome back, <span class="bg-gradient-to-r from-mintGlow to-emeraldBrand bg-clip-text text-transparent">{{ Auth::user()->name }}</span>!
+            </h1>
+            <p class="mt-1 text-sm text-slate-400">Pantau perkembangan jejak karbon dan efisiensi energi harian Anda secara real-time.</p>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <a href="{{ route('carbon') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emeraldBrand to-emeraldDark hover:from-[#18c58f] hover:to-emeraldDark text-white text-xs font-bold tracking-wide shadow-lg shadow-emeraldBrand/25 hover:shadow-emeraldBrand/40 transition-all duration-200 hover:-translate-y-0.5">
+                <i class="fa-solid fa-plus text-xs"></i>
+                <span>Hitung Emisi Baru</span>
+            </a>
+            <a href="{{ route('achievements') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-slate-300 hover:text-white border border-white/10 text-xs font-semibold transition-all duration-200">
+                <i class="fa-solid fa-trophy text-amber-400 text-xs"></i>
+                <span>Poin & Reward</span>
+            </a>
+        </div>
     </div>
 
-    <!-- Stats Cards -->
+    <!-- 4 Compact Stats Cards (Obsidian Emerald Glass) -->
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <!-- Card 1 -->
-        <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
-            <div class="p-5">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                            <i class="fas fa-leaf text-green-600 dark:text-green-400 text-2xl"></i>
-                        </div>
-                    </div>
-                    <div class="ml-5 w-0 flex-1">
-                        <dl>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Total Carbon Footprint</dt>
-                            <dd class="flex items-baseline">
-                                <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['totalCarbonFootprint'], 2) }} kg</div>
-                            </dd>
-                            <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">Last 12 months</dd>
-                        </dl>
-                    </div>
+        
+        <!-- Card 1: Total Carbon Footprint -->
+        <div class="glass-card p-5 relative overflow-hidden group">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 tracking-wide uppercase">Total Carbon Footprint</p>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1.5 tracking-tight">
+                        {{ number_format($stats['totalCarbonFootprint'], 2) }} <span class="text-sm font-semibold text-mintGlow">kg</span>
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5">
+                        <i class="fa-regular fa-clock text-[10px]"></i>
+                        <span>12 Bulan Terakhir</span>
+                    </p>
                 </div>
+                <div class="w-12 h-12 rounded-2xl bg-emeraldBrand/15 border border-emeraldBrand/30 flex items-center justify-center text-mintGlow text-xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-md shadow-emeraldBrand/20 shrink-0">
+                    <i class="fa-solid fa-leaf"></i>
+                </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/[0.07] flex items-center justify-between text-[11px]">
+                <span class="text-slate-400">Status Emisi</span>
+                <span class="font-bold text-mintGlow">Terkontrol</span>
             </div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
-            <div class="p-5">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                            <i class="fas fa-chart-line text-green-600 dark:text-green-400 text-2xl"></i>
-                        </div>
-                    </div>
-                    <div class="ml-5 w-0 flex-1">
-                        <dl>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Monthly Average</dt>
-                            <dd class="flex items-baseline">
-                                <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['averageMonthlyFootprint'], 2) }} kg</div>
-                            </dd>
-                            <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">Based on monthly records</dd>
-                        </dl>
-                    </div>
+        <!-- Card 2: Monthly Average -->
+        <div class="glass-card p-5 relative overflow-hidden group">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 tracking-wide uppercase">Rata-Rata Bulanan</p>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1.5 tracking-tight">
+                        {{ number_format($stats['averageMonthlyFootprint'], 2) }} <span class="text-sm font-semibold text-sky-400">kg</span>
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-calculator text-[10px]"></i>
+                        <span>Berdasarkan riwayat data</span>
+                    </p>
                 </div>
+                <div class="w-12 h-12 rounded-2xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 text-xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-md shadow-sky-500/20 shrink-0">
+                    <i class="fa-solid fa-chart-simple"></i>
+                </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/[0.07] flex items-center justify-between text-[11px]">
+                <span class="text-slate-400">Performa</span>
+                <span class="font-bold text-sky-400">Stabil</span>
             </div>
         </div>
 
-        <!-- Card 3 -->
-        <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
-            <div class="p-5">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                            <i class="fas fa-calendar-alt text-green-600 dark:text-green-400 text-2xl"></i>
-                        </div>
-                    </div>
-                    <div class="ml-5 w-0 flex-1">
-                        <dl>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Last Month</dt>
-                            <dd class="flex items-baseline">
-                                <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lastMonthFootprint'], 2) }} kg</div>
-                            </dd>
-                            <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">{{ $carbonHistory->first()['date'] ?? 'No data' }}</dd>
-                        </dl>
-                    </div>
+        <!-- Card 3: Last Month -->
+        <div class="glass-card p-5 relative overflow-hidden group">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 tracking-wide uppercase">Bulan Terakhir</p>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1.5 tracking-tight">
+                        {{ number_format($stats['lastMonthFootprint'], 2) }} <span class="text-sm font-semibold text-amber-400">kg</span>
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5 truncate max-w-[140px]">
+                        <i class="fa-regular fa-calendar text-[10px]"></i>
+                        <span>{{ $carbonHistory->first()['date'] ?? 'Belum ada data' }}</span>
+                    </p>
                 </div>
+                <div class="w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-md shadow-amber-500/20 shrink-0">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-white/[0.07] flex items-center justify-between text-[11px]">
+                <span class="text-slate-400">Siklus</span>
+                <span class="font-bold text-amber-400">Tercatat</span>
             </div>
         </div>
 
-        <!-- Card 4 -->
-        <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
-            <div class="p-5">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                            <i class="fas fa-arrow-trend-up text-green-600 dark:text-green-400 text-2xl"></i>
-                        </div>
-                    </div>
-                    <div class="ml-5 w-0 flex-1">
-                        <dl>
-                            <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary truncate">Improvement</dt>
-                            <dd class="flex items-baseline">
-                                <div class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['improvement'] ?? 0, 2) }}%</div>
-                            </dd>
-                            <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">Compared to last month</dd>
-                        </dl>
-                    </div>
+        <!-- Card 4: Improvement -->
+        <div class="glass-card p-5 relative overflow-hidden group">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 tracking-wide uppercase">Efisiensi / Improvement</p>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1.5 tracking-tight">
+                        {{ number_format($stats['improvement'] ?? 0, 2) }}<span class="text-sm font-semibold text-mintGlow">%</span>
+                    </h3>
+                    <p class="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-arrow-trend-up text-[10px] text-mintGlow"></i>
+                        <span>Dibanding bulan lalu</span>
+                    </p>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-emeraldBrand/15 border border-emeraldBrand/30 flex items-center justify-center text-mintGlow text-xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300 shadow-md shadow-emeraldBrand/20 shrink-0">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
                 </div>
             </div>
+            <div class="mt-4 pt-3 border-t border-white/[0.07] flex items-center justify-between text-[11px]">
+                <span class="text-slate-400">Dampak</span>
+                <span class="font-bold text-mintGlow">Positif 🌱</span>
+            </div>
         </div>
+
     </div>
 
-    <!-- Lowest Carbon Footprint Card -->
-    <div class="mt-8">
-        <div class="card-hover bg-white dark:bg-dark-bg-secondary overflow-hidden shadow rounded-lg border border-gray-100 dark:border-dark-border">
-            <div class="px-4 py-5 sm:px-6 border-b border-gray-100 dark:border-dark-border">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-dark-text-primary">Lowest Carbon Footprint Achievement</h3>
-                <p class="mt-1 text-sm text-gray-500 dark:text-dark-text-secondary">Your best performance in reducing carbon emissions</p>
+    <!-- Lowest Carbon Footprint Achievement Card -->
+    <div class="glass-card p-6 sm:p-7 relative overflow-hidden">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/10">
+            <div class="flex items-start sm:items-center gap-4">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/25 to-yellow-600/10 border border-amber-400/30 flex items-center justify-center text-amber-400 text-2xl shadow-lg shadow-amber-500/20 shrink-0">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <div>
+                    <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[10px] font-bold uppercase tracking-wider mb-1">
+                        Best Performance Record
+                    </div>
+                    <h3 class="text-xl font-extrabold text-white tracking-tight">Lowest Carbon Footprint Achievement</h3>
+                    <p class="text-xs text-slate-400 mt-0.5">Rekor emisi terendah yang berhasil Anda capai dalam pengelolaan jejak karbon.</p>
+                </div>
             </div>
-            <div class="p-5">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Main Achievement -->
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <div class="p-4 rounded-full bg-green-50 dark:bg-green-900/30">
-                                <i class="fas fa-trophy text-green-600 dark:text-green-400 text-3xl"></i>
-                            </div>
-                        </div>
-                        <div class="ml-5">
-                            <dl>
-                                <dt class="text-sm font-medium text-gray-500 dark:text-dark-text-secondary">Lowest Carbon Footprint</dt>
-                                <dd class="flex items-baseline">
-                                    <div class="text-3xl font-bold text-gray-900 dark:text-dark-text-primary">{{ number_format($stats['lowestFootprint']['value'] ?? 0, 2) }} kg</div>
-                                </dd>
-                                <dd class="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">Achieved on {{ $stats['lowestFootprint']['date'] ?? 'No data' }}</dd>
-                            </dl>
-                        </div>
-                    </div>
 
-                    <!-- Additional Details -->
-                    <div class="space-y-4">
-                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Improvement from Average</p>
-                                    <p class="text-xl font-semibold text-green-600 dark:text-green-400">
-                                        @if($stats['averageMonthlyFootprint'] > 0)
-                                            {{ number_format((($stats['averageMonthlyFootprint'] - ($stats['lowestFootprint']['value'] ?? 0)) / $stats['averageMonthlyFootprint']) * 100, 1) }}%
-                                        @else
-                                            0%
-                                        @endif
-                                    </p>
-                                </div>
-                                <div class="p-2 rounded-full bg-green-50 dark:bg-green-900/30">
-                                    <i class="fas fa-arrow-trend-down text-green-600 dark:text-green-400 text-xl"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Carbon Saved</p>
-                                    <p class="text-xl font-semibold text-gray-900 dark:text-dark-text-primary">
-                                        @if($stats['averageMonthlyFootprint'] > 0)
-                                            {{ number_format((($stats['averageMonthlyFootprint'] - ($stats['lowestFootprint']['value'] ?? 0)) / $stats['averageMonthlyFootprint']) * 100, 1) }}%
-                                        @else
-                                            0%
-                                        @endif
-                                    </p>
-                                </div>
-                                <div class="p-2 rounded-full bg-blue-50 dark:bg-blue-900/30">
-                                    <i class="fas fa-leaf text-blue-600 dark:text-blue-400 text-xl"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="bg-white/[0.04] border border-white/10 rounded-2xl px-5 py-3 flex items-center gap-4 self-start lg:self-auto">
+                <div>
+                    <span class="text-[11px] font-semibold text-slate-400 block uppercase tracking-wider">Rekor Terbaik</span>
+                    <span class="text-2xl font-black text-white">
+                        {{ number_format($stats['lowestFootprint']['value'] ?? 0, 2) }} <span class="text-sm font-semibold text-amber-400">kg CO₂</span>
+                    </span>
+                </div>
+                <div class="text-[11px] text-slate-400 border-l border-white/10 pl-4">
+                    <span class="block">Tercapai pada:</span>
+                    <span class="font-semibold text-white">{{ $stats['lowestFootprint']['date'] ?? 'Belum ada rekor' }}</span>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Recent Activities -->
-    <div class="mt-8">
-        <h2 class="text-lg font-semibold text-gray-900 dark:text-dark-text-primary mb-4">Recent Activities</h2>
-        <div class="bg-white dark:bg-dark-bg-secondary shadow rounded-lg divide-y divide-gray-200 dark:divide-dark-border">
-            @forelse($activities as $activity)
-                <div class="p-4 flex items-center">
-                    <div class="flex-shrink-0">
-                        <div class="p-2 rounded-full bg-{{ $activity['color'] }}-50 dark:bg-{{ $activity['color'] }}-900/30">
-                            <i class="fas fa-{{ $activity['icon'] }} text-{{ $activity['color'] }}-600 dark:text-{{ $activity['color'] }}-400"></i>
-                        </div>
-                    </div>
-                    <div class="ml-4 flex-1">
-                        <p class="text-sm font-medium text-gray-900 dark:text-dark-text-primary">{{ $activity['title'] }}</p>
-                        <p class="text-sm text-gray-500 dark:text-dark-text-secondary">{{ $activity['time'] }}</p>
-                        @if(isset($activity['value']))
-                            <p class="text-sm text-gray-600 dark:text-dark-text-secondary">Carbon footprint: {{ number_format($activity['value'], 2) }} kg</p>
+        <!-- 2 Comparison Metrics -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] hover:border-emeraldBrand/30 transition-colors flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold text-slate-400">Penurunan dari Rata-Rata</p>
+                    <p class="text-2xl font-extrabold text-mintGlow mt-1">
+                        @if($stats['averageMonthlyFootprint'] > 0)
+                            {{ number_format((($stats['averageMonthlyFootprint'] - ($stats['lowestFootprint']['value'] ?? 0)) / $stats['averageMonthlyFootprint']) * 100, 1) }}%
+                        @else
+                            0%
                         @endif
+                    </p>
+                    <p class="text-[10px] text-slate-500 mt-0.5">Lebih hemat dari pengeluaran rata-rata</p>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-emeraldBrand/15 border border-emeraldBrand/30 flex items-center justify-center text-mintGlow">
+                    <i class="fa-solid fa-arrow-trend-down text-base"></i>
+                </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] hover:border-sky-500/30 transition-colors flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold text-slate-400">Total Karbon Dihemat</p>
+                    <p class="text-2xl font-extrabold text-sky-400 mt-1">
+                        @if($stats['averageMonthlyFootprint'] > 0)
+                            {{ number_format((($stats['averageMonthlyFootprint'] - ($stats['lowestFootprint']['value'] ?? 0)) / $stats['averageMonthlyFootprint']) * 100, 1) }}%
+                        @else
+                            0%
+                        @endif
+                    </p>
+                    <p class="text-[10px] text-slate-500 mt-0.5">Kontribusi langsung perlindungan iklim</p>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400">
+                    <i class="fa-solid fa-seedling text-base"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activities Section -->
+    <div class="glass-card p-6 sm:p-7">
+        <div class="flex items-center justify-between mb-5">
+            <div>
+                <h3 class="text-lg font-extrabold text-white tracking-tight">Recent Activities</h3>
+                <p class="text-xs text-slate-400 mt-0.5">Aktivitas penghitungan emisi dan interaksi akun terkini.</p>
+            </div>
+            <span class="text-xs text-mintGlow font-semibold bg-emeraldBrand/10 px-3 py-1 rounded-full border border-emeraldBrand/25">
+                Real-Time Logs
+            </span>
+        </div>
+
+        <div class="divide-y divide-white/[0.07]">
+            @forelse($activities as $activity)
+                <div class="py-3.5 flex items-center justify-between group hover:bg-white/[0.02] px-2 rounded-xl transition-colors">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-9 h-9 rounded-xl bg-emeraldBrand/15 border border-emeraldBrand/25 flex items-center justify-center text-mintGlow text-sm shrink-0 group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-{{ $activity['icon'] }}"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-white group-hover:text-mintGlow transition-colors">{{ $activity['title'] }}</p>
+                            <p class="text-xs text-slate-400 mt-0.5">{{ $activity['time'] }}</p>
+                        </div>
                     </div>
+                    @if(isset($activity['value']))
+                        <div class="text-right">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-white/[0.05] border border-white/10 text-white">
+                                {{ number_format($activity['value'], 2) }} kg
+                            </span>
+                        </div>
+                    @endif
                 </div>
             @empty
-                <div class="p-4 text-center text-gray-500 dark:text-dark-text-secondary">
-                    No recent activities found.
+                <div class="py-8 text-center text-slate-500 text-sm">
+                    <i class="fa-regular fa-folder-open text-2xl mb-2 block"></i>
+                    Belum ada riwayat aktivitas terbaru yang tercatat.
                 </div>
             @endforelse
         </div>
     </div>
 
-    <!-- Carbon Footprint History -->
-    <div class="mt-8">
-        <div class="bg-white dark:bg-dark-bg-secondary shadow rounded-lg border border-gray-100 dark:border-dark-border">
-            <div class="px-4 py-5 sm:px-6">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-dark-text-primary">Carbon Footprint History</h3>
-                <p class="mt-1 text-sm text-gray-500 dark:text-dark-text-secondary">Your carbon footprint trends over the last 12 months.</p>
+    <!-- Carbon Footprint History Chart -->
+    <div class="glass-card p-6 sm:p-7">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+            <div>
+                <h3 class="text-lg font-extrabold text-white tracking-tight">Carbon Footprint History</h3>
+                <p class="text-xs text-slate-400 mt-0.5">Tren emisi karbon bulanan Anda dalam 12 bulan terakhir berdasarkan kategori.</p>
             </div>
-            <div class="border-t border-gray-100 dark:border-dark-border px-4 py-5 sm:p-6">
-                <div class="h-96">
-                    <canvas id="carbonChart"></canvas>
+            <div class="flex items-center gap-2 text-xs font-semibold text-slate-400 bg-white/[0.04] px-3 py-1.5 rounded-xl border border-white/10 self-start sm:self-auto">
+                <span class="w-2 h-2 rounded-full bg-mintGlow"></span>
+                <span>Satuan: kg CO₂e</span>
+            </div>
+        </div>
+
+        <div class="h-80 sm:h-96 w-full">
+            <canvas id="carbonChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Energy Consumption Analysis -->
+    <div class="glass-card p-6 sm:p-7">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+            <div>
+                <h3 class="text-lg font-extrabold text-white tracking-tight">Energy Consumption Analysis</h3>
+                <p class="text-xs text-slate-400 mt-0.5">Evaluasi pemakaian listrik, gas, dan air untuk efisiensi utilitas rumah tangga.</p>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-semibold text-slate-400 bg-white/[0.04] px-3 py-1.5 rounded-xl border border-white/10 self-start sm:self-auto">
+                <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                <span>Satuan: kWh</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <!-- Main Chart (8 cols) -->
+            <div class="lg:col-span-8 h-80 sm:h-96">
+                <canvas id="energyChart"></canvas>
+            </div>
+
+            <!-- Stats Summary Cards (4 cols) -->
+            <div class="lg:col-span-4 space-y-4">
+                <div class="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-amber-400/30 transition-colors flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-400">Total Penggunaan Energi</p>
+                        <p class="text-2xl font-extrabold text-white mt-1">
+                            {{ number_format($energyStats['totalUsage'] ?? 0, 2) }} <span class="text-xs font-semibold text-amber-400">kWh</span>
+                        </p>
+                        <p class="text-[10px] text-slate-500 mt-0.5">Akumulasi seluruh sumber energi</p>
+                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 text-lg">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-emeraldBrand/30 transition-colors flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold text-slate-400">Rata-rata Penggunaan Harian</p>
+                        <p class="text-2xl font-extrabold text-white mt-1">
+                            {{ number_format($energyStats['averageDaily'] ?? 0, 2) }} <span class="text-xs font-semibold text-mintGlow">kWh</span>
+                        </p>
+                        <p class="text-[10px] text-slate-500 mt-0.5">Konsumsi stabil harian</p>
+                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-emeraldBrand/15 border border-emeraldBrand/30 flex items-center justify-center text-mintGlow text-lg">
+                        <i class="fa-solid fa-gauge-high"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Energy Consumption Visualization -->
-    <div class="mt-8">
-        <div class="bg-white dark:bg-dark-bg-secondary shadow rounded-lg border border-gray-100 dark:border-dark-border">
-            <div class="px-4 py-5 sm:px-6">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-dark-text-primary">Energy Consumption Analysis</h3>
-                <p class="mt-1 text-sm text-gray-500 dark:text-dark-text-secondary">Track your energy usage patterns and identify optimization opportunities.</p>
-            </div>
-            <div class="border-t border-gray-100 dark:border-dark-border px-4 py-5 sm:p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Main Chart -->
-                    <div class="h-96">
-                        <canvas id="energyChart"></canvas>
-                    </div>
-                    <!-- Stats Cards -->
-                    <div class="space-y-4">
-                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Total Energy Usage</p>
-                                    <p class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($energyStats['totalUsage'] ?? 0, 2) }} kWh</p>
-                                </div>
-                                <div class="p-3 rounded-full bg-blue-50 dark:bg-blue-900/30">
-                                    <i class="fas fa-bolt text-blue-600 dark:text-blue-400 text-xl"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 dark:bg-dark-bg-primary p-4 rounded-lg">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Average Daily Usage</p>
-                                    <p class="text-2xl font-semibold text-gray-900 dark:text-dark-text-primary">{{ number_format($energyStats['averageDaily'] ?? 0, 2) }} kWh</p>
-                                </div>
-                                <div class="p-3 rounded-full bg-green-50 dark:bg-green-900/30">
-                                    <i class="fas fa-chart-line text-green-600 dark:text-green-400 text-xl"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 @endsection
 
@@ -261,7 +311,7 @@
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Prepare data for the chart
+    // Prepare data for Carbon Chart
     const carbonData = @json($carbonHistory);
     const dates = carbonData.map(item => item.date);
     const totals = carbonData.map(item => item.total);
@@ -270,238 +320,170 @@
     const waste = carbonData.map(item => item.waste);
     const water = carbonData.map(item => item.water);
 
-    // Chart configuration
-    const chartConfig = {
-        type: 'line',
-        data: {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Total',
-                    data: totals,
-                    borderColor: 'rgb(34, 197, 94)',
-                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
-                    tension: 0.4,
-                    fill: true
-                },
-                {
-                    label: 'Electricity',
-                    data: electricity,
-                    borderColor: 'rgb(234, 179, 8)',
-                    backgroundColor: 'rgba(234, 179, 8, 0.1)',
-                    tension: 0.4,
-                    fill: true
-                },
-                {
-                    label: 'Transportation',
-                    data: transportation,
-                    borderColor: 'rgb(59, 130, 246)',
-                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    tension: 0.4,
-                    fill: true
-                },
-                {
-                    label: 'Waste',
-                    data: waste,
-                    borderColor: 'rgb(239, 68, 68)',
-                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                    tension: 0.4,
-                    fill: true
-                },
-                {
-                    label: 'Water',
-                    data: water,
-                    borderColor: 'rgb(168, 85, 247)',
-                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
-                    tension: 0.4,
-                    fill: true
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: {
-                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
+    const carbonChartCtx = document.getElementById('carbonChart');
+    if (carbonChartCtx) {
+        new Chart(carbonChartCtx, {
+            type: 'line',
+            data: {
+                labels: dates.length ? dates : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [
+                    {
+                        label: 'Total Emisi',
+                        data: totals.length ? totals : [0, 0, 0, 0, 0, 0],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.12)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#34d399',
+                        pointBorderColor: '#050d0a',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Listrik',
+                        data: electricity.length ? electricity : [0, 0, 0, 0, 0, 0],
+                        borderColor: '#fbbf24',
+                        backgroundColor: 'rgba(251, 191, 36, 0.08)',
+                        borderWidth: 2,
+                        borderDash: [4, 4],
+                        tension: 0.3,
+                        fill: false
+                    },
+                    {
+                        label: 'Transportasi',
+                        data: transportation.length ? transportation : [0, 0, 0, 0, 0, 0],
+                        borderColor: '#38bdf8',
+                        backgroundColor: 'rgba(56, 189, 248, 0.08)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: false
+                    },
+                    {
+                        label: 'Sampah',
+                        data: waste.length ? waste : [0, 0, 0, 0, 0, 0],
+                        borderColor: '#f87171',
+                        backgroundColor: 'rgba(248, 113, 113, 0.08)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: false
                     }
-                },
-                title: {
-                    display: true,
-                    text: 'Monthly Carbon Footprint (kg CO₂)',
-                    color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
-                }
+                ]
             },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'kg CO₂',
-                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#94a3b8',
+                            font: { family: 'Plus Jakarta Sans', size: 12, weight: 600 },
+                            usePointStyle: true,
+                            boxWidth: 8
+                        }
                     },
-                    ticks: {
-                        color: document.documentElement.classList.contains('dark') ? '#a0aec0' : '#6B7280'
-                    },
-                    grid: {
-                        color: document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                    tooltip: {
+                        backgroundColor: 'rgba(5, 13, 10, 0.95)',
+                        titleColor: '#ffffff',
+                        bodyColor: '#34d399',
+                        borderColor: 'rgba(52, 211, 153, 0.3)',
+                        borderWidth: 1,
+                        padding: 10,
+                        cornerRadius: 12
                     }
                 },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Month',
-                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#64748b', font: { family: 'Plus Jakarta Sans', size: 11 } },
+                        grid: { color: 'rgba(255, 255, 255, 0.06)' }
                     },
-                    ticks: {
-                        color: document.documentElement.classList.contains('dark') ? '#a0aec0' : '#6B7280',
-                        maxRotation: 45,
-                        minRotation: 45
-                    },
-                    grid: {
-                        color: document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                    x: {
+                        ticks: { color: '#64748b', font: { family: 'Plus Jakarta Sans', size: 11 } },
+                        grid: { color: 'rgba(255, 255, 255, 0.04)' }
                     }
                 }
             }
-        }
-    };
+        });
+    }
 
-    // Create the carbon chart
-    const carbonChart = new Chart(
-        document.getElementById('carbonChart'),
-        chartConfig
-    );
-
-    // Prepare energy data
+    // Prepare data for Energy Chart
     const energyData = @json($energyConsumption);
     const energyDates = energyData.map(item => item.date);
     const electricityData = energyData.map(item => item.electricity);
     const gasData = energyData.map(item => item.gas);
     const waterData = energyData.map(item => item.water);
 
-    // Energy chart configuration
-    const energyChartConfig = {
-        type: 'bar',
-        data: {
-            labels: energyDates,
-            datasets: [
-                {
-                    label: 'Electricity',
-                    data: electricityData,
-                    backgroundColor: 'rgba(234, 179, 8, 0.7)',
-                    borderColor: 'rgb(234, 179, 8)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Gas',
-                    data: gasData,
-                    backgroundColor: 'rgba(239, 68, 68, 0.7)',
-                    borderColor: 'rgb(239, 68, 68)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Water',
-                    data: waterData,
-                    backgroundColor: 'rgba(59, 130, 246, 0.7)',
-                    borderColor: 'rgb(59, 130, 246)',
-                    borderWidth: 1
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: {
-                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
+    const energyChartCtx = document.getElementById('energyChart');
+    if (energyChartCtx) {
+        new Chart(energyChartCtx, {
+            type: 'bar',
+            data: {
+                labels: energyDates.length ? energyDates : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [
+                    {
+                        label: 'Listrik (kWh)',
+                        data: electricityData.length ? electricityData : [0, 0, 0, 0, 0, 0],
+                        backgroundColor: 'rgba(251, 191, 36, 0.75)',
+                        borderColor: '#fbbf24',
+                        borderWidth: 1,
+                        borderRadius: 6
+                    },
+                    {
+                        label: 'Gas (kWh)',
+                        data: gasData.length ? gasData : [0, 0, 0, 0, 0, 0],
+                        backgroundColor: 'rgba(248, 113, 113, 0.75)',
+                        borderColor: '#f87171',
+                        borderWidth: 1,
+                        borderRadius: 6
+                    },
+                    {
+                        label: 'Air (kWh eq)',
+                        data: waterData.length ? waterData : [0, 0, 0, 0, 0, 0],
+                        backgroundColor: 'rgba(56, 189, 248, 0.75)',
+                        borderColor: '#38bdf8',
+                        borderWidth: 1,
+                        borderRadius: 6
                     }
-                },
-                title: {
-                    display: true,
-                    text: 'Monthly Energy Consumption (kWh)',
-                    color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
-                }
+                ]
             },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'kWh',
-                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#94a3b8',
+                            font: { family: 'Plus Jakarta Sans', size: 12, weight: 600 },
+                            usePointStyle: true,
+                            boxWidth: 8
+                        }
                     },
-                    ticks: {
-                        color: document.documentElement.classList.contains('dark') ? '#a0aec0' : '#6B7280'
-                    },
-                    grid: {
-                        color: document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                    tooltip: {
+                        backgroundColor: 'rgba(5, 13, 10, 0.95)',
+                        titleColor: '#ffffff',
+                        bodyColor: '#fbbf24',
+                        borderColor: 'rgba(251, 191, 36, 0.3)',
+                        borderWidth: 1,
+                        padding: 10,
+                        cornerRadius: 12
                     }
                 },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Month',
-                        color: document.documentElement.classList.contains('dark') ? '#ffffff' : '#374151'
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#64748b', font: { family: 'Plus Jakarta Sans', size: 11 } },
+                        grid: { color: 'rgba(255, 255, 255, 0.06)' }
                     },
-                    ticks: {
-                        color: document.documentElement.classList.contains('dark') ? '#a0aec0' : '#6B7280',
-                        maxRotation: 45,
-                        minRotation: 45
-                    },
-                    grid: {
-                        color: document.documentElement.classList.contains('dark') ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
+                    x: {
+                        ticks: { color: '#64748b', font: { family: 'Plus Jakarta Sans', size: 11 } },
+                        grid: { color: 'rgba(255, 255, 255, 0.04)' }
                     }
                 }
-            }
-        }
-    };
-
-    // Create the energy chart
-    const energyChart = new Chart(
-        document.getElementById('energyChart'),
-        energyChartConfig
-    );
-
-    // Update chart colors when dark mode changes
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.attributeName === 'class') {
-                const isDark = document.documentElement.classList.contains('dark');
-                const textColor = isDark ? '#ffffff' : '#374151';
-                const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-
-                // Update carbon chart
-                carbonChart.options.plugins.legend.labels.color = textColor;
-                carbonChart.options.plugins.title.color = textColor;
-                carbonChart.options.scales.y.title.color = textColor;
-                carbonChart.options.scales.y.ticks.color = isDark ? '#a0aec0' : '#6B7280';
-                carbonChart.options.scales.x.title.color = textColor;
-                carbonChart.options.scales.x.ticks.color = isDark ? '#a0aec0' : '#6B7280';
-                carbonChart.options.scales.y.grid.color = gridColor;
-                carbonChart.options.scales.x.grid.color = gridColor;
-                carbonChart.update();
-
-                // Update energy chart
-                energyChart.options.plugins.legend.labels.color = textColor;
-                energyChart.options.plugins.title.color = textColor;
-                energyChart.options.scales.y.title.color = textColor;
-                energyChart.options.scales.y.ticks.color = isDark ? '#a0aec0' : '#6B7280';
-                energyChart.options.scales.x.title.color = textColor;
-                energyChart.options.scales.x.ticks.color = isDark ? '#a0aec0' : '#6B7280';
-                energyChart.options.scales.y.grid.color = gridColor;
-                energyChart.options.scales.x.grid.color = gridColor;
-                energyChart.update();
             }
         });
-    });
-
-    observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class']
-    });
+    }
 </script>
 @endsection
