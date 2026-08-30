@@ -36,28 +36,47 @@ class MainController extends Controller
                 ];
             });
 
-        // Get energy consumption data
-        $energyConsumption = CompanyEnergyConsumption::where('user_id', $user->id)
-            ->orderBy('consumption_date', 'desc')
-            ->take(12) // Last 12 months
-            ->get()
-            ->map(function ($record) {
-                return [
-                    'date' => Carbon::parse($record->consumption_date)->format('M Y'),
-                    'electricity' => $record->source_type === 'electricity' ? $record->consumption_amount : 0,
-                    'gas' => $record->source_type === 'gas' ? $record->consumption_amount : 0,
-                    'water' => $record->source_type === 'water' ? $record->consumption_amount : 0
-                ];
+        // Get energy consumption data grouped by month
+        $energyRecords = CompanyEnergyConsumption::where('user_id', $user->id)
+            ->orderBy('consumption_date', 'asc')
+            ->get();
+
+        $energyByMonth = $energyRecords->groupBy(function ($record) {
+            return Carbon::parse($record->consumption_date)->format('M Y');
+        });
+
+        $energyConsumption = $energyByMonth->map(function ($records, $month) {
+            $electricity = $records->where('source_type', 'electricity')->sum('consumption_amount');
+            $fuel = $records->whereIn('source_type', ['gasoline', 'diesel'])->sum('consumption_amount');
+            $gas = $records->whereIn('source_type', ['gas', 'lpg'])->sum('consumption_amount');
+
+            // Total energi terkonversi ke kWh equivalent untuk metrik akumulasi
+            $totalKwhEq = $records->sum(function ($r) {
+                return match (strtolower($r->source_type)) {
+                    'electricity' => (float)$r->consumption_amount,
+                    'gasoline'    => (float)$r->consumption_amount * 9.5, // 1 Liter bensin ≈ 9.5 kWh
+                    'diesel'      => (float)$r->consumption_amount * 10.7, // 1 Liter solar ≈ 10.7 kWh
+                    'gas'         => (float)$r->consumption_amount * 10.6, // 1 m3 gas ≈ 10.6 kWh
+                    'lpg'         => (float)$r->consumption_amount * 12.8, // 1 kg lpg ≈ 12.8 kWh
+                    default       => (float)$r->consumption_amount,
+                };
             });
 
+            return [
+                'date' => $month,
+                'electricity' => round($electricity, 2),
+                'fuel' => round($fuel, 2),
+                'gas' => round($gas, 2),
+                'total_kwh_eq' => round($totalKwhEq, 2),
+            ];
+        })->values();
+
         // Calculate energy stats
+        $totalUsageKwh = $energyConsumption->sum('total_kwh_eq');
+        $monthCount = max(1, $energyConsumption->count());
         $energyStats = [
-            'totalUsage' => $energyConsumption->sum(function ($record) {
-                return $record['electricity'] + $record['gas'] + $record['water'];
-            }),
-            'averageDaily' => $energyConsumption->avg(function ($record) {
-                return $record['electricity'] + $record['gas'] + $record['water'];
-            })
+            'totalUsage' => $totalUsageKwh,
+            'averageDaily' => $totalUsageKwh > 0 ? ($totalUsageKwh / ($monthCount * 30)) : 0,
         ];
 
         // Get lowest and highest carbon footprint

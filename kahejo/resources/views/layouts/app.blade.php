@@ -113,6 +113,22 @@
             100% { transform: scale(1.16) translate(30px, 30px); opacity: 0.95; }
         }
 
+        /* FIX BROWSER LIGHT/WHITE AUTOFILL ON DARK THEME */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus,
+        textarea:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 1000px #091a13 inset !important;
+            -webkit-text-fill-color: #ffffff !important;
+            caret-color: #34d399 !important;
+            border-color: rgba(52, 211, 153, 0.45) !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
         /* Glass Cards */
         .glass-card {
             background: linear-gradient(145deg, rgba(11, 28, 21, 0.82) 0%, rgba(6, 17, 12, 0.9) 100%);
@@ -134,14 +150,15 @@
         .sidebar-link {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 0.7rem 0.9rem;
+            gap: 10px;
+            padding: 0.65rem 0.75rem;
             border-radius: 14px;
-            font-size: 0.86rem;
+            font-size: 0.84rem;
             font-weight: 600;
             color: #94a3b8;
             transition: all 0.2s ease;
             text-decoration: none;
+            white-space: nowrap;
         }
 
         .sidebar-link:hover {
@@ -164,10 +181,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.08);
             transition: all 0.2s ease;
+            flex-shrink: 0;
         }
 
         .sidebar-link:hover .sidebar-icon {
@@ -206,6 +224,38 @@
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
             background: linear-gradient(135deg, #34d399 0%, #059669 100%);
         }
+
+        /* ============================================== */
+        /* GLOBAL PRINT OPTIMIZATION                      */
+        /* ============================================== */
+        @media print {
+            #appSidebar,
+            #sidebarBackdrop,
+            #appTopBar,
+            .ambient-glow-1,
+            .ambient-glow-2,
+            .ambient-grid,
+            header,
+            nav,
+            footer,
+            .print\:hidden {
+                display: none !important;
+            }
+
+            body {
+                background: #ffffff !important;
+                background-color: #ffffff !important;
+                color: #0f172a !important;
+            }
+
+            #mainContent {
+                margin: 0 !important;
+                padding: 0 !important;
+                min-height: auto !important;
+                width: 100% !important;
+                background: #ffffff !important;
+            }
+        }
     </style>
     @yield('styles')
 </head>
@@ -225,7 +275,7 @@
     <aside id="appSidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-[#05110c]/95 backdrop-blur-2xl border-r border-emeraldBrand/20 flex flex-col justify-between transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0 shadow-2xl lg:shadow-none">
         
         <!-- Sidebar Top: Brand & Navigation -->
-        <div class="flex flex-col h-full overflow-y-auto px-4 py-5">
+        <div class="flex flex-col h-full overflow-y-auto px-3 sm:px-3.5 py-5">
             
             <!-- Brand Logo Header -->
             <div class="flex items-center justify-between pb-5 mb-4 border-b border-white/[0.08]">
@@ -310,19 +360,79 @@
                     <span>Dashboard</span>
                 </a>
 
-                <a href="{{ route('carbon') }}" class="sidebar-link {{ request()->routeIs('carbon') ? 'active' : '' }}">
-                    <div class="sidebar-icon">
-                        <i class="fa-solid fa-calculator"></i>
-                    </div>
-                    <span>Kalkulator Karbon</span>
-                </a>
+                <!-- Item 2: Kalkulator Karbon Dropdown -->
+                @php
+                    $isCarbonActive = request()->routeIs('carbon*');
+                @endphp
+                <div class="space-y-1">
+                    <button type="button" 
+                            id="carbonDropdownBtn"
+                            onclick="toggleSidebarDropdown('carbon')"
+                            class="sidebar-link w-full justify-between cursor-pointer group {{ $isCarbonActive ? 'active' : '' }}">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <div class="sidebar-icon shrink-0">
+                                <i class="fa-solid fa-calculator"></i>
+                            </div>
+                            <span class="whitespace-nowrap font-semibold">Kalkulator Karbon</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 group-hover:text-mintGlow transition-transform duration-300 shrink-0 ml-1 {{ $isCarbonActive ? 'rotate-180 text-mintGlow' : '' }}" id="carbonChevron"></i>
+                    </button>
 
-                <a href="{{ route('company') }}" class="sidebar-link {{ request()->routeIs('company') ? 'active' : '' }}">
-                    <div class="sidebar-icon">
-                        <i class="fa-solid fa-chart-line"></i>
+                    <!-- Carbon Submenu -->
+                    <div id="carbonSubmenu" class="{{ $isCarbonActive ? 'block' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 transition-all duration-200">
+                        <a href="{{ route('carbon') }}" 
+                           class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap {{ (request()->routeIs('carbon') && !request()->routeIs('carbon.history*')) ? 'text-mintGlow bg-emeraldBrand/15 border border-emeraldBrand/25' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }} transition-all">
+                            <div class="w-6 h-6 rounded-lg bg-white/[0.04] flex items-center justify-center text-[10px] shrink-0 {{ (request()->routeIs('carbon') && !request()->routeIs('carbon.history*')) ? 'text-mintGlow' : 'text-slate-400' }}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                            <span class="whitespace-nowrap">Hitung Emisi</span>
+                        </a>
+                        <a href="{{ route('carbon.history') }}" 
+                           class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap {{ request()->routeIs('carbon.history*') ? 'text-mintGlow bg-emeraldBrand/15 border border-emeraldBrand/25' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }} transition-all">
+                            <div class="w-6 h-6 rounded-lg bg-white/[0.04] flex items-center justify-center text-[10px] shrink-0 {{ request()->routeIs('carbon.history*') ? 'text-mintGlow' : 'text-slate-400' }}">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                            </div>
+                            <span class="whitespace-nowrap">Riwayat Perhitungan</span>
+                        </a>
                     </div>
-                    <span>Konsumsi Energi</span>
-                </a>
+                </div>
+
+                <!-- Item 3: Konsumsi Energi Dropdown -->
+                @php
+                    $isCompanyActive = request()->routeIs('company*');
+                @endphp
+                <div class="space-y-1">
+                    <button type="button" 
+                            id="companyDropdownBtn"
+                            onclick="toggleSidebarDropdown('company')"
+                            class="sidebar-link w-full justify-between cursor-pointer group {{ $isCompanyActive ? 'active' : '' }}">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <div class="sidebar-icon shrink-0">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <span class="whitespace-nowrap font-semibold">Konsumsi Energi</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 group-hover:text-mintGlow transition-transform duration-300 shrink-0 ml-1 {{ $isCompanyActive ? 'rotate-180 text-mintGlow' : '' }}" id="companyChevron"></i>
+                    </button>
+
+                    <!-- Company Submenu -->
+                    <div id="companySubmenu" class="{{ $isCompanyActive ? 'block' : 'hidden' }} pl-4 pr-1 py-1 space-y-1 transition-all duration-200">
+                        <a href="{{ route('company') }}" 
+                           class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold {{ (request()->routeIs('company') && !request()->routeIs('company.history*') && !request()->routeIs('company.view*')) ? 'text-mintGlow bg-emeraldBrand/15 border border-emeraldBrand/25' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }} transition-all">
+                            <div class="w-6 h-6 rounded-lg bg-white/[0.04] flex items-center justify-center text-[10px] {{ (request()->routeIs('company') && !request()->routeIs('company.history*') && !request()->routeIs('company.view*')) ? 'text-mintGlow' : 'text-slate-400' }}">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <span>Input Konsumsi</span>
+                        </a>
+                        <a href="{{ route('company.history') }}" 
+                           class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold {{ (request()->routeIs('company.history*') || request()->routeIs('company.view*')) ? 'text-mintGlow bg-emeraldBrand/15 border border-emeraldBrand/25' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }} transition-all">
+                            <div class="w-6 h-6 rounded-lg bg-white/[0.04] flex items-center justify-center text-[10px] {{ (request()->routeIs('company.history*') || request()->routeIs('company.view*')) ? 'text-mintGlow' : 'text-slate-400' }}">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                            </div>
+                            <span>Riwayat Konsumsi</span>
+                        </a>
+                    </div>
+                </div>
 
                 <a href="{{ route('achievements') }}" class="sidebar-link {{ (request()->routeIs('achievements*') || request()->routeIs('rewards*')) ? 'active' : '' }}">
                     <div class="sidebar-icon">
@@ -521,6 +631,26 @@
                     if (userDropdownChevron) userDropdownChevron.style.transform = 'rotate(0deg)';
                 }
             });
+        }
+
+        // Sidebar Accordion Dropdowns (Kalkulator Karbon & Konsumsi Energi)
+        function toggleSidebarDropdown(name) {
+            const menu = document.getElementById(name + 'Submenu');
+            const chevron = document.getElementById(name + 'Chevron');
+            if (!menu) return;
+
+            const isHidden = menu.classList.contains('hidden');
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                if (chevron) {
+                    chevron.classList.add('rotate-180', 'text-mintGlow');
+                }
+            } else {
+                menu.classList.add('hidden');
+                if (chevron) {
+                    chevron.classList.remove('rotate-180', 'text-mintGlow');
+                }
+            }
         }
 
         // Dark mode toggle functionality

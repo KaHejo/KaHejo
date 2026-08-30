@@ -178,7 +178,7 @@
                     </label>
                     <div class="relative group">
                         <i class="fa-solid fa-location-dot absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm group-focus-within:text-mintGlow transition-colors"></i>
-                        <input type="text" name="location_name" id="location_name" 
+                        <input type="text" name="location_name" id="location_name" autocomplete="off"
                                placeholder="Contoh: Pabrik Karawang Plant 1"
                                class="w-full pl-11 pr-4 py-3 rounded-xl bg-white/[0.04] focus:bg-white/[0.07] border border-white/15 focus:border-emeraldBrand focus:ring-2 focus:ring-emeraldBrand/25 text-white placeholder-slate-500 text-sm font-medium outline-none transition-all">
                     </div>

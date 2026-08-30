@@ -259,11 +259,11 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
             <div>
                 <h3 class="text-lg font-extrabold text-white tracking-tight">Energy Consumption Analysis</h3>
-                <p class="text-xs text-slate-400 mt-0.5">Evaluasi pemakaian listrik, gas, dan air untuk efisiensi utilitas rumah tangga.</p>
+                <p class="text-xs text-slate-400 mt-0.5">Evaluasi pemakaian listrik, bahan bakar armada (bensin/solar), dan gas operasional.</p>
             </div>
             <div class="flex items-center gap-2 text-xs font-semibold text-slate-400 bg-white/[0.04] px-3 py-1.5 rounded-xl border border-white/10 self-start sm:self-auto">
-                <span class="w-2 h-2 rounded-full bg-sky-400"></span>
-                <span>Satuan: kWh</span>
+                <span class="w-2 h-2 rounded-full bg-emeraldBrand"></span>
+                <span>Scope 1 & Scope 2 Energy</span>
             </div>
         </div>
 
@@ -412,8 +412,8 @@
     const energyData = @json($energyConsumption);
     const energyDates = energyData.map(item => item.date);
     const electricityData = energyData.map(item => item.electricity);
+    const fuelData = energyData.map(item => item.fuel);
     const gasData = energyData.map(item => item.gas);
-    const waterData = energyData.map(item => item.water);
 
     const energyChartCtx = document.getElementById('energyChart');
     if (energyChartCtx) {
@@ -431,16 +431,16 @@
                         borderRadius: 6
                     },
                     {
-                        label: 'Gas (kWh)',
-                        data: gasData.length ? gasData : [0, 0, 0, 0, 0, 0],
-                        backgroundColor: 'rgba(248, 113, 113, 0.75)',
-                        borderColor: '#f87171',
+                        label: 'Bahan Bakar (Liter)',
+                        data: fuelData.length ? fuelData : [0, 0, 0, 0, 0, 0],
+                        backgroundColor: 'rgba(244, 63, 94, 0.75)',
+                        borderColor: '#f43f5e',
                         borderWidth: 1,
                         borderRadius: 6
                     },
                     {
-                        label: 'Air (kWh eq)',
-                        data: waterData.length ? waterData : [0, 0, 0, 0, 0, 0],
+                        label: 'Gas Alam & LPG (m³/kg)',
+                        data: gasData.length ? gasData : [0, 0, 0, 0, 0, 0],
                         backgroundColor: 'rgba(56, 189, 248, 0.75)',
                         borderColor: '#38bdf8',
                         borderWidth: 1,
@@ -464,11 +464,23 @@
                     tooltip: {
                         backgroundColor: 'rgba(5, 13, 10, 0.95)',
                         titleColor: '#ffffff',
-                        bodyColor: '#fbbf24',
-                        borderColor: 'rgba(251, 191, 36, 0.3)',
+                        bodyColor: '#34d399',
+                        borderColor: 'rgba(52, 211, 153, 0.3)',
                         borderWidth: 1,
                         padding: 10,
-                        cornerRadius: 12
+                        cornerRadius: 12,
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += context.parsed.y.toLocaleString('id-ID');
+                                }
+                                return label;
+                            }
+                        }
                     }
                 },
                 scales: {

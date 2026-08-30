@@ -151,13 +151,30 @@
                                 @endif
                             </td>
 
-                            <!-- Consumption Amount -->
+                            <!-- Consumption Amount & Calculated Emission -->
                             <td class="py-4 px-6 whitespace-nowrap">
-                                <span class="font-extrabold text-white text-sm">
-                                    {{ number_format($consumption->consumption_amount, 2, ',', '.') }}
-                                </span>
-                                <span class="text-xs text-slate-400 font-semibold ml-1">
-                                    {{ $consumption->unit_measurement }}
+                                <div>
+                                    <span class="font-extrabold text-white text-sm">
+                                        {{ number_format($consumption->consumption_amount, 2, ',', '.') }}
+                                    </span>
+                                    <span class="text-xs text-slate-400 font-semibold ml-1">
+                                        {{ $consumption->unit_measurement }}
+                                    </span>
+                                </div>
+                                @php
+                                    $factor = match(strtolower($consumption->source_type)) {
+                                        'electricity' => 0.85,
+                                        'gasoline' => 2.31,
+                                        'diesel' => 2.68,
+                                        'gas' => 1.90,
+                                        'lpg' => 2.98,
+                                        default => 1.0
+                                    };
+                                    $emission = $consumption->consumption_amount * $factor;
+                                @endphp
+                                <span class="inline-flex items-center gap-1 text-[11px] text-mintGlow font-semibold font-mono mt-0.5">
+                                    <i class="fa-solid fa-leaf text-[9px]"></i>
+                                    <span>{{ number_format($emission, 1, ',', '.') }} kg CO₂e</span>
                                 </span>
                             </td>
 
