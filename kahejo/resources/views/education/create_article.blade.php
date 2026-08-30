@@ -1,146 +1,166 @@
 @extends('layouts.app')
 
+@section('title', 'Tulis Artikel Edukasi')
+
 @section('content')
-<div class="max-w-4xl mx-auto py-8 sm:px-6 lg:px-8">
+<div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8 space-y-8">
+
     <!-- Back Button -->
-    <div class="mb-8">
-        <a href="{{ route('education') }}" class="inline-flex items-center text-green-600 hover:text-green-700 transition-colors duration-200 group">
-            <i class="fas fa-arrow-left mr-2 transform group-hover:-translate-x-1 transition-transform duration-200"></i>
-            <span class="font-medium">Back to Education</span>
+    <div>
+        <a href="{{ route('education') }}" 
+           class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white border border-white/10 text-xs font-bold transition-all group">
+            <i class="fa-solid fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform"></i>
+            <span>Kembali ke Katalog Edukasi</span>
         </a>
     </div>
 
-    <div class="bg-white rounded-xl shadow-2xl overflow-hidden transform hover:scale-[1.01] transition-transform duration-300">
-        <div class="px-8 py-6 bg-gradient-to-r from-green-500 via-green-600 to-green-700">
-            <h1 class="text-4xl font-bold text-white flex items-center">
-                <i class="fas fa-pen-fancy mr-3"></i>
-                Create New Article
-            </h1>
+    <!-- Main Card -->
+    <div class="glass-card p-6 sm:p-8 relative overflow-hidden">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-emeraldBrand/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Header -->
+        <div class="flex items-center gap-3.5 pb-6 mb-6 border-b border-white/[0.08]">
+            <div class="w-12 h-12 rounded-2xl bg-emeraldBrand/15 border border-emeraldBrand/30 flex items-center justify-center text-mintGlow text-xl shadow-sm">
+                <i class="fa-solid fa-pen-nib"></i>
+            </div>
+            <div>
+                <span class="text-[10px] uppercase font-bold text-mintGlow tracking-wider block">Kontributor Pengetahuan Hijau</span>
+                <h1 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                    Publikasi Artikel Edukasi Iklim
+                </h1>
+            </div>
         </div>
 
-        <form action="{{ route('education.articles.store') }}" method="POST" enctype="multipart/form-data" class="p-8">
+        <form action="{{ route('education.articles.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
-            <div class="space-y-8">
-                <!-- Title -->
-                <div class="group">
-                    <label for="title" class="block text-sm font-medium text-gray-700 mb-2 group-hover:text-green-600 transition-colors duration-200">Title</label>
-                    <div class="relative">
-                        <input type="text" name="title" id="title" 
-                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 shadow-sm hover:border-green-400" 
-                            placeholder="Enter article title" required>
-                        <i class="fas fa-heading absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <!-- Title -->
+            <div>
+                <label for="title" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                    Judul Artikel <span class="text-emeraldBrand">*</span>
+                </label>
+                <div class="relative group">
+                    <i class="fa-solid fa-heading absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm group-focus-within:text-mintGlow transition-colors"></i>
+                    <input type="text" name="title" id="title" required 
+                           placeholder="Contoh: 10 Langkah Praktis Menuju Rumah Tangga Net-Zero"
+                           class="w-full pl-11 pr-4 py-3 rounded-xl bg-white/[0.04] focus:bg-white/[0.07] border border-white/15 focus:border-emeraldBrand focus:ring-2 focus:ring-emeraldBrand/25 text-white placeholder-slate-500 text-sm font-medium outline-none transition-all">
+                </div>
+                @error('title')
+                    <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Featured Image Upload -->
+            <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">
+                    Cover / Gambar Utama
+                </label>
+                <div class="p-6 rounded-2xl border-2 border-dashed border-white/15 hover:border-emeraldBrand/40 bg-white/[0.02] hover:bg-white/[0.04] transition-colors text-center">
+                    <i class="fa-solid fa-cloud-arrow-up text-3xl text-mintGlow/80 mb-2"></i>
+                    <p class="text-xs text-slate-300 font-semibold mb-1">
+                        Pilih foto atau seret gambar ke sini
+                    </p>
+                    <p class="text-[10px] text-slate-500 mb-3">Format JPG, PNG, atau WebP (Maks. 2MB)</p>
+                    <label class="cursor-pointer inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emeraldBrand/20 hover:bg-emeraldBrand/30 border border-emeraldBrand/40 text-mintGlow text-xs font-bold transition-colors">
+                        <i class="fa-solid fa-image text-xs"></i>
+                        <span>Pilih Berkas</span>
+                        <input type="file" name="image" id="image" accept="image/*" class="sr-only" onchange="showImageName(this)">
+                    </label>
+                    <p id="imageFileName" class="text-xs text-mintGlow mt-2 font-mono hidden"></p>
+                </div>
+                @error('image')
+                    <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Reading Time -->
+                <div>
+                    <label for="reading_time" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                        Estimasi Waktu Baca (Menit) <span class="text-emeraldBrand">*</span>
+                    </label>
+                    <div class="relative group">
+                        <i class="fa-regular fa-clock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm group-focus-within:text-mintGlow transition-colors"></i>
+                        <input type="number" min="1" max="60" name="reading_time" id="reading_time" required 
+                               placeholder="Contoh: 5"
+                               class="w-full pl-11 pr-4 py-3 rounded-xl bg-white/[0.04] focus:bg-white/[0.07] border border-white/15 focus:border-emeraldBrand focus:ring-2 focus:ring-emeraldBrand/25 text-white placeholder-slate-500 text-sm font-medium outline-none transition-all">
                     </div>
+                    @error('reading_time')
+                        <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <!-- Image Upload -->
-                <div class="group">
-                    <label class="block text-sm font-medium text-gray-700 mb-2 group-hover:text-green-600 transition-colors duration-200">Featured Image</label>
-                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-green-500 transition-all duration-200 hover:bg-green-50">
-                        <div class="space-y-2 text-center">
-                            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 group-hover:text-green-500 transition-colors duration-200"></i>
-                            <div class="flex text-sm text-gray-600">
-                                <label for="image" class="relative cursor-pointer bg-white rounded-md font-medium text-green-600 hover:text-green-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-green-500">
-                                    <span>Upload a file</span>
-                                    <input type="file" name="image" id="image" class="sr-only" accept="image/*">
-                                </label>
-                                <p class="pl-1">or drag and drop</p>
-                            </div>
-                            <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-                        </div>
+                <!-- Published Date -->
+                <div>
+                    <label for="published_at" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                        Tanggal Terbit
+                    </label>
+                    <div class="relative group">
+                        <i class="fa-regular fa-calendar absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm group-focus-within:text-mintGlow transition-colors"></i>
+                        <input type="date" name="published_at" id="published_at" 
+                               value="{{ date('Y-m-d') }}"
+                               class="w-full pl-11 pr-4 py-3 rounded-xl bg-white/[0.04] focus:bg-white/[0.07] border border-white/15 focus:border-emeraldBrand focus:ring-2 focus:ring-emeraldBrand/25 text-white text-sm font-medium outline-none transition-all">
                     </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Reading Time -->
-                    <div class="group">
-                        <label for="reading_time" class="block text-sm font-medium text-gray-700 mb-2 group-hover:text-green-600 transition-colors duration-200">Reading Time (minutes)</label>
-                        <div class="relative">
-                            <input type="number" name="reading_time" id="reading_time" 
-                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 shadow-sm hover:border-green-400" 
-                                min="1" required>
-                            <i class="fas fa-clock absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        </div>
-                    </div>
-
-                    <!-- Published Date -->
-                    <div class="group">
-                        <label for="published_at" class="block text-sm font-medium text-gray-700 mb-2 group-hover:text-green-600 transition-colors duration-200">Published Date (Optional)</label>
-                        <div class="relative">
-                            <input type="date" name="published_at" id="published_at" 
-                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 shadow-sm hover:border-green-400">
-                            <i class="fas fa-calendar absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Content -->
-                <div class="group">
-                    <label for="content" class="block text-sm font-medium text-gray-700 mb-2 group-hover:text-green-600 transition-colors duration-200">Content</label>
-                    <div class="relative">
-                        <textarea name="content" id="content" rows="8" 
-                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 shadow-sm hover:border-green-400" 
-                            placeholder="Write your article content here..." required></textarea>
-                        <i class="fas fa-align-left absolute right-4 top-4 text-gray-400"></i>
-                    </div>
-                </div>
-
-                <!-- Description -->
-                <div class="group">
-                    <label for="description" class="block text-sm font-medium text-gray-700 mb-2 group-hover:text-green-600 transition-colors duration-200">Short Description</label>
-                    <div class="relative">
-                        <textarea name="description" id="description" rows="3" 
-                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 shadow-sm hover:border-green-400" 
-                            placeholder="Write a brief description of your article..." required></textarea>
-                        <i class="fas fa-info-circle absolute right-4 top-4 text-gray-400"></i>
-                    </div>
+                    @error('published_at')
+                        <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 
-            <!-- Submit Button -->
-            <div class="mt-10 flex justify-end">
+            <!-- Description / Excerpt -->
+            <div>
+                <label for="description" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                    Ringkasan Singkat (Deskripsi) <span class="text-emeraldBrand">*</span>
+                </label>
+                <textarea name="description" id="description" rows="2" required 
+                          placeholder="Ringkasan 1-2 kalimat untuk pratinjau kartu artikel..."
+                          class="w-full px-4 py-3 rounded-xl bg-white/[0.04] focus:bg-white/[0.07] border border-white/15 focus:border-emeraldBrand focus:ring-2 focus:ring-emeraldBrand/25 text-white placeholder-slate-500 text-sm font-medium outline-none transition-all"></textarea>
+                @error('description')
+                    <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Content -->
+            <div>
+                <label for="content" class="block text-xs font-semibold text-slate-300 mb-1.5">
+                    Isi Konten Artikel <span class="text-emeraldBrand">*</span>
+                </label>
+                <textarea name="content" id="content" rows="10" required 
+                          placeholder="Tuliskan konten artikel lengkap. Anda dapat menggunakan format paragraf atau tag HTML seperti <h2>, <p>, dan <ul>..."
+                          class="w-full px-4 py-3 rounded-xl bg-white/[0.04] focus:bg-white/[0.07] border border-white/15 focus:border-emeraldBrand focus:ring-2 focus:ring-emeraldBrand/25 text-white placeholder-slate-500 text-sm font-medium outline-none transition-all font-mono text-xs"></textarea>
+                @error('content')
+                    <p class="mt-1 text-xs text-rose-400">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Submit Action -->
+            <div class="pt-6 border-t border-white/[0.08] flex items-center justify-between gap-4">
+                <a href="{{ route('education') }}" 
+                   class="px-5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white border border-white/10 text-xs font-semibold transition-colors">
+                    Batal
+                </a>
+
                 <button type="submit" 
-                    class="inline-flex items-center px-8 py-4 border border-transparent text-base font-medium rounded-xl text-white bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl">
-                    <i class="fas fa-save mr-2"></i>
-                    Save Article
+                        class="px-7 py-3 rounded-xl bg-gradient-to-r from-emeraldBrand to-emeraldDark hover:from-[#18c58f] hover:to-emeraldDark text-white text-xs font-bold shadow-lg shadow-emeraldBrand/25 hover:shadow-emeraldBrand/40 transition-all duration-200 hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                    <span>Terbitkan Artikel</span>
                 </button>
             </div>
+
         </form>
     </div>
+
 </div>
 
-@push('scripts')
+@section('scripts')
 <script>
-    // Preview image before upload
-    document.getElementById('image').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const preview = document.createElement('img');
-                preview.src = e.target.result;
-                preview.className = 'mt-4 mx-auto h-40 w-auto object-cover rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-200';
-                
-                const container = document.querySelector('.border-dashed');
-                const existingPreview = container.querySelector('img');
-                if (existingPreview) {
-                    container.removeChild(existingPreview);
-                }
-                container.insertBefore(preview, container.firstChild);
-            }
-            reader.readAsDataURL(file);
+    function showImageName(input) {
+        const fileLabel = document.getElementById('imageFileName');
+        if (input.files && input.files[0]) {
+            fileLabel.textContent = 'Berkas dipilih: ' + input.files[0].name;
+            fileLabel.classList.remove('hidden');
         }
-    });
-
-    // Add floating label effect
-    document.querySelectorAll('input, textarea').forEach(element => {
-        element.addEventListener('focus', function() {
-            this.parentElement.classList.add('ring-2', 'ring-green-500');
-        });
-        element.addEventListener('blur', function() {
-            this.parentElement.classList.remove('ring-2', 'ring-green-500');
-        });
-    });
+    }
 </script>
-@endpush
-@endsection 
+@endsection
+@endsection

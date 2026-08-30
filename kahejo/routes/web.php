@@ -143,5 +143,5 @@ Route::prefix('admin/faqs')->name('admin.faqs.')->group(function () {
 });
 
 // Route untuk user melihat FAQ
-Route::get('/faqs', 'App\Http\Controllers\FaqController@index')->name('faqs.index');
+Route::get('/faqs', [FaqController::class, 'index'])->name('faqs.index');
 

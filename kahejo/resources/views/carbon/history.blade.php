@@ -97,6 +97,7 @@
                         <th class="py-3.5 px-6">Limbah</th>
                         <th class="py-3.5 px-6">Air</th>
                         <th class="py-3.5 px-6">Total Emisi</th>
+                        <th class="py-3.5 px-6 text-right">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-white/[0.04] text-slate-300">
@@ -136,6 +137,15 @@
                                     <i class="fa-solid fa-leaf text-[10px]"></i>
                                     <span>{{ number_format($carbon->total, 2, ',', '.') }} kg CO₂e</span>
                                 </div>
+                            </td>
+
+                            <!-- Action -->
+                            <td class="py-4 px-6 whitespace-nowrap text-right">
+                                <a href="{{ route('carbon.view', $carbon->id) }}" 
+                                   class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.05] hover:bg-emeraldBrand hover:text-white border border-white/10 hover:border-emeraldBrand text-slate-300 text-xs font-semibold transition-colors group-hover:border-emeraldBrand/40">
+                                    <span>Rincian</span>
+                                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                                </a>
                             </td>
                         </tr>
                     @empty
