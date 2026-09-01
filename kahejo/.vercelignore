@@ -1,0 +1,15 @@
+.git
+.github
+.env
+.env.*
+node_modules
+tests
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+Dockerfile
+docker
+render.yaml
+PANDUAN_DEPLOY_RENDER.md
+README.md
