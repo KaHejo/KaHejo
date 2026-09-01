@@ -19,7 +19,7 @@ class AdminSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'email_verified_at' => null,
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('admin123'),
                 'remember_token' => null,
                 'created_at' => now(),
                 'updated_at' => now(),

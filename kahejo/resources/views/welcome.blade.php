@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KaHejo — Platform Jejak Karbon & Gaya Hidup Berkelanjutan</title>
     
+    <!-- KaHejo Favicon / Web Tab Icon -->
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo.svg') }}">
+    <link rel="alternate icon" type="image/jpeg" href="{{ asset('images/logo.jpg') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo.jpg') }}">
+    
     <!-- Google Fonts & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

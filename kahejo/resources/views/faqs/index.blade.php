@@ -11,10 +11,19 @@
     details summary {
         list-style: none;
     }
+    details {
+        transition: border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                    background 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+                    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
     details[open] {
         border-color: rgba(52, 211, 153, 0.4) !important;
         background: rgba(6, 30, 20, 0.6) !important;
         box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(16, 185, 129, 0.12);
+    }
+    .faq-chevron {
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
     }
     details[open] .faq-chevron {
         transform: rotate(180deg);
@@ -22,6 +31,13 @@
     }
     details[open] .faq-question {
         color: #34d399;
+    }
+    details[open] .faq-answer-container {
+        animation: faqExpand 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes faqExpand {
+        0% { opacity: 0; transform: translateY(-8px); }
+        100% { opacity: 1; transform: translateY(0); }
     }
 </style>
 @endsection
@@ -115,7 +131,7 @@
                 </summary>
 
                 <!-- Answer Content -->
-                <div class="mt-4 pt-4 border-t border-white/[0.06] text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2">
+                <div class="faq-answer-container mt-4 pt-4 border-t border-white/[0.06] text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2">
                     {!! nl2br(e($faq->answer)) !!}
                 </div>
             </details>

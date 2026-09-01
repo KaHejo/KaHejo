@@ -19,26 +19,26 @@
         </div>
 
         <div class="flex items-center gap-3">
-            <a href="{{ route('carbon') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emeraldBrand to-emeraldDark hover:from-[#18c58f] hover:to-emeraldDark text-white text-xs font-bold tracking-wide shadow-lg shadow-emeraldBrand/25 hover:shadow-emeraldBrand/40 transition-all duration-200 hover:-translate-y-0.5">
+            <a href="{{ route('carbon') }}" class="btn-shimmer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emeraldBrand to-emeraldDark hover:from-[#18c58f] hover:to-emeraldDark text-white text-xs font-bold tracking-wide shadow-lg shadow-emeraldBrand/25 hover:shadow-emeraldBrand/40 transition-all duration-200 hover:-translate-y-0.5">
                 <i class="fa-solid fa-plus text-xs"></i>
                 <span>Hitung Emisi Baru</span>
             </a>
             <a href="{{ route('achievements') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-slate-300 hover:text-white border border-white/10 text-xs font-semibold transition-all duration-200">
-                <i class="fa-solid fa-trophy text-amber-400 text-xs"></i>
+                <i class="fa-solid fa-trophy text-amber-400 text-xs animate-float"></i>
                 <span>Poin & Reward</span>
             </a>
         </div>
     </div>
 
-    <!-- 4 Compact Stats Cards (Obsidian Emerald Glass) -->
+    <!-- 4 Compact Stats Cards (Obsidian Emerald Glass with Entrance Animation) -->
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         
         <!-- Card 1: Total Carbon Footprint -->
-        <div class="glass-card p-5 relative overflow-hidden group">
+        <div class="glass-card animate-card-entrance delay-1 p-5 relative overflow-hidden group">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs font-semibold text-slate-400 tracking-wide uppercase">Total Carbon Footprint</p>
-                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1.5 tracking-tight">
+                    <h3 class="metric-glow text-2xl sm:text-3xl font-extrabold text-white mt-1.5 tracking-tight">
                         {{ number_format($stats['totalCarbonFootprint'], 2) }} <span class="text-sm font-semibold text-mintGlow">kg</span>
                     </h3>
                     <p class="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5">
@@ -57,11 +57,11 @@
         </div>
 
         <!-- Card 2: Monthly Average -->
-        <div class="glass-card p-5 relative overflow-hidden group">
+        <div class="glass-card animate-card-entrance delay-2 p-5 relative overflow-hidden group">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs font-semibold text-slate-400 tracking-wide uppercase">Rata-Rata Bulanan</p>
-                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1.5 tracking-tight">
+                    <h3 class="metric-glow text-2xl sm:text-3xl font-extrabold text-white mt-1.5 tracking-tight">
                         {{ number_format($stats['averageMonthlyFootprint'], 2) }} <span class="text-sm font-semibold text-sky-400">kg</span>
                     </h3>
                     <p class="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5">
@@ -80,11 +80,11 @@
         </div>
 
         <!-- Card 3: Last Month -->
-        <div class="glass-card p-5 relative overflow-hidden group">
+        <div class="glass-card animate-card-entrance delay-3 p-5 relative overflow-hidden group">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs font-semibold text-slate-400 tracking-wide uppercase">Bulan Terakhir</p>
-                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1.5 tracking-tight">
+                    <h3 class="metric-glow text-2xl sm:text-3xl font-extrabold text-white mt-1.5 tracking-tight">
                         {{ number_format($stats['lastMonthFootprint'], 2) }} <span class="text-sm font-semibold text-amber-400">kg</span>
                     </h3>
                     <p class="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5 truncate max-w-[140px]">
@@ -103,11 +103,11 @@
         </div>
 
         <!-- Card 4: Improvement -->
-        <div class="glass-card p-5 relative overflow-hidden group">
+        <div class="glass-card animate-card-entrance delay-4 p-5 relative overflow-hidden group">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs font-semibold text-slate-400 tracking-wide uppercase">Efisiensi / Improvement</p>
-                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1.5 tracking-tight">
+                    <h3 class="metric-glow text-2xl sm:text-3xl font-extrabold text-white mt-1.5 tracking-tight">
                         {{ number_format($stats['improvement'] ?? 0, 2) }}<span class="text-sm font-semibold text-mintGlow">%</span>
                     </h3>
                     <p class="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5">
@@ -128,7 +128,7 @@
     </div>
 
     <!-- Lowest Carbon Footprint Achievement Card -->
-    <div class="glass-card p-6 sm:p-7 relative overflow-hidden">
+    <div class="glass-card animate-card-entrance delay-5 p-6 sm:p-7 relative overflow-hidden">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/10">
             <div class="flex items-start sm:items-center gap-4">
                 <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/25 to-yellow-600/10 border border-amber-400/30 flex items-center justify-center text-amber-400 text-2xl shadow-lg shadow-amber-500/20 shrink-0">
@@ -237,14 +237,14 @@
     </div>
 
     <!-- Carbon Footprint History Chart -->
-    <div class="glass-card p-6 sm:p-7">
+    <div class="glass-card animate-card-entrance delay-5 p-6 sm:p-7">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
             <div>
                 <h3 class="text-lg font-extrabold text-white tracking-tight">Carbon Footprint History</h3>
                 <p class="text-xs text-slate-400 mt-0.5">Tren emisi karbon bulanan Anda dalam 12 bulan terakhir berdasarkan kategori.</p>
             </div>
             <div class="flex items-center gap-2 text-xs font-semibold text-slate-400 bg-white/[0.04] px-3 py-1.5 rounded-xl border border-white/10 self-start sm:self-auto">
-                <span class="w-2 h-2 rounded-full bg-mintGlow"></span>
+                <span class="w-2 h-2 rounded-full bg-mintGlow animate-pulse"></span>
                 <span>Satuan: kg CO₂e</span>
             </div>
         </div>
@@ -255,7 +255,7 @@
     </div>
 
     <!-- Energy Consumption Analysis -->
-    <div class="glass-card p-6 sm:p-7">
+    <div class="glass-card animate-card-entrance delay-6 p-6 sm:p-7">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
             <div>
                 <h3 class="text-lg font-extrabold text-white tracking-tight">Energy Consumption Analysis</h3>

@@ -25,7 +25,7 @@
             </div>
 
             <div class="flex items-center gap-3 shrink-0">
-                <a href="{{ route('admin.rewards.create') }}" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emeraldBrand to-emeraldDark hover:from-[#18c58f] hover:to-emeraldDark text-white text-xs font-bold shadow-lg shadow-emeraldBrand/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-decoration-none">
+                <a href="{{ route('admin.rewards.create') }}" class="btn-shimmer px-4 py-2.5 rounded-xl bg-gradient-to-r from-emeraldBrand to-emeraldDark hover:from-[#18c58f] hover:to-emeraldDark text-white text-xs font-bold shadow-lg shadow-emeraldBrand/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2 text-decoration-none">
                     <i class="fa-solid fa-plus text-xs"></i>
                     <span>Tambah Reward</span>
                 </a>
@@ -37,11 +37,11 @@
         </div>
     </div>
 
-    <!-- 6 Glass Metric Summary Cards -->
+    <!-- 6 Glass Metric Summary Cards with Staggered Entrance -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 sm:gap-5">
         
         <!-- Card 1: Users -->
-        <div class="glass-card p-5 flex flex-col justify-between group">
+        <div class="glass-card animate-card-entrance delay-1 p-5 flex flex-col justify-between group">
             <div class="flex items-center justify-between mb-3">
                 <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Pengguna</span>
                 <div class="w-8 h-8 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-mintGlow text-xs group-hover:scale-110 transition-transform">
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div>
-                <div class="text-2xl lg:text-3xl font-extrabold text-white tracking-tight">{{ number_format($usersCount) }}</div>
+                <div class="metric-glow text-2xl lg:text-3xl font-extrabold text-white tracking-tight">{{ number_format($usersCount) }}</div>
                 <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
                     <span class="text-emeraldBrand font-bold">Terdaftar</span> di platform
                 </div>
@@ -57,15 +57,15 @@
         </div>
 
         <!-- Card 2: Achievements -->
-        <div class="glass-card p-5 flex flex-col justify-between group">
+        <div class="glass-card animate-card-entrance delay-2 p-5 flex flex-col justify-between group">
             <div class="flex items-center justify-between mb-3">
                 <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Prestasi</span>
                 <div class="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xs group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-medal"></i>
+                    <i class="fa-solid fa-medal animate-float"></i>
                 </div>
             </div>
             <div>
-                <div class="text-2xl lg:text-3xl font-extrabold text-white tracking-tight">{{ number_format($achievementsCount) }}</div>
+                <div class="metric-glow text-2xl lg:text-3xl font-extrabold text-white tracking-tight">{{ number_format($achievementsCount) }}</div>
                 <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
                     <span class="text-amber-400 font-bold">Lencana</span> siap dicapai
                 </div>
@@ -73,7 +73,7 @@
         </div>
 
         <!-- Card 3: Emission Factors -->
-        <div class="glass-card p-5 flex flex-col justify-between group">
+        <div class="glass-card animate-card-entrance delay-3 p-5 flex flex-col justify-between group">
             <div class="flex items-center justify-between mb-3">
                 <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Faktor Emisi</span>
                 <div class="w-8 h-8 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xs group-hover:scale-110 transition-transform">
@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div>
-                <div class="text-2xl lg:text-3xl font-extrabold text-white tracking-tight">{{ number_format($emisiCount) }}</div>
+                <div class="metric-glow text-2xl lg:text-3xl font-extrabold text-white tracking-tight">{{ number_format($emisiCount) }}</div>
                 <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
                     <span class="text-cyan-400 font-bold">Standar ESDM</span> & IPCC
                 </div>
@@ -89,7 +89,7 @@
         </div>
 
         <!-- Card 4: History Claims -->
-        <div class="glass-card p-5 flex flex-col justify-between group">
+        <div class="glass-card animate-card-entrance delay-4 p-5 flex flex-col justify-between group">
             <div class="flex items-center justify-between mb-3">
                 <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Klaim</span>
                 <div class="w-8 h-8 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xs group-hover:scale-110 transition-transform">
@@ -97,7 +97,7 @@
                 </div>
             </div>
             <div>
-                <div class="text-2xl lg:text-3xl font-extrabold text-white tracking-tight">{{ number_format($historyClaimsCount) }}</div>
+                <div class="metric-glow text-2xl lg:text-3xl font-extrabold text-white tracking-tight">{{ number_format($historyClaimsCount) }}</div>
                 <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
                     <span class="text-purple-400 font-bold">Penukaran</span> reward
                 </div>
@@ -105,7 +105,7 @@
         </div>
 
         <!-- Card 5: Rewards -->
-        <div class="glass-card p-5 flex flex-col justify-between group">
+        <div class="glass-card animate-card-entrance delay-5 p-5 flex flex-col justify-between group">
             <div class="flex items-center justify-between mb-3">
                 <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Katalog Hadiah</span>
                 <div class="w-8 h-8 rounded-xl bg-teal-500/15 border border-teal-500/30 flex items-center justify-center text-teal-400 text-xs group-hover:scale-110 transition-transform">
@@ -113,7 +113,7 @@
                 </div>
             </div>
             <div>
-                <div class="text-2xl lg:text-3xl font-extrabold text-white tracking-tight">{{ number_format($rewardsCount) }}</div>
+                <div class="metric-glow text-2xl lg:text-3xl font-extrabold text-white tracking-tight">{{ number_format($rewardsCount) }}</div>
                 <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
                     <span class="text-teal-400 font-bold">Voucher & Barang</span> aktif
                 </div>
@@ -121,7 +121,7 @@
         </div>
 
         <!-- Card 6: Total Points -->
-        <div class="glass-card p-5 flex flex-col justify-between group">
+        <div class="glass-card animate-card-entrance delay-6 p-5 flex flex-col justify-between group">
             <div class="flex items-center justify-between mb-3">
                 <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Total Poin</span>
                 <div class="w-8 h-8 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 text-xs group-hover:scale-110 transition-transform">
@@ -129,7 +129,7 @@
                 </div>
             </div>
             <div>
-                <div class="text-2xl lg:text-3xl font-extrabold text-white tracking-tight">{{ number_format($totalPoints) }}</div>
+                <div class="metric-glow text-2xl lg:text-3xl font-extrabold text-white tracking-tight">{{ number_format($totalPoints) }}</div>
                 <div class="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
                     <span class="text-rose-400 font-bold">Poin Hijau</span> beredar
                 </div>
@@ -139,7 +139,7 @@
     </div>
 
     <!-- Main Chart Section: Monthly History Claims -->
-    <div class="glass-card p-6 sm:p-8">
+    <div class="glass-card animate-card-entrance delay-5 p-6 sm:p-8">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/10">
             <div>
                 <h2 class="text-lg sm:text-xl font-bold text-white tracking-tight flex items-center gap-2">
@@ -161,7 +161,7 @@
 
     <!-- Quick Control Shortcuts -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div class="glass-card p-6 flex items-start gap-4">
+        <div class="glass-card animate-card-entrance delay-6 p-6 flex items-start gap-4">
             <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emeraldBrand text-base shrink-0">
                 <i class="fa-solid fa-users-gear"></i>
             </div>
@@ -174,7 +174,7 @@
             </div>
         </div>
 
-        <div class="glass-card p-6 flex items-start gap-4">
+        <div class="glass-card animate-card-entrance delay-6 p-6 flex items-start gap-4">
             <div class="w-10 h-10 rounded-xl bg-teal-500/15 border border-teal-500/30 flex items-center justify-center text-teal-400 text-base shrink-0">
                 <i class="fa-solid fa-boxes-packing"></i>
             </div>
@@ -187,7 +187,7 @@
             </div>
         </div>
 
-        <div class="glass-card p-6 flex items-start gap-4">
+        <div class="glass-card animate-card-entrance delay-6 p-6 flex items-start gap-4">
             <div class="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-base shrink-0">
                 <i class="fa-solid fa-calculator"></i>
             </div>
